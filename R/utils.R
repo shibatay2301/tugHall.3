@@ -266,7 +266,7 @@ check_packages  <-  function( pkgs = NULL ){
                         stats = c('aggregate', 'rbinom', 'rexp', 'rnorm', 'runif' ),
                         stringr = c('str_length', 'str_split', 'str_sub', 'str_trim', 'str_remove'),
                         utils = c('read.delim', 'read.table', 'write.table', 'globalVariables' ),
-                        withr  =  c('local_environment', 'local_par', 'local_dir', 'local_options' )
+                        withr  =  c('local_environment', 'local_par', 'local_dir', 'local_options', 'defer' )
                         )
     }
 

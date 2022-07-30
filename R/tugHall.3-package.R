@@ -29,6 +29,7 @@
 #' @importFrom utils read.delim
 #' @importFrom utils read.table
 #' @importFrom utils write.table
+#' @importFrom withr defer
 #' @importFrom withr local_dir
 #' @importFrom withr local_environment
 #' @importFrom withr local_options

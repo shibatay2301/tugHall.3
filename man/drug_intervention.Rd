@@ -29,3 +29,6 @@ NULL changing clones and onco_clones objects in tugHall environment pck.env
 Function to emulate drug intervention to pool of tumor cells by killing a part of these cells
 and blocking a part of clones corresponding to malfunctioned gene
 }
+\examples{
+NULL
+}

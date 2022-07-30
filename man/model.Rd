@@ -2,43 +2,16 @@
 % Please edit documentation in R/tugHall_Model.R
 \name{model}
 \alias{model}
-\alias{model_keep_run}
 \title{Main function 'model' to simulate clones' evolution}
 \usage{
 model()
-
-model_keep_run(
-  verbose = TRUE,
-  to_plot = TRUE,
-  seed = NA,
-  work_dir = getwd(),
-  digits = 5
-)
-}
-\arguments{
-\item{verbose}{Logical type to show or do not show messages during execution}
-
-\item{to_plot}{Logical type to plot or do not plot graphical results of a simulation}
-
-\item{seed}{Numeric type to set seed for a simulation, if seed = NA (by default) then it will be skipped}
-
-\item{work_dir}{Working directory for a simulation, by default \code{ work_dir = getwd() }}
-
-\item{digits}{Number of digits in the numeric format of pck.env environment of tugHall}
 }
 \value{
-List of (clones, onco_clones), where clones - list of objects of class 'Clone', and onco_clones - list of objects of class 'OncoGene'. During a simulation it saves data to geneoutfile.
-
 List of (clones, onco_clones), where clones - list of objects of class 'Clone', and onco_clones - list of objects of class 'OncoGene'. During a simulation it saves data to geneoutfile.
 }
 \description{
 Main function 'model' to simulate clones' evolution
 }
-\section{Functions}{
-\itemize{
-\item \code{model_keep_run}: Function 'model_keep_run' to start simulation from previous results with new parameter set
-}}
-
 \examples{
 copy_files_to_Input()
 define_files_names()
@@ -48,15 +21,5 @@ define_compaction_factor( read_fl = TRUE , file_name = './Input/CF.txt' )
 time_stop = 3  #  Duration of simulation time is 3 sec
 \dontrun{
 res = model( )
-}
-copy_files_to_Input()
-define_files_names()
-define_gene_location()
-define_parameters( read_fl = TRUE , file_name = './Input/parameters.txt' )
-define_compaction_factor( read_fl = TRUE , file_name = './Input/CF.txt' )
-time_stop = 3  #  Duration of simulation time is 3 sec
-\dontrun{
-res = model( )
-res2 = model_keep_run()
 }
 }

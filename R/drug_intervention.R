@@ -14,6 +14,7 @@
 #' @export
 #'
 #' @examples
+#' NULL
 drug_intervention  <-  function( kill_prob = 0, block_prob = 1, gene,
                                  generate_mutations = TRUE ){
 

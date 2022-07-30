@@ -46,7 +46,7 @@ knitr::opts_chunk$set(
 
 The simplest way to run tugHall is just run function:
 
-    simulation_example()
+    simulation()
 
 
 This function makes several changes in the working directory:

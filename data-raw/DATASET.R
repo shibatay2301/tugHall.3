@@ -1,6 +1,6 @@
 ## code to prepare `tugHall_dataset` dataset goes here
 
-tugHall_dataset  =  simulation_example( seed    =  123456, work_dir =  '../Simulation/',
+tugHall_dataset  =  simulation( seed    =  123456, work_dir =  '../Simulation/',
                                         verbose =  FALSE,  to_plot  =  FALSE)
 
 # rename files to local working directory:

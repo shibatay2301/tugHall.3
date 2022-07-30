@@ -15,30 +15,18 @@
 #' # so, please, wait for a while
 #' simulation_example( verbose = FALSE , to_plot = FALSE )
 simulation_example  <-  function( verbose = TRUE , to_plot = TRUE,
-                                  seed = NA, work_dir = getwd(), digits = 5 ){
+                                  seed = NA, work_dir = getwd(), digits = 6 ){
 
     local_dir( new = work_dir )
     pck.env$digits  =  digits
 
     if ( !is.na( seed ) ) set.seed( seed = seed )
 
-    if ( verbose ) print('This code will be executed: ')
-    if ( verbose ) print( simulation_example )
+    # if ( verbose ) print('This code will be executed: ')
+    # if ( verbose ) print( simulation_example )
 
     # Attach packages from import list
-    packages  =  list(  actuar = 'rztpois',
-                        randomcoloR = 'randomColor',
-                        methods = 'new',
-                        stats = c('aggregate', 'rbinom', 'rexp', 'rnorm', 'runif' ),
-                        stringr = c('str_length', 'str_split', 'str_sub', 'str_trim', 'str_remove'),
-                        utils = c('read.delim', 'read.table', 'write.table', 'globalVariables' ),
-                        grDevices = c('dev.off', 'pdf', 'rgb'),
-                        graphics = c('axis', 'legend', 'lines', 'par', 'plot', 'text', 'title' ),
-                        withr  =  c('local_environment', 'local_par', 'local_dir', 'local_options' ))
-
-    for( pck in names( packages ) ){
-        library( package = pck, character.only = TRUE, include.only = packages[[ pck ]])
-    }
+    check_packages()
 
     copy_files_to_Input( files = c( 'CCDS.current.txt', 'CF.txt',
                                    'cloneinit.txt','gene_hallmarks.txt',
@@ -112,6 +100,8 @@ simulation_example  <-  function( verbose = TRUE , to_plot = TRUE,
                               yr = NA , add_initial = FALSE, log_scale = TRUE )
     }
 
+    res  =  get_tugHall.Environment()
+    saveRDS( object = res, file = './Results_of_simulation.RDS' )
 
-    return( get_tugHall.Environment() )
+    return( res )
 }

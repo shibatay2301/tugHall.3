@@ -228,7 +228,6 @@ gen_colors  <-  function(nm = 12){
 }
 
 
-
 #' Check the installation of a package for some functions
 #'
 #' @param pkg Package name
@@ -241,5 +240,40 @@ gen_colors  <-  function(nm = 12){
 check_pkg  <-  function( pkg ){
     msg  =  paste0( 'Package ', pkg, ' must be installed to use this function. \n ' )
     if ( !requireNamespace( pkg , quietly = TRUE ) )    stop( msg, call. = FALSE )
+}
+
+
+#' Check the installation of packages and attach them with corresponding functions
+#'
+#' @param pkgs List of package names with related function names,
+#' by default (or when pkgs = NULL) the list of packages are described in Namespace file of the package or
+#' 'R/MaxWiK-package.R' file
+#'
+#' @return if the packages are installed then it returns NULL else it returns error message
+#'
+#' @export
+#'
+#' @examples
+#' check_packages(  )
+check_packages  <-  function( pkgs = NULL ){
+
+    if ( is.null( pkgs ) ) {
+        pkgs  =  list(  actuar = 'rztpois',
+                        graphics = c('axis', 'legend', 'lines', 'par', 'plot', 'text', 'title' ),
+                        grDevices = c('dev.off', 'pdf', 'rgb'),
+                        methods = 'new',
+                        randomcoloR = 'randomColor',
+                        stats = c('aggregate', 'rbinom', 'rexp', 'rnorm', 'runif' ),
+                        stringr = c('str_length', 'str_split', 'str_sub', 'str_trim', 'str_remove'),
+                        utils = c('read.delim', 'read.table', 'write.table', 'globalVariables' ),
+                        withr  =  c('local_environment', 'local_par', 'local_dir', 'local_options' )
+                        )
+    }
+
+    ### Attach the packages
+    for( pck in names( pkgs ) ){
+        check_pkg( pkg = pck )
+        require( package = pck, character.only = TRUE, include.only = pkgs[[ pck ]])
+    }
 }
 

@@ -21,6 +21,9 @@ model <- function( ){
 #                   E0, F0, m0, s0, k0, censore_n, censore_t, d0 ) {
 
     local_environment( env = pck.env )
+    if ( !is.na( pck.env$digits ) ){
+        defer(options( digits = pck.env$digits ), envir = pck.env )
+    }
 
     write_log(genefile, clonefile, geneoutfile, cloneoutfile, logoutfile,
               E0, F0, m0, uo, us, s0, k0,
@@ -142,6 +145,12 @@ model <- function( ){
 }
 
 
+#' @param verbose Logical type to show or do not show messages during execution
+#' @param to_plot Logical type to plot or do not plot graphical results of a simulation
+#' @param seed Numeric type to set seed for a simulation, if seed = NA (by default) then it will be skipped
+#' @param work_dir Working directory for a simulation, by default \code{ work_dir = getwd() }
+#' @param digits Number of digits in the numeric format of pck.env environment of tugHall
+#'
 #' @describeIn model Function 'model_keep_run' to start simulation from previous results with new parameter set
 #'
 #'
@@ -160,7 +169,16 @@ model <- function( ){
 #' res = model( )
 #' res2 = model_keep_run()
 #' }
-model_keep_run <- function( ){
+model_keep_run <- function( verbose = TRUE , to_plot = TRUE,
+                            seed = NA, work_dir = getwd(), digits = 5 ){
+
+    local_dir( new = work_dir )
+    pck.env$digits  =  digits
+
+    if ( !is.na( seed ) ) set.seed( seed = seed )
+
+    # Attach packages from import list
+    check_packages()
 
     local_environment( env = pck.env )
 
@@ -180,8 +198,10 @@ model_keep_run <- function( ){
 
     write_geneout(geneoutfile, pck.env$hall, Compaction_factor, pck.env$CF)                  # write the geneout.txt file with initial hallmarks
     write_weights("Output/Weights.txt", pck.env$hall)                 # write the weights of genes for hallmarks
-    write_header( cloneoutfile, pck.env$env, pck.env$onco )                   #
-    if ( monitor ) write_monitor( outfile = pck.env$file_monitor, start = TRUE )
+    if ( !file.exists( cloneoutfile )){
+        write_header( cloneoutfile, pck.env$env, pck.env$onco )                   #
+    }
+    if ( monitor ) write_monitor( outfile = pck.env$file_monitor, start = FALSE )
     cells_number <- sum_N_P_M( pck.env$env, clones )                 # to calculate cells numbers - N,M
     # init_pnt_clones( clones, pck.env$onco_clones )              # initialization of pnt_clones for point mutations
 

@@ -2,16 +2,30 @@
 % Please edit documentation in R/tugHall_Model.R
 \name{model}
 \alias{model}
+\alias{model_keep_run}
 \title{Main function 'model' to simulate clones' evolution}
 \usage{
 model()
+
+model_keep_run()
 }
 \value{
-List of (clones, onco_clones), where clones - list of objects of class 'Clone', and onco_clones - list of objects of class 'OncoGene'. During a simulation it saves data to geneoutfile.
+\code{model()} returns the list of (clones, onco_clones),
+where clones - list of objects of class 'Clone', and onco_clones - list of objects of class 'OncoGene'.
+During a simulation it saves data to geneoutfile.
+
+\code{model_keep_run()} returns the list of (clones, onco_clones),
+where clones - list of objects of class 'Clone', and onco_clones - list of objects of class 'OncoGene'.
+During a simulation it saves data to geneoutfile.
 }
 \description{
 Main function 'model' to simulate clones' evolution
 }
+\section{Functions}{
+\itemize{
+\item \code{model_keep_run}: \code{model_keep_run} is needed for \code{simulation_keep_run()} function
+}}
+
 \examples{
 copy_files_to_Input()
 define_files_names()
@@ -22,4 +36,5 @@ time_stop = 3  #  Duration of simulation time is 3 sec
 \dontrun{
 res = model( )
 }
+NULL
 }

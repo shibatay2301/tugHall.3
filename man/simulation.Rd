@@ -16,10 +16,13 @@ simulation(
 simulation_keep_run(
   loadRDS = TRUE,
   fileRDS = "./Results_of_simulation.RDS",
-  change_parameters = list(),
+  loadInput = FALSE,
+  change_parameters = list(censore_n = 1e+06, censore_t = 60),
   seed = NA,
   work_dir = getwd(),
-  digits = 6
+  digits = 6,
+  to_plot = TRUE,
+  verbose = FALSE
 )
 }
 \arguments{
@@ -37,6 +40,8 @@ simulation_keep_run(
 If \code{loadRDS = FALSE} then it loads data from pck.env that should contain the data of a simulation.}
 
 \item{fileRDS}{file name to load data of previous simulation, only if \code{loadRDS = TRUE}}
+
+\item{loadInput}{Logical to load parameters from Input folder or not.}
 
 \item{change_parameters}{List of parameters to change from the previous simulation,
 each parameter should be corresponding to variable name.

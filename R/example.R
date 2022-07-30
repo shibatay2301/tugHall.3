@@ -134,7 +134,7 @@ simulation  <-  function( verbose = TRUE , to_plot = TRUE,
 #' }
 simulation_keep_run <- function( loadRDS = TRUE,
                                  fileRDS  =  './Results_of_simulation.RDS',
-                                 change_parameters = list(),
+                                 change_parameters = list(censore_n = 1E06, censore_t = 60 ),
                                  seed = NA, work_dir = getwd(), digits = 6 ){
 
     local_environment( env = pck.env )
@@ -149,6 +149,15 @@ simulation_keep_run <- function( loadRDS = TRUE,
         defer(options( digits = pck.env$digits ), envir = pck.env )
     }
     if ( !is.na( seed ) ) set.seed( seed = seed )
+
+    # Load changed parameters:
+    if ( length(change_parameters) > 0 ){
+        for( i in 1:length(change_parameters) ){
+            nm  =  names( change_parameters)[ i ]
+            pck.env[[ nm ]]  =  change_parameters[[ i ]]
+
+        }
+    }
 
     # Attach packages from import list
     check_packages()
@@ -177,6 +186,8 @@ simulation_keep_run <- function( loadRDS = TRUE,
     cells_number <- sum_N_P_M( pck.env$env, clones )                 # to calculate cells numbers - N,M
     # init_pnt_clones( clones, pck.env$onco_clones )              # initialization of pnt_clones for point mutations
 
+    clones  =  pck.env$clones
+
     lapply(clones,update_Hallmarks)                     # to calculate the Hallmarks and probabilities for initial cells
     pck.env$hall$updateEnviron( pck.env$env, clones )                     # make averaging for cells
     isFirst = TRUE
@@ -186,8 +197,6 @@ simulation_keep_run <- function( loadRDS = TRUE,
     print( paste0("The probability of an absence of the mutations is p0 = ", as.character( pck.env$onco$p0_1 ) ))
     time_start  =  Sys.time()
     time_current  =  Sys.time()
-
-    clones  =  pck.env$clones
 
     while(length(clones) > 0 && pck.env$censore_n > cells_number &&
           pck.env$env$T < pck.env$censore_t  &&

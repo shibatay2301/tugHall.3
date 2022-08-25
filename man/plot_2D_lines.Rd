@@ -152,13 +152,13 @@ as a step function with number of cells related to each order
 }
 \section{Functions}{
 \itemize{
-\item \code{plot_2D}: Function to plot 2D figure of points y = y(x)
+\item \code{plot_2D()}: Function to plot 2D figure of points y = y(x)
 
-\item \code{plot_order_dysfunction}: Function to plot order of genes dysfunction as a step function with number of cells related to each order
+\item \code{plot_order_dysfunction()}: Function to plot order of genes dysfunction as a step function with number of cells related to each order
 
-\item \code{plot_clone_evolution}: Function to plot clone evolution
+\item \code{plot_clone_evolution()}: Function to plot clone evolution
+
 }}
-
 \examples{
 plot_2D( x=-5:5, y=-3:7 )
 DF = tugHall_dataset$data_avg

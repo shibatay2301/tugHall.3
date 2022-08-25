@@ -62,9 +62,9 @@ input list of parameters.
 }
 \section{Functions}{
 \itemize{
-\item \code{simulation_keep_run}: \code{simulation_keep_run()} is needed to start simulation from previous results with new parameter set
-}}
+\item \code{simulation_keep_run()}: \code{simulation_keep_run()} is needed to start simulation from previous results with new parameter set
 
+}}
 \examples{
 
 # it takes a time for a simulation and then it will demonstrates results, \cr

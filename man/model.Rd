@@ -23,9 +23,9 @@ Main function 'model' to simulate clones' evolution
 }
 \section{Functions}{
 \itemize{
-\item \code{model_keep_run}: \code{model_keep_run} is needed for \code{simulation_keep_run()} function
-}}
+\item \code{model_keep_run()}: \code{model_keep_run} is needed for \code{simulation_keep_run()} function
 
+}}
 \examples{
 copy_files_to_Input()
 define_files_names()

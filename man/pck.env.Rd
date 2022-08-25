@@ -47,13 +47,13 @@ the environment pck.env or tugHall.Environment
 }
 \section{Functions}{
 \itemize{
-\item \code{get_tugHall.Environment}: Get results of simulation stored in pck.env or tugHall.Environment environment
+\item \code{get_tugHall.Environment()}: Get results of simulation stored in pck.env or tugHall.Environment environment
 
-\item \code{load_tugHall.Environment}: Load previous results of simulation to the environment pck.env or tugHall.Environment
+\item \code{load_tugHall.Environment()}: Load previous results of simulation to the environment pck.env or tugHall.Environment
 
-\item \code{clear_tugHall.Environment}: Remove all the objects from the environment pck.env or tugHall.Environment
+\item \code{clear_tugHall.Environment()}: Remove all the objects from the environment pck.env or tugHall.Environment
+
 }}
-
 \examples{
 NULL
 NULL

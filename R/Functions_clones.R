@@ -350,6 +350,18 @@ get_rho_VAF  <-  function( vf = NULL, rho = c( 0.0, 0.1, 0.5 ) , file_name = './
         }
     }
 
+    Stop_reason = if ( sum(pck.env$data_last$N_cells) > pck.env$censor_cells_number ){
+        Stop_reason  =  'Cells number'
+    } else {
+        if ( pck.env$data_last$Time[1] >= pck.env$censor_time_step ){
+            Stop_reason  =  'Time step'
+        } else {
+            Stop_reason  =  'Real time'
+        }
+    }
+
+    VAF$Stop_reason  =  Stop_reason
+
     write.table( VAF, file = file_name, append = FALSE, sep = '\t',
                     row.names = FALSE, col.names = TRUE )
     cat( paste0( ' VAF is saved in the file ', file_name ) )

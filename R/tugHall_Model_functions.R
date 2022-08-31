@@ -647,7 +647,7 @@ onco_copy <- function( onco1 ){
 #' @param   s0 Parameter in the sigmoid function, numeric type only
 #' @param   k0 Environmental death probability, numeric type only
 #' @param   d0 Initial probability to divide cells, numeric type only
-#' @param   censore_n Max cell number where the program forcibly stops, integer type only
+#' @param   censor_cells_number Max cell number where the program forcibly stops, integer type only
 #' @param   censor_time_step Max time where the program forcibly stops, integer type only
 #' @param   time_stop Max time in seconds of running after that the program forcibly stops, integer type only
 #' @param   n_repeat  Max number of repetition of the program until the NON-ZERO output will be getting, integer type only
@@ -674,20 +674,20 @@ onco_copy <- function( onco1 ){
 #' \dontrun{
 #' write_log(genefile, clonefile, geneoutfile, cloneoutfile, logoutfile,
 #' E0, F0, m0, uo, us, s0, k0, m_dup, m_del, lambda_dup, lambda_del,
-#' uo_dup, us_dup, uo_del, us_del, censore_n, censor_time_step, d0,
+#' uo_dup, us_dup, uo_del, us_del, censor_cells_number, censor_time_step, d0,
 #' Compaction_factor, model_name, time_stop, n_repeat, monitor )
 #' }
 write_log <- function(genefile, clonefile, geneoutfile, cloneoutfile, logoutfile,
                       E0, F0, m0, uo, us, s0, k0,
                       m_dup, m_del, lambda_dup, lambda_del, # CNA parameters
                       uo_dup, us_dup, uo_del, us_del,       # CNA parameters
-                      censore_n, censor_time_step, d0, Compaction_factor, model_name,
+                      censor_cells_number, censor_time_step, d0, Compaction_factor, model_name,
                       time_stop, n_repeat, monitor ) {
     data <- c('Working_folder', "genefile", "clonefile", "geneoutfile", "cloneoutfile", "logoutfile",
               "E0", "F0", "m0", "uo", "us", "s0", "k0",
               "m_dup", "m_del", "lambda_dup", "lambda_del",
               "uo_dup", "us_dup", "uo_del", "us_del",
-              "censore_n", "censor_time_step", "d0", 'Compaction_factor', 'model_name',
+              "censor_cells_number", "censor_time_step", "d0", 'Compaction_factor', 'model_name',
               'time_stop', 'n_repeat', 'monitor' )
     data <- rbind( data, c(pck.env$mainDir,
                            str_remove( genefile, pck.env$mainDir),
@@ -698,7 +698,7 @@ write_log <- function(genefile, clonefile, geneoutfile, cloneoutfile, logoutfile
                            E0, F0, m0, uo, us, s0, k0,
                            m_dup, m_del, lambda_dup, lambda_del, # CNA parameters
                            uo_dup, us_dup, uo_del, us_del,       # CNA parameters
-                           censore_n, censor_time_step, d0, Compaction_factor, model_name,
+                           censor_cells_number, censor_time_step, d0, Compaction_factor, model_name,
                            time_stop, n_repeat, monitor ) )
     write(data, logoutfile, ncolumns = 2, sep="\t")
 }

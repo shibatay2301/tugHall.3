@@ -112,7 +112,7 @@ To check all the parameters and names of files, just print them:
 
 For a simulation **tugHall.3** uses the global parameters generated automatically:
 
-                              'CF', 'Compaction_factor', 'E0', 'F0', 'censore_n',
+                              'CF', 'Compaction_factor', 'E0', 'F0', 'censor_cells_number',
                               'censor_time_step', 'clonefile', 'cloneoutfile',
                               'cna_clones', 'd0', 'env', 'file_monitor',
                               'gene_map', 'genefile', 'geneoutfile', 'hall', 'k0',
@@ -128,7 +128,7 @@ Start simulation, please, wait for a while ... or see Sim_monitoring.txt file in
 
                 smlt = model(genefile, clonefile, geneoutfile, cloneoutfile, 
                               logoutfile, E0, F0, m0, uo, us, s0, k0, 
-                              censore_n, censor_time_step, d0)
+                              censor_cells_number, censor_time_step, d0)
                 clones        =  smlt[[ 1 ]]
                 onco_clones   =  smlt[[ 2 ]]
         

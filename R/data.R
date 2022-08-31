@@ -6,7 +6,7 @@
 #'
 #' @format A data frame with 15 data.frames/lists and 33 objects:
 #' \describe{
-#'   \item{Input parameters}{Input parameters: censore_n, censor_time_step, Compaction_factor, \cr
+#'   \item{Input parameters}{Input parameters: censor_cells_number, censor_time_step, Compaction_factor, \cr
 #'   d0, E0, F0, k0, m0, lambda_del, lambda_dup, m_del, m_dup, model_name, monitor, n_repeat, \cr
 #'   s0, time_stop, uo_del, uo_dup, us_del, us_dup, uo, us }
 #'   \item{CF}{Data frame of compaction factor }

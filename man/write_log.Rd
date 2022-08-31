@@ -25,7 +25,7 @@ write_log(
   us_dup,
   uo_del,
   us_del,
-  censore_n,
+  censor_cells_number,
   censor_time_step,
   d0,
   Compaction_factor,
@@ -76,7 +76,7 @@ write_log(
 
 \item{us_del}{Gene malfunction probability by CNA deletion    for suppressor, numeric type only}
 
-\item{censore_n}{Max cell number where the program forcibly stops, integer type only}
+\item{censor_cells_number}{Max cell number where the program forcibly stops, integer type only}
 
 \item{censor_time_step}{Max time where the program forcibly stops, integer type only}
 
@@ -106,7 +106,7 @@ if ( !dir.exists('./Output') ) dir.create('./Output')
 \dontrun{
 write_log(genefile, clonefile, geneoutfile, cloneoutfile, logoutfile,
 E0, F0, m0, uo, us, s0, k0, m_dup, m_del, lambda_dup, lambda_del,
-uo_dup, us_dup, uo_del, us_del, censore_n, censor_time_step, d0,
+uo_dup, us_dup, uo_del, us_del, censor_cells_number, censor_time_step, d0,
 Compaction_factor, model_name, time_stop, n_repeat, monitor )
 }
 }

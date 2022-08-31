@@ -140,7 +140,7 @@ The input of the probabilities used in the model is possible in the code for par
 | **uo,del = 0**     | Gene malfunction probability by CNA deletion for oncogene $u_{o,del}$. Currently, 0 is assumed. | per mutation  |
 | **us,del = 0.8**     | Gene malfunction probability by CNA deletion for suppressor, $u_{s,del}$.  | per mutation  |
 | **d0 = 0.35**     |  Initial division rate  | per time-step  | 
-| **censore_n = 30000 **     | Max cell number where the program forcibly stops  | number of cells |
+| **censor_cells_number = 30000 **     | Max cell number where the program forcibly stops  | number of cells |
 | **censor_time_step = 200**        | Max time where the program forcibly stops  | in time-steps |
 | **Compaction_factor	= TRUE**   | Indicator about an usage of compaction factor | Logical |
 | **model_name	= 'proportional_metastatic'**  | Model definition, it can be 'proportional_metastatic' or 'threshold_metastatic' or 'simplified' |  string/character variable |

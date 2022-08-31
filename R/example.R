@@ -121,7 +121,7 @@ simulation  <-  function( verbose = TRUE , to_plot = TRUE,
 #' @param fileRDS file name to load data of previous simulation, only if \code{loadRDS = TRUE}
 #' @param change_parameters List of parameters to change from the previous simulation,
 #' each parameter should be corresponding to variable name.
-#' For example, \code{change_parameters = list(censore_n = 1E06, censor_time_step = 60 ) }
+#' For example, \code{change_parameters = list(censor_cells_number = 1E06, censor_time_step = 60 ) }
 #' @param loadInput Logical to load parameters from Input folder or not.
 #'
 #' @return List of (clones, onco_clones), where clones - list of objects of class 'Clone', and onco_clones - list of objects of class 'OncoGene'. During a simulation it saves data to geneoutfile.
@@ -136,7 +136,7 @@ simulation  <-  function( verbose = TRUE , to_plot = TRUE,
 simulation_keep_run <- function( loadRDS = TRUE,
                                  fileRDS = './Results_of_simulation.RDS',
                                  loadInput = FALSE,
-                                 change_parameters = list(censore_n = 1E06, censor_time_step = 60 ),
+                                 change_parameters = list(censor_cells_number = 1E06, censor_time_step = 60 ),
                                  seed = NA, work_dir = getwd(), digits = 6,
                                  to_plot = TRUE, verbose = FALSE ){
 

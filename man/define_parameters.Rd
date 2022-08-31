@@ -13,7 +13,7 @@ define_parameters(
   s0 = 10,
   k0 = 0.12,
   d0 = 0.4,
-  censore_n = 10^5,
+  censor_cells_number = 10^5,
   censor_time_step = 50,
   m_dup = 1e-08,
   m_del = 1e-08,
@@ -49,7 +49,7 @@ define_parameters(
 
 \item{d0}{Initial probability to divide cells, numeric type only}
 
-\item{censore_n}{Max cell number where the program forcibly stops, integer type only}
+\item{censor_cells_number}{Max cell number where the program forcibly stops, integer type only}
 
 \item{censor_time_step}{Max time where the program forcibly stops, integer type only}
 

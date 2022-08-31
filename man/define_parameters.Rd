@@ -14,7 +14,7 @@ define_parameters(
   k0 = 0.12,
   d0 = 0.4,
   censore_n = 10^5,
-  censore_t = 50,
+  censor_time_step = 50,
   m_dup = 1e-08,
   m_del = 1e-08,
   lambda_dup = 5000,
@@ -51,7 +51,7 @@ define_parameters(
 
 \item{censore_n}{Max cell number where the program forcibly stops, integer type only}
 
-\item{censore_t}{Max time where the program forcibly stops, integer type only}
+\item{censor_time_step}{Max time where the program forcibly stops, integer type only}
 
 \item{m_dup}{Mutation probability for duplication, numeric type only}
 

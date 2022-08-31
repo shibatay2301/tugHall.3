@@ -17,7 +17,7 @@ simulation_keep_run(
   loadRDS = TRUE,
   fileRDS = "./Results_of_simulation.RDS",
   loadInput = FALSE,
-  change_parameters = list(censore_n = 1e+06, censore_t = 60),
+  change_parameters = list(censore_n = 1e+06, censor_time_step = 60),
   seed = NA,
   work_dir = getwd(),
   digits = 6,
@@ -45,7 +45,7 @@ If \code{loadRDS = FALSE} then it loads data from pck.env that should contain th
 
 \item{change_parameters}{List of parameters to change from the previous simulation,
 each parameter should be corresponding to variable name.
-For example, \code{change_parameters = list(censore_n = 1E06, censore_t = 60 ) }}
+For example, \code{change_parameters = list(censore_n = 1E06, censor_time_step = 60 ) }}
 }
 \value{
 List of results of simulation with default values for all the parameters

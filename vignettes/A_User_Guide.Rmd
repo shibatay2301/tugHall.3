@@ -82,7 +82,7 @@ Please, note that plots and tables of this document are related to the dataset *
 For a simulation **tugHall.3** uses the global parameters by calling the function:
 
     utils::globalVariables( c( 'CF', 'Compaction_factor', 'E0', 'F0', 'censore_n',
-                               'censore_t', 'clonefile', 'cloneoutfile',
+                               'censor_time_step', 'clonefile', 'cloneoutfile',
                                'cna_clones', 'd0', 'env', 'file_monitor',
                                'gene_map', 'genefile', 'geneoutfile', 'hall', 'k0',
                                'lambda_del', 'lambda_dup', 'logoutfile', 'm0',

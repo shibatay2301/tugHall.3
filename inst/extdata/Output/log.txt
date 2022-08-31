@@ -19,7 +19,7 @@ us_dup	0.8
 uo_del	0
 us_del	0.8
 censore_n	1e+05
-censore_t	40
+censor_time_step	40
 d0	0.5
 Compaction_factor	TRUE
 model_name	proportional_metastatic

@@ -26,7 +26,7 @@ write_log(
   uo_del,
   us_del,
   censore_n,
-  censore_t,
+  censor_time_step,
   d0,
   Compaction_factor,
   model_name,
@@ -78,7 +78,7 @@ write_log(
 
 \item{censore_n}{Max cell number where the program forcibly stops, integer type only}
 
-\item{censore_t}{Max time where the program forcibly stops, integer type only}
+\item{censor_time_step}{Max time where the program forcibly stops, integer type only}
 
 \item{d0}{Initial probability to divide cells, numeric type only}
 
@@ -106,7 +106,7 @@ if ( !dir.exists('./Output') ) dir.create('./Output')
 \dontrun{
 write_log(genefile, clonefile, geneoutfile, cloneoutfile, logoutfile,
 E0, F0, m0, uo, us, s0, k0, m_dup, m_del, lambda_dup, lambda_del,
-uo_dup, us_dup, uo_del, us_del, censore_n, censore_t, d0,
+uo_dup, us_dup, uo_del, us_del, censore_n, censor_time_step, d0,
 Compaction_factor, model_name, time_stop, n_repeat, monitor )
 }
 }

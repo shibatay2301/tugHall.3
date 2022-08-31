@@ -20,7 +20,7 @@
 #' res = model( )
 #' }
 model <- function( ){
-#                   E0, F0, m0, s0, k0, censore_n, censore_t, d0 ) {
+#                   E0, F0, m0, s0, k0, censore_n, censor_time_step, d0 ) {
 
     local_environment( env = pck.env )
     if ( !is.na( pck.env$digits ) ){
@@ -31,7 +31,7 @@ model <- function( ){
               E0, F0, m0, uo, us, s0, k0,
               m_dup, m_del, lambda_dup, lambda_del, # CNA parameters
               uo_dup, us_dup, uo_del, us_del,       # CNA parameters
-              censore_n, censore_t, d0, Compaction_factor, model_name, time_stop,
+              censore_n, censor_time_step, d0, Compaction_factor, model_name, time_stop,
               n_repeat, monitor )   # write input parameters
 
     # Define trial() function: trial_complex or trial_simple
@@ -82,7 +82,7 @@ model <- function( ){
     time_start  =  Sys.time()
     time_current  =  Sys.time()
     while(length(clones) > 0 && censore_n > cells_number &&
-          pck.env$env$T < censore_t  &&
+          pck.env$env$T < censor_time_step  &&
           ( as.numeric( difftime( time_current, time_start, units = 'secs') ) < time_stop ) ){
 
         k_old = length(clones)          # the number of clones from last step
@@ -164,7 +164,7 @@ model_keep_run  <-  function(){
               E0, F0, m0, uo, us, s0, k0,
               m_dup, m_del, lambda_dup, lambda_del, # CNA parameters
               uo_dup, us_dup, uo_del, us_del,       # CNA parameters
-              censore_n, censore_t, d0, Compaction_factor, model_name, time_stop,
+              censore_n, censor_time_step, d0, Compaction_factor, model_name, time_stop,
               n_repeat, monitor )   # write input parameters
 
     # Define trial() function: trial_complex or trial_simple
@@ -197,7 +197,7 @@ model_keep_run  <-  function(){
     time_current  =  Sys.time()
 
     while(length(clones) > 0 && pck.env$censore_n > cells_number &&
-          pck.env$env$T < pck.env$censore_t  &&
+          pck.env$env$T < pck.env$censor_time_step  &&
           ( as.numeric( difftime( time_current, time_start, units = 'secs') ) < pck.env$time_stop ) ){
 
         k_old = length(clones)          # the number of clones from last step

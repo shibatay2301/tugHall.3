@@ -110,9 +110,9 @@ simulation  <-  function( verbose = TRUE , to_plot = TRUE,
 }
 
 
-#' @describeIn simulation \code{simulation_keep_run()} is needed to start simulation from previous results with new parameter set
+#' @describeIn simulation \code{restart_simulation()} is needed to start simulation from previous results with new parameter set
 #'
-#' @description \code{simulation_keep_run()} is needed to start simulation from previous results with new parameter set.
+#' @description \code{restart_simulation()} is needed to start simulation from previous results with new parameter set.
 #' Parameter set can be defined as usually from Input folder or keep all the parameters excluding
 #' input list of parameters.
 #'
@@ -133,7 +133,7 @@ simulation  <-  function( verbose = TRUE , to_plot = TRUE,
 #'
 #'
 #' }
-simulation_keep_run <- function( loadRDS = TRUE,
+restart_simulation <- function( loadRDS = TRUE,
                                  fileRDS = './Results_of_simulation.RDS',
                                  loadInput = FALSE,
                                  change_parameters = list(censor_cells_number = 1E06, censor_time_step = 60 ),
@@ -216,7 +216,7 @@ simulation_keep_run <- function( loadRDS = TRUE,
     }
 
     res  =  get_tugHall.Environment()
-    saveRDS( object = res, file = './Results_of_simulation_keep_run.RDS' )
+    saveRDS( object = res, file = './Results_of_restart_simulation.RDS' )
 
     return( res )
 }

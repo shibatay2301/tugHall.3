@@ -147,7 +147,7 @@ model <- function( ){
 }
 
 
-#' @describeIn model \code{model_keep_run} is needed for \code{simulation_keep_run()} function
+#' @describeIn model \code{model_keep_run} is needed for \code{restart_simulation()} function
 #'
 #' @return  \code{model_keep_run()} returns the list of (clones, onco_clones),
 #' where clones - list of objects of class 'Clone', and onco_clones - list of objects of class 'OncoGene'.

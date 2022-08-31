@@ -2,7 +2,7 @@
 % Please edit documentation in R/example.R
 \name{simulation}
 \alias{simulation}
-\alias{simulation_keep_run}
+\alias{restart_simulation}
 \title{Simulation for lazy start with parameters from Input folder}
 \usage{
 simulation(
@@ -13,7 +13,7 @@ simulation(
   digits = 6
 )
 
-simulation_keep_run(
+restart_simulation(
   loadRDS = TRUE,
   fileRDS = "./Results_of_simulation.RDS",
   loadInput = FALSE,
@@ -56,13 +56,13 @@ List of (clones, onco_clones), where clones - list of objects of class 'Clone', 
 \code{simulation()} makes a simulation with parameters from Input folder
 and results save in pck.env as well in './Results_of_simulation.RDS' file in \code{work_dir} folder
 
-\code{simulation_keep_run()} is needed to start simulation from previous results with new parameter set.
+\code{restart_simulation()} is needed to start simulation from previous results with new parameter set.
 Parameter set can be defined as usually from Input folder or keep all the parameters excluding
 input list of parameters.
 }
 \section{Functions}{
 \itemize{
-\item \code{simulation_keep_run()}: \code{simulation_keep_run()} is needed to start simulation from previous results with new parameter set
+\item \code{restart_simulation()}: \code{restart_simulation()} is needed to start simulation from previous results with new parameter set
 
 }}
 \examples{

@@ -127,10 +127,12 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
         pck.env$us  =  as.numeric( data_log[ which( data_log$var == 'us' ), 2 ] )     # suppressor mutation probability
         pck.env$s0  =  as.numeric( data_log[ which( data_log$var ==  's' ), 2 ] )     # parameter in the sigmoid function
         pck.env$d0  =  as.numeric( data_log[ which( data_log$var == 'd0' ), 2 ] )     # Initial probability to divide cells
-        k0         = as.character( data_log[ which( data_log$var == 'k0' ), 2 ] )     # Environmental death probability
+        k0          =  as.character( data_log[ which( data_log$var == 'k0' ), 2 ] )     # Environmental death probability
 
         if ( is.na( k0 ) ) {
-            pck.env$k0  =  1 - (1 + pck.env$d0 ) ^ (-1)
+            # pck.env$k0  =  1 - (1 + pck.env$d0 ) ^ (-1)
+            sgmd  =  1 / ( 1 + exp( -pck.env$s0 * ( 0 - 0.5 ) ) )
+            pck.env$k0  =  1 - ( ( 1 - sgmd ) * ( 1 + pck.env$d0 ) ) ^ (-1)
         } else {
             pck.env$k0  =  as.numeric( k0 )
         }

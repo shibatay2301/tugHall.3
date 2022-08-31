@@ -8,7 +8,7 @@
 #' \describe{
 #'   \item{Input parameters}{Input parameters: censor_cells_number, censor_time_step, Compaction_factor, \cr
 #'   d0, E0, F0, k0, m0, lambda_del, lambda_dup, m_del, m_dup, model_name, monitor, n_repeat, \cr
-#'   s0, time_stop, uo_del, uo_dup, us_del, us_dup, uo, us }
+#'   s0, real_time_stop, uo_del, uo_dup, us_del, us_dup, uo, us }
 #'   \item{CF}{Data frame of compaction factor }
 #'   \item{Names of files and folder}{Names of files to input and output data: clonefile, cloneoutfile, \cr
 #'   file_monitor, genefile, geneoutfile, logoutfile, mainDir }

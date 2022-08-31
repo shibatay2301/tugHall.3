@@ -93,7 +93,7 @@ utils::globalVariables( c( 'Compaction_factor', 'E0', 'F0', 'censor_cells_number
                            'gene_map', 'genefile', 'geneoutfile', 'k0',
                            'lambda_del', 'lambda_dup', 'logoutfile', 'm0',
                            'm_del', 'm_dup', 'model_name', 'monitor',
-                           'n_repeat', 's0', 'str_remove', 'time_stop', 'uo',
+                           'n_repeat', 's0', 'str_remove', 'real_time_stop', 'uo',
                            'uo_del', 'uo_dup', 'us', 'us_del', 'us_dup' ) )
 
 

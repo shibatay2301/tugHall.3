@@ -15,7 +15,7 @@
 #' define_gene_location()
 #' define_parameters( read_fl = TRUE , file_name = './Input/parameters.txt' )
 #' define_compaction_factor( read_fl = TRUE , file_name = './Input/CF.txt' )
-#' time_stop = 3  #  Duration of simulation time is 3 sec
+#' real_time_stop = 3  #  Duration of simulation time is 3 sec
 #' \dontrun{
 #' res = model( )
 #' }
@@ -31,7 +31,7 @@ model <- function( ){
               E0, F0, m0, uo, us, s0, k0,
               m_dup, m_del, lambda_dup, lambda_del, # CNA parameters
               uo_dup, us_dup, uo_del, us_del,       # CNA parameters
-              censor_cells_number, censor_time_step, d0, Compaction_factor, model_name, time_stop,
+              censor_cells_number, censor_time_step, d0, Compaction_factor, model_name, real_time_stop,
               n_repeat, monitor )   # write input parameters
 
     # Define trial() function: trial_complex or trial_simple
@@ -83,7 +83,7 @@ model <- function( ){
     time_current  =  Sys.time()
     while(length(clones) > 0 && censor_cells_number > cells_number &&
           pck.env$env$T < censor_time_step  &&
-          ( as.numeric( difftime( time_current, time_start, units = 'secs') ) < time_stop ) ){
+          ( as.numeric( difftime( time_current, time_start, units = 'secs') ) < real_time_stop ) ){
 
         k_old = length(clones)          # the number of clones from last step
 
@@ -164,7 +164,7 @@ model_keep_run  <-  function(){
               E0, F0, m0, uo, us, s0, k0,
               m_dup, m_del, lambda_dup, lambda_del, # CNA parameters
               uo_dup, us_dup, uo_del, us_del,       # CNA parameters
-              censor_cells_number, censor_time_step, d0, Compaction_factor, model_name, time_stop,
+              censor_cells_number, censor_time_step, d0, Compaction_factor, model_name, real_time_stop,
               n_repeat, monitor )   # write input parameters
 
     # Define trial() function: trial_complex or trial_simple
@@ -198,7 +198,7 @@ model_keep_run  <-  function(){
 
     while(length(clones) > 0 && pck.env$censor_cells_number > cells_number &&
           pck.env$env$T < pck.env$censor_time_step  &&
-          ( as.numeric( difftime( time_current, time_start, units = 'secs') ) < pck.env$time_stop ) ){
+          ( as.numeric( difftime( time_current, time_start, units = 'secs') ) < pck.env$real_time_stop ) ){
 
         k_old = length(clones)          # the number of clones from last step
 

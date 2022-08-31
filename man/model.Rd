@@ -32,7 +32,7 @@ define_files_names()
 define_gene_location()
 define_parameters( read_fl = TRUE , file_name = './Input/parameters.txt' )
 define_compaction_factor( read_fl = TRUE , file_name = './Input/CF.txt' )
-time_stop = 3  #  Duration of simulation time is 3 sec
+real_time_stop = 3  #  Duration of simulation time is 3 sec
 \dontrun{
 res = model( )
 }

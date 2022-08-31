@@ -144,7 +144,7 @@ The input of the probabilities used in the model is possible in the code for par
 | **censor_time_step = 200**        | Max time where the program forcibly stops  | in time-steps |
 | **Compaction_factor	= TRUE**   | Indicator about an usage of compaction factor | Logical |
 | **model_name	= 'proportional_metastatic'**  | Model definition, it can be 'proportional_metastatic' or 'threshold_metastatic' or 'simplified' |  string/character variable |
-| **time_stop	= 120**  | Max time of running after that the program forcibly stops| in seconds |
+| **real_time_stop	= 120**  | Max time of running after that the program forcibly stops| in seconds |
 | **n_repeat	= 1**  | Max number of repetition of the program until the NON-ZERO output will be getting | must be integer |
 | **monitor	= TRUE**| The indicator to safe or not to the monitoring file *Sim_monitoring.txt* during a simulation | logical |
 | <img width=160/> | <img width=340/> |  <img width=200/> |

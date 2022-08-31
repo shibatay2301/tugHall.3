@@ -77,7 +77,7 @@ define_gene_location  <-  function( file_input  =  'Input/CCDS.current.txt',
 #' @param   d0 Initial probability to divide cells, numeric type only
 #' @param   censor_cells_number Max cell number where the program forcibly stops, integer type only
 #' @param   censor_time_step Max time where the program forcibly stops, integer type only
-#' @param   time_stop Max time in seconds of running after that the program forcibly stops, integer type only
+#' @param   real_time_stop Max time in seconds of running after that the program forcibly stops, integer type only
 #' @param   n_repeat  Max number of repetition of the program until the NON-ZERO output will be getting, integer type only
 #' @param  m_dup Mutation probability for duplication, numeric type only
 #' @param  m_del Mutation probability for deletion, numeric type only
@@ -107,7 +107,7 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
                                  uo_dup  = 0.8, us_dup  = 0.5, uo_del  = 0, us_del  = 0.8,
                                  Compaction_factor  =  TRUE,
                                  model  =  c( 'proportional_metastatic', 'threshold_metastatic', 'simplified' )[ 1 ],
-                                 time_stop = 120,
+                                 real_time_stop = 120,
                                  read_fl = FALSE, file_name ='./Input/parameters.txt',
                                  n_repeat = 1000, monitor  =  TRUE ){
     if ( read_fl ){
@@ -116,7 +116,7 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
         # Model definition
         pck.env$Compaction_factor  =  as.logical( data_log[ which( data_log$var == 'Compaction_factor' ), 2 ] )
         pck.env$model_name         =  data_log[ which( data_log$var == 'model_name' ), 2 ]
-        pck.env$time_stop          =  as.numeric( data_log[ which( data_log$var == 'time_stop' ), 2 ] )  # max time in seconds
+        pck.env$real_time_stop          =  as.numeric( data_log[ which( data_log$var == 'real_time_stop' ), 2 ] )  # max time in seconds
         pck.env$n_repeat           =  as.numeric( data_log[ which( data_log$var == 'n_repeat' ), 2 ] )  # max number of repetitions
 
         # Parameters:
@@ -164,7 +164,7 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
         ### Additional parameters of simulation
         pck.env$censor_cells_number  =  censor_cells_number       # Max cell number where the program forcibly stops
         pck.env$censor_time_step  =  censor_time_step         # Max time where the program forcibly stops
-        pck.env$time_stop  =  time_stop     # Max time in seconds of running after that the program forcibly stops
+        pck.env$real_time_stop  =  real_time_stop     # Max time in seconds of running after that the program forcibly stops
         pck.env$n_repeat   =  n_repeat     # Max number of repetition of the program until the NON-ZERO output will be getting
         ### New parameters for CNA:
         pck.env$m_dup   =  m_dup # mutation probability for duplication
@@ -207,7 +207,7 @@ print_parameters  <-  function(){
         'Additional parameters of simulation  \n ',
         'Max cell number where the program forcibly stops  censor_cells_number  = ',  pck.env$censor_cells_number,  '\n',
         'Max time steps where the program forcibly stops  censor_time_step  = ',  pck.env$censor_time_step,  '\n',
-        'Max time (in seconds) where the program forcibly stops time_stop  =  ',  pck.env$time_stop,  '\n',
+        'Max time (in seconds) where the program forcibly stops real_time_stop  =  ',  pck.env$real_time_stop,  '\n',
         'Max number of repetition of the program until the NON-ZERO output will be getting, n_repeat  =  ', pck.env$n_repeat ,   '\n',
         'New parameters for CNA:  \n',
         'mutation probability for duplication  m_dup  =  ', pck.env$m_dup ,  '\n',

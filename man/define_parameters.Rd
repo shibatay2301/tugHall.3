@@ -25,7 +25,7 @@ define_parameters(
   us_del = 0.8,
   Compaction_factor = TRUE,
   model = c("proportional_metastatic", "threshold_metastatic", "simplified")[1],
-  time_stop = 120,
+  real_time_stop = 120,
   read_fl = FALSE,
   file_name = "./Input/parameters.txt",
   n_repeat = 1000,
@@ -73,7 +73,7 @@ define_parameters(
 
 \item{model}{Name of the model to use. Can be  'proportional_metastatic' or 'threshold_metastatic' or 'simplified'}
 
-\item{time_stop}{Max time in seconds of running after that the program forcibly stops, integer type only}
+\item{real_time_stop}{Max time in seconds of running after that the program forcibly stops, integer type only}
 
 \item{read_fl}{Indicator to read file or not, logical type only}
 

@@ -30,7 +30,7 @@ write_log(
   d0,
   Compaction_factor,
   model_name,
-  time_stop,
+  real_time_stop,
   n_repeat,
   monitor
 )
@@ -86,7 +86,7 @@ write_log(
 
 \item{model_name}{Name of the model to use. Can be  'proportional_metastatic' or 'threshold_metastatic' or 'simplified'}
 
-\item{time_stop}{Max time in seconds of running after that the program forcibly stops, integer type only}
+\item{real_time_stop}{Max time in seconds of running after that the program forcibly stops, integer type only}
 
 \item{n_repeat}{Max number of repetition of the program until the NON-ZERO output will be getting, integer type only}
 
@@ -107,6 +107,6 @@ if ( !dir.exists('./Output') ) dir.create('./Output')
 write_log(genefile, clonefile, geneoutfile, cloneoutfile, logoutfile,
 E0, F0, m0, uo, us, s0, k0, m_dup, m_del, lambda_dup, lambda_del,
 uo_dup, us_dup, uo_del, us_del, censor_cells_number, censor_time_step, d0,
-Compaction_factor, model_name, time_stop, n_repeat, monitor )
+Compaction_factor, model_name, real_time_stop, n_repeat, monitor )
 }
 }

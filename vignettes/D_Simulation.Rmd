@@ -119,7 +119,7 @@ For a simulation **tugHall.3** uses the global parameters generated automaticall
                               'lambda_del', 'lambda_dup', 'logoutfile', 'm0',
                               'm_del', 'm_dup', 'model_name', 'monitor',
                               'n_repeat', 'onco', 'pnt_clones', 's0',
-                              'time_stop', 'uo', 'uo_del', 'uo_dup',
+                              'real_time_stop', 'uo', 'uo_del', 'uo_dup',
                               'us', 'us_del', 'us_dup'
 
 So, please, be kind to make sure that these parameters are not affected by other packages or programs.

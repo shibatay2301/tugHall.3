@@ -854,7 +854,7 @@ write_monitor  <- function( outfile, start = FALSE , env, clones ){
 
     if ( start ) {
         header <- c('Time', 'N_clones', 'N_normal', 'N_primary', 'N_metastatic',
-                    'N_point_mutations', 'N_duplications',   'N_deletions' )
+                    'N_point_mutations', 'N_duplications',   'N_deletions' , 'TMB')
         write( header, outfile, append = FALSE, ncolumns = length( header ), sep="\t" )
     } else {
         if ( length( clones )  >  0 ) {
@@ -866,7 +866,8 @@ write_monitor  <- function( outfile, start = FALSE , env, clones ){
             dupdel  =  unlist( sapply( X = cna_list, FUN = function( x ) pck.env$cna_clones[[ x ]]$dupOrdel ) )
             l_dup   =  length( which( dupdel  ==  'dup' ) )
             l_del   =  length( which( dupdel  ==  'del' ) )
-            data <- c( env$T, length( clones ), env$N, env$P, env$M, l_pm, l_dup, l_del )
+            TMB     =  l_pm * 1E06 / sum( pck.env$onco$cds_1 ) / ( env$N + env$P + env$M )
+            data <- c( env$T, length( clones ), env$N, env$P, env$M, l_pm, l_dup, l_del, TMB )
 
             write(data, outfile, append=TRUE, ncolumns = length(data), sep="\t")
         }

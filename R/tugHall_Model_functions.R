@@ -853,7 +853,7 @@ write_cloneout <- function( outfile, env, clones, isFirst, onco_clones ) {
 write_monitor  <- function( outfile, start = FALSE , env, clones ){
 
     if ( start ) {
-        header <- c('Time', 'N_clones', 'N_normal', 'N_primary', 'N_metastatic',
+        header <- c('Time', 'N_clones', 'N_normal_intact',  'N_normal_speckled', 'N_primary', 'N_metastatic',
                     'N_point_mutations', 'N_duplications',   'N_deletions' , 'TMB')
         write( header, outfile, append = FALSE, ncolumns = length( header ), sep="\t" )
     } else {
@@ -867,7 +867,23 @@ write_monitor  <- function( outfile, start = FALSE , env, clones ){
             l_dup   =  length( which( dupdel  ==  'dup' ) )
             l_del   =  length( which( dupdel  ==  'del' ) )
             TMB     =  l_pm * 1E06 / sum( pck.env$onco$cds_1 ) / ( env$N + env$P + env$M )
-            data <- c( env$T, length( clones ), env$N, env$P, env$M, l_pm, l_dup, l_del, TMB )
+
+            # Get intact and speckled normal cells:
+            i_n  =  which( sapply( 1:length(clones), FUN = function(x) get_type( clones[[ x ]] ) ) == 'normal')
+            if ( length( i_n ) > 0 ){
+
+                int = sapply( i_n, FUN = function( x ) sum( clones[[ x ]]$pasgene ) )
+                if ( length( which( int == 0 ) ) > 0 ){
+                    N_intact  =  sum( sapply( which( int == 0 ), FUN = function( x ) clones[[ x ]]$N_cells ) )
+                } else N_intact    =  0
+
+                N_speckled  =  env$N - N_intact
+            } else {
+                N_intact    =  0
+                N_speckled  =  0
+            }
+
+            data <- c( env$T, length( clones ), N_intact, N_speckled, env$P, env$M, l_pm, l_dup, l_del, TMB )
 
             write(data, outfile, append=TRUE, ncolumns = length(data), sep="\t")
         }

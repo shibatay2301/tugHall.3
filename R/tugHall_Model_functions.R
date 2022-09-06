@@ -934,6 +934,68 @@ write_weights <- function(outfile, hall) {
     write.table(data, outfile, sep="\t", row.names = FALSE)
 }
 
+
+#' @describeIn write_weights Function to write info about relationship between genes and hallmarks in the framework of break points
+#'
+#'
+#' @return \code{write_break_points} returns NULL,
+#' but break points of weights between genes and hallmarks will write to a file
+#'
+#' @export
+#'
+#' @examples
+#' if ( !dir.exists('./Output') ) dir.create('./Output')
+#' hall = tugHall_dataset$hall
+#' onco = tugHall_dataset$onco
+#' write_break_points(outfile = './Output/break_points.txt', hall)
+write_break_points <- function(outfile, hall) {
+    #data <- c("Hallmarks", "Designation", onco$name)
+    data <- data.frame( "Gene" = pck.env$onco$name)
+    data$Gene <-   as.character( data$Gene )
+
+    w <- rep(0.0, pck.env$onco$len)
+    for (j in 1:pck.env$onco$len) {
+        if ( length( which(j==hall$Ha) ) > 0  ) w[j] = hall$Ha_w[which(j==hall$Ha)]
+    }
+    data <- cbind(data, "Apoptosis" = w)
+
+    w <- rep(0.0, pck.env$onco$len)
+    for (j in 1:pck.env$onco$len) { if ( length( which(j==hall$Hb) ) > 0  ) w[j] = hall$Hb_w[which(j==hall$Hb)]  }
+    data <- cbind(data, "Angiogenesis" = w)
+
+    w <- rep(0.0, pck.env$onco$len)
+    for (j in 1:pck.env$onco$len) { if ( length( which(j==hall$Hd) ) > 0  ) w[j] = hall$Hd_w[which(j==hall$Hd)]  }
+    data <- cbind(data, "Growth_Antigrowth" = w)
+
+    w <- rep( 0.0, pck.env$onco$len )
+    for (j in 1:pck.env$onco$len) { if ( length( which(j==hall$Hi) ) > 0  ) w[j] = hall$Hi_w[which(j==hall$Hi)]  }
+    data <- cbind(data, "Immortalization" = w)
+
+    w <- rep(0.0, pck.env$onco$len)
+    for (j in 1:pck.env$onco$len) { if ( length( which(j==hall$Him) ) > 0  ) w[j] = hall$Him_w[which(j==hall$Him)]  }
+    data <- cbind(data, "Invasion_Metastasis" = w)
+
+    # Correct normalization
+    if ( pck.env$Compaction_factor ){
+
+        data$Apoptosis     =  data$Apoptosis / pck.env$CF$Ha
+        data$Angiogenesis  =  data$Angiogenesis / pck.env$CF$Hb
+        data$Growth_Antigrowth  =  data$Growth_Antigrowth / pck.env$CF$Hd
+        data$Immortalization    =  data$Immortalization   / pck.env$CF$Hi
+        data$Invasion_Metastasis  =  data$Invasion_Metastasis / pck.env$CF$Him
+    }
+
+    data$break_points = paste0( 'break_point_', data$Gene )
+    data = data[, -1]
+    data = cbind( data[ , 6], data[, -6 ])
+    names( data ) = c( 'break_points', names( data[ , -1]))
+    for( i in 2:nrow( data ) ){
+        data[ i, 2:6]  =  data[ i, 2:6] + data[ i-1, 2:6]
+    }
+
+    write.table(data, outfile, sep="\t", row.names = FALSE)
+}
+
 #' Function to write the point mutation info for all clones for all time steps, used at the last time step or after simulation
 #'
 #' @param pnt_clones List of objects of class 'Point_Mutations'

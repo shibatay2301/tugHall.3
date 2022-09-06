@@ -2,9 +2,12 @@
 % Please edit documentation in R/tugHall_Model_functions.R
 \name{write_weights}
 \alias{write_weights}
+\alias{write_break_points}
 \title{Function to write info about relationship between genes and hallmarks}
 \usage{
 write_weights(outfile, hall)
+
+write_break_points(outfile, hall)
 }
 \arguments{
 \item{outfile}{File name for output info}
@@ -13,13 +16,25 @@ write_weights(outfile, hall)
 }
 \value{
 NULL, but info about relationship between genes and hallmarks will write to a file
+
+\code{write_break_points} returns NULL,
+but break points of weights between genes and hallmarks will write to a file
 }
 \description{
 Function to write info about relationship between genes and hallmarks
 }
+\section{Functions}{
+\itemize{
+\item \code{write_break_points()}: Function to write info about relationship between genes and hallmarks in the framework of break points
+
+}}
 \examples{
 if ( !dir.exists('./Output') ) dir.create('./Output')
 hall = tugHall_dataset$hall
 onco = tugHall_dataset$onco
 write_weights(outfile = './Output/weights.txt', hall)
+if ( !dir.exists('./Output') ) dir.create('./Output')
+hall = tugHall_dataset$hall
+onco = tugHall_dataset$onco
+write_break_points(outfile = './Output/break_points.txt', hall)
 }

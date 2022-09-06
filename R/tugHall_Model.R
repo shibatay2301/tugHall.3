@@ -67,6 +67,7 @@ model <- function( ){
     pck.env$onco_clones = init_onco_clones( pck.env$onco, clones )    # onco_clones - the onco related to each clone in clones
     write_geneout(geneoutfile, pck.env$hall, Compaction_factor, pck.env$CF)                  # write the geneout.txt file with initial hallmarks
     write_weights("Output/Weights.txt", pck.env$hall)                 # write the weights of genes for hallmarks
+    write_break_points("Output/Break_points.txt", pck.env$hall)
     write_header( cloneoutfile, pck.env$env, pck.env$onco )                   #
     if ( monitor ) write_monitor( outfile = pck.env$file_monitor, start = TRUE )
     cells_number <- sum_N_P_M( pck.env$env, clones )                 # to calculate cells numbers - N,M
@@ -176,6 +177,7 @@ model_keep_run  <-  function(){
 
     write_geneout(geneoutfile, pck.env$hall, Compaction_factor, pck.env$CF)                  # write the geneout.txt file with initial hallmarks
     write_weights("Output/Weights.txt", pck.env$hall)                 # write the weights of genes for hallmarks
+    write_break_points("Output/Break_points.txt", pck.env$hall)
     if ( !file.exists( cloneoutfile )){
         write_header( cloneoutfile, pck.env$env, pck.env$onco )                   #
     }

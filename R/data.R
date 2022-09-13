@@ -28,5 +28,7 @@
 #'   \item{VAF}{data.frame with VAF values for different rho}
 #'   \item{rdr_dysf}{data.frame of order of genes dysfunction for each clone}
 #' }
+#'
+#'
 'tugHall_dataset'
 

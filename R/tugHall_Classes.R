@@ -181,7 +181,7 @@ clone <- setRefClass(
 #' @field Hb numeric. Average value of angiogenesis hallmark Hb
 #' @field type numeric. Invasion / metastatic ratio
 #' @field gene numeric. Cancer gene damage rate
-#' @field mutden numeric. Average mutation rate
+#' @field mutden numeric. Average density of gene malfunction
 #' @field last_id numeric. Maximal ID in the pool of clones.
 #'
 #' @return NULL
@@ -220,7 +220,7 @@ environ <- setRefClass(
         gene = "numeric",        # cancer gene damage rate
         # posdriver = "character", # cancer gene damage position (function deficit)
         # pospasngr = "character", # cancer gene damage position (maintaince of function)
-        mutden = "numeric",      # average mutation rate
+        mutden = "numeric",      # density of gene malfunction
         last_id = "numeric"
     ),
 

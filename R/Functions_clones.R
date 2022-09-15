@@ -115,12 +115,12 @@ plot_average_simulation_data  <-  function( data_avg, time_max ){
     plot_2D_lines( x = data_avg$Time, data_avg,
                    nl = c('mut_den'), xr = g_range_x, yr = g_range_y,
                    legend_names = '',
-                   names = c( 'Time step', 'Mutation rate' ) ,
+                   names = c( 'Time step', 'Average density of gene malfunction' ) ,
                    safe_pdf  =  safe_pdf,
                    filename = paste0( flnm, '_mutation_rate.pdf') ,
                    draw_key = FALSE )
 
-    rl =  readline(prompt="This is a plot for average value of mutation rate - Press Enter")
+    rl =  readline(prompt="This is a plot for average density of gene malfunction - Press Enter")
 }
 
 

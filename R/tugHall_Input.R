@@ -75,6 +75,7 @@ define_gene_location  <-  function( file_input  =  'Input/CCDS.current.txt',
 #' @param   s0 Parameter in the sigmoid function, numeric type only
 #' @param   k0 Environmental death probability, numeric type only
 #' @param   d0 Initial probability to divide cells, numeric type only
+#' @param   ctmax Hayflick limitation for cell division, integer type
 #' @param   censor_cells_number Max cell number where the program forcibly stops, integer type only
 #' @param   censor_time_step Max time where the program forcibly stops, integer type only
 #' @param   real_time_stop Max time in seconds of running after that the program forcibly stops, integer type only
@@ -101,8 +102,9 @@ define_gene_location  <-  function( file_input  =  'Input/CCDS.current.txt',
 #' define_parameters( read_fl = TRUE , file_name = './Input/parameters.txt' )
 #' define_parameters( read_fl = FALSE )
 define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us =  0.9,
-                                 s0 =  10, k0 =  0.12, d0 =  0.4, censor_cells_number = 10^5,
-                                 censor_time_step = 50, m_dup  = 1E-8, m_del  = 1E-8,
+                                 s0 =  10, k0 =  0.12, d0 =  0.4, ctmax = 50,
+                                 censor_cells_number = 1E05, censor_time_step = 80,
+                                 m_dup  = 1E-8, m_del  = 1E-8,
                                  lambda_dup  = 5000, lambda_del  = 7000,
                                  uo_dup  = 0.8, us_dup  = 0.5, uo_del  = 0, us_del  = 0.8,
                                  Compaction_factor  =  TRUE,
@@ -127,6 +129,7 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
         pck.env$us  =  as.numeric( data_log[ which( data_log$var == 'us' ), 2 ] )     # suppressor mutation probability
         pck.env$s0  =  as.numeric( data_log[ which( data_log$var ==  's' ), 2 ] )     # parameter in the sigmoid function
         pck.env$d0  =  as.numeric( data_log[ which( data_log$var == 'd0' ), 2 ] )     # Initial probability to divide cells
+        pck.env$ctmax  =  as.numeric( data_log[ which( data_log$var == 'ctmax' ), 2 ] )     # Hayflick limitation for cell division
         k0          =  as.character( data_log[ which( data_log$var == 'k0' ), 2 ] )     # Environmental death probability
 
         if ( is.na( k0 ) ) {
@@ -163,6 +166,7 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
         pck.env$s0  =   s0         # parameter in the sigmoid function
         pck.env$k0  =   k0        # Environmental death probability
         pck.env$d0  =   d0       # Initial probability to divide cells
+        pck.env$ctmax  =  ctmax  # Hayflick limitation for cell division
         ### Additional parameters of simulation
         pck.env$censor_cells_number  =  censor_cells_number       # Max cell number where the program forcibly stops
         pck.env$censor_time_step  =  censor_time_step         # Max time where the program forcibly stops

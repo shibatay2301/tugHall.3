@@ -170,7 +170,7 @@ trial_complex <- function( clone1, onco1 ) {
     N_new = clone1$N_cells   # the initial number to split / before trial / - all cells "want" to split
 
     # Fragmentation restriction trial
-    if (clone1$c > 50) {
+    if (clone1$c > pck.env$ctmax) {
         N_new = calc_binom(1, N_new, (1 - clone1$i))
     }
 

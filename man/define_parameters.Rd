@@ -13,8 +13,9 @@ define_parameters(
   s0 = 10,
   k0 = 0.12,
   d0 = 0.4,
-  censor_cells_number = 10^5,
-  censor_time_step = 50,
+  ctmax = 50,
+  censor_cells_number = 1e+05,
+  censor_time_step = 80,
   m_dup = 1e-08,
   m_del = 1e-08,
   lambda_dup = 5000,
@@ -48,6 +49,8 @@ define_parameters(
 \item{k0}{Environmental death probability, numeric type only}
 
 \item{d0}{Initial probability to divide cells, numeric type only}
+
+\item{ctmax}{Hayflick limitation for cell division, integer type}
 
 \item{censor_cells_number}{Max cell number where the program forcibly stops, integer type only}
 

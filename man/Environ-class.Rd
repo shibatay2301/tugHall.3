@@ -51,7 +51,7 @@ Class 'Environ'
 
 \item{\code{gene}}{numeric. Cancer gene damage rate}
 
-\item{\code{mutden}}{numeric. Average mutation rate}
+\item{\code{mutden}}{numeric. Average density of gene malfunction}
 
 \item{\code{last_id}}{numeric. Maximal ID in the pool of clones.}
 }}

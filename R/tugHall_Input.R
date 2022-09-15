@@ -210,6 +210,7 @@ print_parameters  <-  function(){
         'parameter in the sigmoid function  s0  =  ', pck.env$s0, '\n',
         'Environmental death probability  k0 =  ',  pck.env$k0, '\n',
         'Initial probability to divide cells  d0  =  ',  pck.env$d0, '\n',
+        'Hayflick limitation of cell division  ctmax  =  ',  pck.env$ctmax, '\n',
         'Additional parameters of simulation  \n ',
         'Max cell number where the program forcibly stops  censor_cells_number  = ',  pck.env$censor_cells_number,  '\n',
         'Max time steps where the program forcibly stops  censor_time_step  = ',  pck.env$censor_time_step,  '\n',

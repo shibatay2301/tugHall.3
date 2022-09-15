@@ -28,7 +28,7 @@ model <- function( ){
     }
 
     write_log(genefile, clonefile, geneoutfile, cloneoutfile, logoutfile,
-              E0, F0, m0, uo, us, s0, k0,
+              E0, F0, m0, uo, us, s0, k0, ctmax,
               m_dup, m_del, lambda_dup, lambda_del, # CNA parameters
               uo_dup, us_dup, uo_del, us_del,       # CNA parameters
               censor_cells_number, censor_time_step, d0, Compaction_factor, model_name, real_time_stop,
@@ -162,7 +162,7 @@ model_keep_run  <-  function(){
 
 
     write_log(genefile, clonefile, geneoutfile, cloneoutfile, logoutfile,
-              E0, F0, m0, uo, us, s0, k0,
+              E0, F0, m0, uo, us, s0, k0, ctmax,
               m_dup, m_del, lambda_dup, lambda_del, # CNA parameters
               uo_dup, us_dup, uo_del, us_del,       # CNA parameters
               censor_cells_number, censor_time_step, d0, Compaction_factor, model_name, real_time_stop,

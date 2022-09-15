@@ -647,6 +647,7 @@ onco_copy <- function( onco1 ){
 #' @param   s0 Parameter in the sigmoid function, numeric type only
 #' @param   k0 Environmental death probability, numeric type only
 #' @param   d0 Initial probability to divide cells, numeric type only
+#' @param   ctmax Hayflick limitation for cell division, integer type
 #' @param   censor_cells_number Max cell number where the program forcibly stops, integer type only
 #' @param   censor_time_step Max time where the program forcibly stops, integer type only
 #' @param   real_time_stop Max time in seconds of running after that the program forcibly stops, integer type only
@@ -673,18 +674,18 @@ onco_copy <- function( onco1 ){
 #' if ( !dir.exists('./Output') ) dir.create('./Output')
 #' \dontrun{
 #' write_log(genefile, clonefile, geneoutfile, cloneoutfile, logoutfile,
-#' E0, F0, m0, uo, us, s0, k0, m_dup, m_del, lambda_dup, lambda_del,
+#' E0, F0, m0, uo, us, s0, k0, ctmax, m_dup, m_del, lambda_dup, lambda_del,
 #' uo_dup, us_dup, uo_del, us_del, censor_cells_number, censor_time_step, d0,
 #' Compaction_factor, model_name, real_time_stop, n_repeat, monitor )
 #' }
 write_log <- function(genefile, clonefile, geneoutfile, cloneoutfile, logoutfile,
-                      E0, F0, m0, uo, us, s0, k0,
+                      E0, F0, m0, uo, us, s0, k0, ctmax,
                       m_dup, m_del, lambda_dup, lambda_del, # CNA parameters
                       uo_dup, us_dup, uo_del, us_del,       # CNA parameters
                       censor_cells_number, censor_time_step, d0, Compaction_factor, model_name,
                       real_time_stop, n_repeat, monitor ) {
     data <- c('Working_folder', "genefile", "clonefile", "geneoutfile", "cloneoutfile", "logoutfile",
-              "E0", "F0", "m0", "uo", "us", "s0", "k0",
+              "E0", "F0", "m0", "uo", "us", "s0", "k0", 'ctmax',
               "m_dup", "m_del", "lambda_dup", "lambda_del",
               "uo_dup", "us_dup", "uo_del", "us_del",
               "censor_cells_number", "censor_time_step", "d0", 'Compaction_factor', 'model_name',
@@ -695,7 +696,7 @@ write_log <- function(genefile, clonefile, geneoutfile, cloneoutfile, logoutfile
                            str_remove( geneoutfile, pck.env$mainDir),
                            str_remove( cloneoutfile, pck.env$mainDir),
                            str_remove( logoutfile, pck.env$mainDir),
-                           E0, F0, m0, uo, us, s0, k0,
+                           E0, F0, m0, uo, us, s0, k0, ctmax,
                            m_dup, m_del, lambda_dup, lambda_del, # CNA parameters
                            uo_dup, us_dup, uo_del, us_del,       # CNA parameters
                            censor_cells_number, censor_time_step, d0, Compaction_factor, model_name,

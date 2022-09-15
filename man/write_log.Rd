@@ -17,6 +17,7 @@ write_log(
   us,
   s0,
   k0,
+  ctmax,
   m_dup,
   m_del,
   lambda_dup,
@@ -59,6 +60,8 @@ write_log(
 \item{s0}{Parameter in the sigmoid function, numeric type only}
 
 \item{k0}{Environmental death probability, numeric type only}
+
+\item{ctmax}{Hayflick limitation for cell division, integer type}
 
 \item{m_dup}{Mutation probability for duplication, numeric type only}
 
@@ -105,7 +108,7 @@ load_tugHall.Environment( tugHall_dataset )
 if ( !dir.exists('./Output') ) dir.create('./Output')
 \dontrun{
 write_log(genefile, clonefile, geneoutfile, cloneoutfile, logoutfile,
-E0, F0, m0, uo, us, s0, k0, m_dup, m_del, lambda_dup, lambda_del,
+E0, F0, m0, uo, us, s0, k0, ctmax, m_dup, m_del, lambda_dup, lambda_del,
 uo_dup, us_dup, uo_del, us_del, censor_cells_number, censor_time_step, d0,
 Compaction_factor, model_name, real_time_stop, n_repeat, monitor )
 }

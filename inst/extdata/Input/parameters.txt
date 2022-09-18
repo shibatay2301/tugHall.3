@@ -27,3 +27,8 @@ model_name	proportional_metastatic
 real_time_stop	120
 n_repeat	1
 monitor	TRUE
+tumbler_for_metastasis_trial	TRUE
+tumbler_for_apoptosis_trial	TRUE
+tumbler_for_immortalization_trial	TRUE
+tumbler_for_angiogenesis_trial	TRUE
+tumbler_for_drug_intervetion_trial	TRUE

@@ -111,7 +111,12 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
                                  model  =  c( 'proportional_metastatic', 'threshold_metastatic', 'simplified' )[ 1 ],
                                  real_time_stop = 120,
                                  read_fl = FALSE, file_name ='./Input/parameters.txt',
-                                 n_repeat = 1000, monitor  =  TRUE ){
+                                 n_repeat = 1000, monitor  =  TRUE,
+                                 tumbler_for_metastasis_trial =  TRUE,
+                                 tumbler_for_apoptosis_trial =  TRUE,
+                                 tumbler_for_immortalization_trial =  TRUE,
+                                 tumbler_for_angiogenesis_trial =  TRUE,
+                                 tumbler_for_drug_intervetion_trial =  TRUE ){
     if ( read_fl ){
         data_log  =  read.table( file = file_name, sep = '\t', stringsAsFactors = FALSE )
         names( data_log )  =  c( 'var', 'value' )
@@ -152,6 +157,12 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
         pck.env$uo_del  =  as.numeric( data_log[ which( data_log$var == 'uo_del' ), 2 ] )   # Gene malfunction probability by CNA deletion    for oncogene
         pck.env$us_del  =  as.numeric( data_log[ which( data_log$var == 'us_del' ), 2 ] ) # Gene malfunction probability by CNA deletion    for suppressor
         pck.env$monitor  =  as.logical( data_log[ which( data_log$var == 'monitor' ), 2 ] )
+        # Tumblers for all the trials:
+        pck.env$tumbler_for_metastasis_trial   =  as.logical( data_log[ which( data_log$var == 'tumbler_for_metastasis_trial' ), 2 ] )
+        pck.env$tumbler_for_apoptosis_trial    =  as.logical( data_log[ which( data_log$var == 'tumbler_for_apoptosis_trial' ), 2 ] )
+        pck.env$tumbler_for_immortalization_trial   =  as.logical( data_log[ which( data_log$var == 'tumbler_for_immortalization_trial' ), 2 ] )
+        pck.env$tumbler_for_angiogenesis_trial      =  as.logical( data_log[ which( data_log$var == 'tumbler_for_angiogenesis_trial' ), 2 ] )
+        pck.env$tumbler_for_drug_intervetion_trial  =  as.logical( data_log[ which( data_log$var == 'tumbler_for_drug_intervetion_trial' ), 2 ] )
     } else {
 
         # Model definition:
@@ -182,6 +193,12 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
         pck.env$uo_del   =  uo_del   # Gene malfunction probability by CNA deletion    for oncogene
         pck.env$us_del   =  us_del # Gene malfunction probability by CNA deletion    for suppressor
         pck.env$monitor  =  monitor  # The indicator to make monitor file during a simulation or do not make
+        # Tumblers for all the trials:
+        pck.env$tumbler_for_metastasis_trial   =  tumbler_for_metastasis_trial
+        pck.env$tumbler_for_apoptosis_trial    =  tumbler_for_apoptosis_trial
+        pck.env$tumbler_for_immortalization_trial   =  tumbler_for_immortalization_trial
+        pck.env$tumbler_for_angiogenesis_trial      =  tumbler_for_angiogenesis_trial
+        pck.env$tumbler_for_drug_intervetion_trial  =  tumbler_for_drug_intervetion_trial
     }
 }
 
@@ -231,7 +248,13 @@ print_parameters  <-  function(){
         'Compaction factor for growth/antigrowth hallmark CF$Hd = ', pck.env$CF$Hd, ' \n',
         'Compaction factor for immortalization hallmark CF$Hi = ', pck.env$CF$Hi, ' \n',
         'Compaction factor for invasion/metastasis hallmark CF$Him = ', pck.env$CF$Him,
-        '\n Monitoring: \n indicator monitor  =  ', pck.env$monitor, '\n \n '
+        '\n Monitoring: \n indicator monitor  =  ', pck.env$monitor,
+        'Tumblers for simulation processes/trials: \n',
+        'Tumber for metastasis/invasion trial is ', pck.env$tumbler_for_metastasis_trial, '\n',
+        'Tumber for apoptosis trial is ', pck.env$tumbler_for_apoptosis_trial, '\n',
+        'Tumber for immortalization trial is ', pck.env$tumbler_for_immortalization_trial, '\n',
+        'Tumber for angiogenesis trial is ', pck.env$tumbler_for_angiogenesis_trial, '\n',
+        'Tumber for drug intervention trial is ', pck.env$tumbler_for_drug_intervetion_trial, '\n \n '
     )
 
     cat( paste0( msg, collapse = ' ' ) )

@@ -30,7 +30,12 @@ define_parameters(
   read_fl = FALSE,
   file_name = "./Input/parameters.txt",
   n_repeat = 1000,
-  monitor = TRUE
+  monitor = TRUE,
+  tumbler_for_metastasis_trial = TRUE,
+  tumbler_for_apoptosis_trial = TRUE,
+  tumbler_for_immortalization_trial = TRUE,
+  tumbler_for_angiogenesis_trial = TRUE,
+  tumbler_for_drug_intervetion_trial = TRUE
 )
 }
 \arguments{

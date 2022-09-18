@@ -248,7 +248,7 @@ print_parameters  <-  function(){
         'Compaction factor for growth/antigrowth hallmark CF$Hd = ', pck.env$CF$Hd, ' \n',
         'Compaction factor for immortalization hallmark CF$Hi = ', pck.env$CF$Hi, ' \n',
         'Compaction factor for invasion/metastasis hallmark CF$Him = ', pck.env$CF$Him,
-        '\n Monitoring: \n indicator monitor  =  ', pck.env$monitor,
+        '\n Monitoring: \n indicator monitor  =  ', pck.env$monitor, '\n',
         'Tumblers for simulation processes/trials: \n',
         'Tumber for metastasis/invasion trial is ', pck.env$tumbler_for_metastasis_trial, '\n',
         'Tumber for apoptosis trial is ', pck.env$tumbler_for_apoptosis_trial, '\n',

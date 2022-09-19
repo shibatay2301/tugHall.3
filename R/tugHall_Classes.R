@@ -524,7 +524,7 @@ hallmark <- setRefClass(
             # Angiogenesis
             clone1$Hb = sum( clone1$gene[Hb] * Hb_w )
 
-            clone1$E     =  E0  / (1 + F * clone1$Hb)
+            clone1$E     =   ifelse( !pck.env$tumbler_for_angiogenesis_trial, E0, ( E0  / (1 + F * clone1$Hb) ) )
             clone1$Nmax  =  1.0 / clone1$E
 
             # Cancer gene, tumor suppressor gene

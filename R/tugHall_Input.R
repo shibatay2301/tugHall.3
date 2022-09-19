@@ -255,11 +255,11 @@ print_parameters  <-  function(){
         'Compaction factor for invasion/metastasis hallmark CF$Him = ', pck.env$CF$Him,
         '\n Monitoring: \n indicator monitor  =  ', pck.env$monitor, '\n',
         'Tumblers for simulation processes/trials: \n',
-        'Tumber for metastasis/invasion trial is ', pck.env$tumbler_for_metastasis_trial, '\n',
-        'Tumber for apoptosis trial is ', pck.env$tumbler_for_apoptosis_trial, '\n',
-        'Tumber for immortalization trial is ', pck.env$tumbler_for_immortalization_trial, '\n',
-        'Tumber for angiogenesis trial is ', pck.env$tumbler_for_angiogenesis_trial, '\n',
-        'Tumber for drug intervention trial is ', pck.env$tumbler_for_drug_intervention_trial, '\n \n '
+        'Tumbler for metastasis/invasion trial is ', pck.env$tumbler_for_metastasis_trial, '\n',
+        'Tumbler for apoptosis trial is ', pck.env$tumbler_for_apoptosis_trial, '\n',
+        'Tumbler for immortalization trial is ', pck.env$tumbler_for_immortalization_trial, '\n',
+        'Tumbler for angiogenesis trial is ', pck.env$tumbler_for_angiogenesis_trial, '\n',
+        'Tumbler for drug intervention trial is ', pck.env$tumbler_for_drug_intervention_trial, '\n \n '
     )
 
     cat( paste0( msg, collapse = ' ' ) )

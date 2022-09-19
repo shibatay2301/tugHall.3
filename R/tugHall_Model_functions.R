@@ -150,7 +150,9 @@ trial_complex <- function( clone1, onco1 ) {
     N_die  =  calc_binom( 1, clone1$N_cells, clone1$k )   # The number of cells to die due to the Environmental death of cells in clone
 
     # Apoptosis trial
-    N_die  =  N_die + calc_binom( 1, clone1$N_cells, clone1$a )
+    if ( pck.env$tumbler_for_apoptosis_trial ){
+        N_die  =  N_die + calc_binom( 1, clone1$N_cells, clone1$a )
+    }
 
     # invasion / metastasis trial
     if (clone1$im > 0 & pck.env$tumbler_for_metastasis_trial ) {
@@ -170,8 +172,8 @@ trial_complex <- function( clone1, onco1 ) {
     N_new = clone1$N_cells   # the initial number to split / before trial / - all cells "want" to split
 
     # Fragmentation restriction trial
-    if (clone1$c > pck.env$ctmax) {
-        N_new = calc_binom(1, N_new, (1 - clone1$i))
+    if ( clone1$c > pck.env$ctmax  &  pck.env$tumbler_for_immortalization_trial ) {
+        N_new = calc_binom( 1, N_new, (1 - clone1$i) )
     }
 
     # Divide trial

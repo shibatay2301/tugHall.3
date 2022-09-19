@@ -97,7 +97,7 @@ utils::globalVariables( c( 'Compaction_factor', 'E0', 'F0', 'censor_cells_number
                            'uo_del', 'uo_dup', 'us', 'us_del', 'us_dup',
                            'tumbler_for_metastasis_trial', 'tumbler_for_apoptosis_trial',
                            'tumbler_for_immortalization_trial', 'tumbler_for_angiogenesis_trial',
-                           'tumbler_for_drug_intervetion_trial' ) )
+                           'tumbler_for_drug_intervention_trial' ) )
 
 
 

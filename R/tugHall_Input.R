@@ -93,6 +93,11 @@ define_gene_location  <-  function( file_input  =  'Input/CCDS.current.txt',
 #' @param model Name of the model to use. Can be  'proportional_metastatic' or 'threshold_metastatic' or 'simplified'
 #' @param read_fl Indicator to read file or not, logical type only
 #' @param file_name File name to rad all the parameters, it is used only if read_fl == TRUE
+#' @param tumbler_for_metastasis_trial Logical parameter to turn on/off invasion/metastasis transformation trial
+#' @param tumbler_for_apoptosis_trial Logical parameter to turn on/off the apoptosis trial
+#' @param tumbler_for_immortalization_trial Logical parameter to turn on/off the immortalization trial
+#' @param tumbler_for_angiogenesis_trial Logical parameter to turn on/off angiogenesis trial
+#' @param tumbler_for_drug_intervention_trial Logical parameter to turn on/off drug intervention trial
 #'
 #' @return Values of all the parameters
 #' @export
@@ -116,7 +121,7 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
                                  tumbler_for_apoptosis_trial =  TRUE,
                                  tumbler_for_immortalization_trial =  TRUE,
                                  tumbler_for_angiogenesis_trial =  TRUE,
-                                 tumbler_for_drug_intervetion_trial =  TRUE ){
+                                 tumbler_for_drug_intervention_trial =  TRUE ){
     if ( read_fl ){
         data_log  =  read.table( file = file_name, sep = '\t', stringsAsFactors = FALSE )
         names( data_log )  =  c( 'var', 'value' )
@@ -162,7 +167,7 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
         pck.env$tumbler_for_apoptosis_trial    =  as.logical( data_log[ which( data_log$var == 'tumbler_for_apoptosis_trial' ), 2 ] )
         pck.env$tumbler_for_immortalization_trial   =  as.logical( data_log[ which( data_log$var == 'tumbler_for_immortalization_trial' ), 2 ] )
         pck.env$tumbler_for_angiogenesis_trial      =  as.logical( data_log[ which( data_log$var == 'tumbler_for_angiogenesis_trial' ), 2 ] )
-        pck.env$tumbler_for_drug_intervetion_trial  =  as.logical( data_log[ which( data_log$var == 'tumbler_for_drug_intervetion_trial' ), 2 ] )
+        pck.env$tumbler_for_drug_intervention_trial  =  as.logical( data_log[ which( data_log$var == 'tumbler_for_drug_intervention_trial' ), 2 ] )
     } else {
 
         # Model definition:
@@ -198,7 +203,7 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
         pck.env$tumbler_for_apoptosis_trial    =  tumbler_for_apoptosis_trial
         pck.env$tumbler_for_immortalization_trial   =  tumbler_for_immortalization_trial
         pck.env$tumbler_for_angiogenesis_trial      =  tumbler_for_angiogenesis_trial
-        pck.env$tumbler_for_drug_intervetion_trial  =  tumbler_for_drug_intervetion_trial
+        pck.env$tumbler_for_drug_intervention_trial  =  tumbler_for_drug_intervention_trial
     }
 }
 
@@ -254,7 +259,7 @@ print_parameters  <-  function(){
         'Tumber for apoptosis trial is ', pck.env$tumbler_for_apoptosis_trial, '\n',
         'Tumber for immortalization trial is ', pck.env$tumbler_for_immortalization_trial, '\n',
         'Tumber for angiogenesis trial is ', pck.env$tumbler_for_angiogenesis_trial, '\n',
-        'Tumber for drug intervention trial is ', pck.env$tumbler_for_drug_intervetion_trial, '\n \n '
+        'Tumber for drug intervention trial is ', pck.env$tumbler_for_drug_intervention_trial, '\n \n '
     )
 
     cat( paste0( msg, collapse = ' ' ) )

@@ -153,7 +153,7 @@ trial_complex <- function( clone1, onco1 ) {
     N_die  =  N_die + calc_binom( 1, clone1$N_cells, clone1$a )
 
     # invasion / metastasis trial
-    if (clone1$im > 0) {
+    if (clone1$im > 0 & pck.env$tumbler_for_metastasis_trial ) {
         if (!clone1$invasion) {
             N_die  =  N_die + calc_binom( 1, clone1$N_cells, ( 1 - clone1$im ) )
             if ( model_name == 'proportional_metastatic') {

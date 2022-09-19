@@ -35,7 +35,7 @@ define_parameters(
   tumbler_for_apoptosis_trial = TRUE,
   tumbler_for_immortalization_trial = TRUE,
   tumbler_for_angiogenesis_trial = TRUE,
-  tumbler_for_drug_intervetion_trial = TRUE
+  tumbler_for_drug_intervention_trial = TRUE
 )
 }
 \arguments{

@@ -33,7 +33,12 @@ write_log(
   model_name,
   real_time_stop,
   n_repeat,
-  monitor
+  monitor,
+  tumbler_for_metastasis_trial,
+  tumbler_for_apoptosis_trial,
+  tumbler_for_immortalization_trial,
+  tumbler_for_angiogenesis_trial,
+  tumbler_for_drug_intervention_trial
 )
 }
 \arguments{
@@ -94,6 +99,16 @@ write_log(
 \item{n_repeat}{Max number of repetition of the program until the NON-ZERO output will be getting, integer type only}
 
 \item{monitor}{The indicator to make monitor file during a simulation or do not make, logical type only}
+
+\item{tumbler_for_metastasis_trial}{Logical parameter to turn on/off invasion/metastasis transformation trial}
+
+\item{tumbler_for_apoptosis_trial}{Logical parameter to turn on/off the apoptosis trial}
+
+\item{tumbler_for_immortalization_trial}{Logical parameter to turn on/off the immortalization trial}
+
+\item{tumbler_for_angiogenesis_trial}{Logical parameter to turn on/off angiogenesis trial}
+
+\item{tumbler_for_drug_intervention_trial}{Logical parameter to turn on/off drug intervention trial}
 }
 \value{
 NULL, write log file to Output folder

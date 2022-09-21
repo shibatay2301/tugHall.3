@@ -665,6 +665,11 @@ onco_copy <- function( onco1 ){
 #' @param  monitor The indicator to make monitor file during a simulation or do not make, logical type only
 #' @param Compaction_factor Compaction factor, logical type only. True means 'to use', False means 'do not use' Compaction factor for hallmarks variables
 #' @param model_name Name of the model to use. Can be  'proportional_metastatic' or 'threshold_metastatic' or 'simplified'
+#' @param tumbler_for_metastasis_trial Logical parameter to turn on/off invasion/metastasis transformation trial
+#' @param tumbler_for_apoptosis_trial Logical parameter to turn on/off the apoptosis trial
+#' @param tumbler_for_immortalization_trial Logical parameter to turn on/off the immortalization trial
+#' @param tumbler_for_angiogenesis_trial Logical parameter to turn on/off angiogenesis trial
+#' @param tumbler_for_drug_intervention_trial Logical parameter to turn on/off drug intervention trial
 #'
 #' @return NULL, write log file to Output folder
 #' @export
@@ -685,13 +690,19 @@ write_log <- function(genefile, clonefile, geneoutfile, cloneoutfile, logoutfile
                       m_dup, m_del, lambda_dup, lambda_del, # CNA parameters
                       uo_dup, us_dup, uo_del, us_del,       # CNA parameters
                       censor_cells_number, censor_time_step, d0, Compaction_factor, model_name,
-                      real_time_stop, n_repeat, monitor ) {
+                      real_time_stop, n_repeat, monitor,
+                      tumbler_for_metastasis_trial, tumbler_for_apoptosis_trial,
+                      tumbler_for_immortalization_trial, tumbler_for_angiogenesis_trial,
+                      tumbler_for_drug_intervention_trial ) {
     data <- c('Working_folder', "genefile", "clonefile", "geneoutfile", "cloneoutfile", "logoutfile",
               "E0", "F0", "m0", "uo", "us", "s0", "k0", 'ctmax',
               "m_dup", "m_del", "lambda_dup", "lambda_del",
               "uo_dup", "us_dup", "uo_del", "us_del",
               "censor_cells_number", "censor_time_step", "d0", 'Compaction_factor', 'model_name',
-              'real_time_stop', 'n_repeat', 'monitor' )
+              'real_time_stop', 'n_repeat', 'monitor',
+              'tumbler_for_metastasis_trial', 'tumbler_for_apoptosis_trial',
+              'tumbler_for_immortalization_trial', 'tumbler_for_angiogenesis_trial',
+              'tumbler_for_drug_intervention_trial' )
     data <- rbind( data, c(pck.env$mainDir,
                            str_remove( genefile, pck.env$mainDir),
                            str_remove( clonefile, pck.env$mainDir),
@@ -702,7 +713,10 @@ write_log <- function(genefile, clonefile, geneoutfile, cloneoutfile, logoutfile
                            m_dup, m_del, lambda_dup, lambda_del, # CNA parameters
                            uo_dup, us_dup, uo_del, us_del,       # CNA parameters
                            censor_cells_number, censor_time_step, d0, Compaction_factor, model_name,
-                           real_time_stop, n_repeat, monitor ) )
+                           real_time_stop, n_repeat, monitor,
+                           pck.env$tumbler_for_metastasis_trial, pck.env$tumbler_for_apoptosis_trial,
+                           pck.env$tumbler_for_immortalization_trial, pck.env$tumbler_for_angiogenesis_trial,
+                           pck.env$tumbler_for_drug_intervention_trial ) )
     write(data, logoutfile, ncolumns = 2, sep="\t")
 }
 

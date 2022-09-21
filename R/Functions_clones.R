@@ -31,15 +31,16 @@ get_flow_data <- function(cloneoutfile, genefile, mainDir = getwd(), sbdr_Output
 
     # average data
     data_avg  =  data_out[ which( data_out$AvgOrIndx  ==  "avg"), ]
+    data_avg$N_normal  =  data_avg$N_normal_intact  +  data_avg$N_normal_speckled
 
     # data without averaging - flow data
     data_flow  =  data_out[ which( !data_out$AvgOrIndx == "avg" ), ]
 
-    data_flow[ , c( 1:22, 24, 30:41 ) ]  =  sapply( X = c( 1:22, 24, 30:41 ),
-              FUN = function( x ) {
-                  as.numeric( data_flow[ , x ] )
-    } )
-
+    clmns  =  c( 1:23, 25, 30:ncol( data_flow ) )  #  numeric columns
+    data_flow[ , clmns ]  =  sapply( X = clmns,  FUN = function( x ) {
+                                                    as.numeric( data_flow[ , x ] )
+                                                  } )
+    data_flow$N_normal  =  data_flow$N_normal_intact  +  data_flow$N_normal_speckled
 
     # the data of the last time step
     time_max   =  max( data_flow$Time )

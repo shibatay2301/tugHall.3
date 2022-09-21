@@ -773,7 +773,7 @@ write_geneout <- function(outfile, hall, Compaction_factor, CF) {
 #' write_header(outfile='./Output/exmpl.txt', env, onco)
 write_header <- function(outfile, env, onco) {
     header <- c('Time', 'AvgOrIndx', 'ID', 'N_cells', 'ParentID', 'Birth_time', 'c', 'd', 'i', 'im', 'a',
-                'k', 'E', 'N_normal', 'Nmax', 'N_primary', 'N_metastatic', 'Ha', 'Him', 'Hi', 'Hd', 'Hb', 'type', 'mut_den',
+                'k', 'E', 'N_normal_intact',	'N_normal_speckled', 'Nmax', 'N_primary', 'N_metastatic', 'Ha', 'Him', 'Hi', 'Hd', 'Hb', 'type', 'mut_den',
                 # paste("PosDriver:", onco$name, sep=""), paste("PosPasngr:", onco$name, sep="") )      #   , 'Clone number', 'Passengers Clone number', 'Mix Clone number')
                 'driver_genes', 'passenger_genes',
                 'PointMut_ID', 'CNA_ID' ,
@@ -822,7 +822,9 @@ get_type  <-  function( clone1 ){
 #' write_header(outfile='./Output/exmpl.txt', env, onco)
 #' write_cloneout( outfile = './Output/exmpl.txt', env, clones, isFirst = TRUE, onco_clones )
 write_cloneout <- function( outfile, env, clones, isFirst, onco_clones ) {
-    data  =  c(env$T, 'avg', '-',  '-', '-', '-', env$c, env$d, env$i, env$im, env$a, env$k, env$E, env$N,
+    intact_normal  =  sum( sapply( clones, FUN = function( cl ) ifelse( cl$CNA_ID[ 1 ] == 0 & cl$PointMut_ID[ 1 ] == 0, cl$N_cells, 0 ) ) )
+    data  =  c(env$T, 'avg', '-',  '-', '-', '-', env$c, env$d, env$i, env$im, env$a, env$k, env$E,
+               intact_normal, env$N - intact_normal,  # env$N,
                env$Nmax, env$P, env$M, env$Ha, env$Him, env$Hi, env$Hd, env$Hb, '-', env$mutden,
                rep('-', 12 + 4*length( pck.env$onco$name ) )      # rep('-',17)
     )
@@ -830,12 +832,14 @@ write_cloneout <- function( outfile, env, clones, isFirst, onco_clones ) {
     write(data, outfile, append=TRUE, ncolumns = length(data), sep="\t")
 
     if (length(clones) > 0 & isFirst) {
-        for (i in 1:length(clones)) {
+        for (i in 1:length( clones ) ) {
             clone1  =  clones[[i]]
             onco1   =  onco_clones[[i]]
             type    =  get_type( clone1 = clone1 )
             data    =  c(env$T, i, clone1$id, clone1$N_cells, clone1$parent, clone1$birthday, clone1$c, clone1$d,
-                         clone1$i, clone1$im, clone1$a, clone1$k, clone1$E, env$N, clone1$Nmax, env$P, env$M,
+                         clone1$i, clone1$im, clone1$a, clone1$k, clone1$E,
+                         intact_normal, env$N - intact_normal, # env$N,
+                         clone1$Nmax, env$P, env$M,
                          clone1$Ha, clone1$Him, clone1$Hi, clone1$Hd, clone1$Hb, type,  # ifelse(clone1$invasion,1,0),
                          clone1$mutden,
                          paste(clone1$gene, collapse =  ' '), paste(clone1$pasgene, collapse =  ' '),

@@ -976,6 +976,21 @@ get_VAF_primary_clones  <- function( env, clones, pnt_clones ){
         VAF  =  rbind( VAF, VAF_1)
     }
 
+    i_n  =  which( sapply( 1:length(clones), FUN = function(x) get_type( clones[[ x ]] ) ) == 'normal')
+    if ( length( i_n ) > 0 ){
+        int = sapply( i_n, FUN = function( x ) sum( clones[[ x ]]$pasgene ) )
+        if ( length( which( int == 0 ) ) > 0 ){
+            N_intact  =  sum( sapply( which( int == 0 ), FUN = function( x ) clones[[ x ]]$N_cells ) )
+        } else N_intact    =  0
+
+        N_speckled  =  env$N - N_intact
+    } else {
+        N_intact    =  0
+        N_speckled  =  0
+    }
+
+    VAF$N_speckled_normal_total  =  N_speckled
+    VAF$N_primary_total          =  env$P
 
     return( VAF )
 }

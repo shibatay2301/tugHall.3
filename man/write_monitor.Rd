@@ -2,9 +2,12 @@
 % Please edit documentation in R/tugHall_Model_functions.R
 \name{write_monitor}
 \alias{write_monitor}
+\alias{get_VAF_primary_clones}
 \title{Function to write a simulation monitoring data into the file_monitor}
 \usage{
 write_monitor(outfile, start = FALSE, env, clones)
+
+get_VAF_primary_clones(env, clones, pnt_clones)
 }
 \arguments{
 \item{outfile}{File name for output info}
@@ -14,13 +17,22 @@ write_monitor(outfile, start = FALSE, env, clones)
 \item{env}{Object of class 'Environ'}
 
 \item{clones}{List of objects of class 'Clone'}
+
+\item{pnt_clones}{list of point mutations}
 }
 \value{
 NULL, but info about current state of simulation will write to a file
+
+Vector of three numbers: TMB, TMB for point mutation with VAF > 5\% and TMB for point mutation with VAF > 10\%
 }
 \description{
 Function to write a simulation monitoring data into the file_monitor
 }
+\section{Functions}{
+\itemize{
+\item \code{get_VAF_primary_clones()}: Function to get TMB - number of point mutations per 10^6 bps (per M bps)
+
+}}
 \examples{
 env = tugHall_dataset$env
 if ( !dir.exists('./Output') ) dir.create('./Output')
@@ -30,4 +42,6 @@ cna_clones = tugHall_dataset$cna_clones
 pnt_clones = tugHall_dataset$pnt_clones
 write_monitor( outfile = './Sim_monitoring.txt', start = TRUE , env, clones )
 write_monitor( outfile = './Sim_monitoring.txt', start = FALSE , env, clones )
+NULL
+
 }

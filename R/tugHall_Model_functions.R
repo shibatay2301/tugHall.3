@@ -871,11 +871,11 @@ write_cloneout <- function( outfile, env, clones, isFirst, onco_clones ) {
 #' pnt_clones = tugHall_dataset$pnt_clones
 #' write_monitor( outfile = './Sim_monitoring.txt', start = TRUE , env, clones )
 #' write_monitor( outfile = './Sim_monitoring.txt', start = FALSE , env, clones )
-write_monitor  <- function( outfile, start = FALSE , env, clones ){
+write_monitor  <- function( outfile, start = FALSE, env, clones ){
 
     if ( start ) {
         header <- c('Time', 'N_clones', 'N_normal_intact',  'N_normal_speckled', 'N_primary', 'N_metastatic',
-                    'N_point_mutations', 'N_duplications',   'N_deletions' , 'TMB')
+                    'N_point_mutations', 'N_duplications',   'N_deletions' , 'TMB', 'TMB%5', 'TMB%10' )
         write( header, outfile, append = FALSE, ncolumns = length( header ), sep="\t" )
     } else {
         if ( length( clones )  >  0 ) {
@@ -887,7 +887,7 @@ write_monitor  <- function( outfile, start = FALSE , env, clones ){
             dupdel  =  unlist( sapply( X = cna_list, FUN = function( x ) pck.env$cna_clones[[ x ]]$dupOrdel ) )
             l_dup   =  length( which( dupdel  ==  'dup' ) )
             l_del   =  length( which( dupdel  ==  'del' ) )
-            TMB     =  l_pm * 1E06 / sum( pck.env$onco$cds_1 ) / ( env$N + env$P + env$M )
+            TMB     =  get_TMB( env = env, clones = clones, pnt_clones = pck.env$pnt_clones )   #      l_pm * 1E06 / sum( pck.env$onco$cds_1 ) / ( env$N + env$P + env$M )
 
             # Get intact and speckled normal cells:
             i_n  =  which( sapply( 1:length(clones), FUN = function(x) get_type( clones[[ x ]] ) ) == 'normal')
@@ -913,6 +913,73 @@ write_monitor  <- function( outfile, start = FALSE , env, clones ){
     }
 
 }
+
+
+#' @describeIn write_monitor  Function to get TMB - number of point mutations per 10^6 bps (per M bps)
+#'
+#' @param pnt_clones list of point mutations
+#'
+#' @return Vector of three numbers: TMB, TMB for point mutation with VAF > 5% and TMB for point mutation with VAF > 10%
+#'
+#' @export
+#'
+#' @examples
+#' NULL
+#'
+get_VAF_primary_clones  <- function( env, clones, pnt_clones ){
+
+    if ( is.null(clones) ) return( NULL )
+
+    l   =   ( 1:(length(pnt_clones)/2) ) * 2 - 1
+    pnt_mut_B  =  lapply( l, FUN = function( x ) pnt_clones[[ x ]] )
+    pnt_mut_A  =  lapply( l+1, FUN = function( x ) pnt_clones[[ x ]] )
+
+    # l do not choose invasion clones:
+    l    =  which( !sapply( 1:length( clones ), FUN = function( x ) clones[[ x ]]$invasion ) )
+    cl   =  lapply( l, FUN = function( x ) clones[[ x ]] )
+
+    # indexes of point mutations for each clone:
+    ids  =  lapply( 1:length( cl ), FUN = function( x ) cl[[ x ]]$PointMut_ID )
+    nqu  =  sort( unique( unlist( ids ) ) )  # unique IDs of point mutations
+    if ( nqu[1] == 0 ) nqu = nqu[ -1 ]       # exclude intact normal cells
+
+    # start VAF
+    VAF  =  NULL
+    if ( length( nqu ) == 0 ) return( NULL )
+
+    # get types for all the clones:
+    clone_types  =  sapply( 1:length( cl ), FUN = function( x ) get_type( cl[[ x ]]) )
+    # get number of cells for ll the clones:
+    clone_numbers  =  sapply( 1:length( cl ), FUN = function( x ) cl[[ x ]]$N_cells )
+    # iteration across all the unique point mutations:
+    for( j in 1:length( nqu ) ){
+        # wc - which clones have an ID of point mutation
+        wc  =  which( sapply( X = 1:length( ids ), FUN = function( x ) is.element( nqu[j] , ids[[ x ]] ) ) )
+
+        VAF_1  =  pnt_mut_B[[ (nqu[ j ] + 1) / 2 ]]$safe( )
+
+        ### number of cells: speckled normal cells and primary tumor cells:
+        if ( any( clone_types[ wc ] == 'normal' ) ){
+            sm  =  sum( clone_numbers[ wc[ which( clone_types[ wc ]  ==  'normal' ) ] ] )
+            if ( length( sm ) == 0 ) sm = 0  # if all the normal clones are intact normal
+            VAF_1$N_speckled_normal =  sm
+        } else VAF_1$N_speckled_normal =  0
+
+        if ( any( clone_types[ wc ] == 'primary' ) ){
+            VAF_1$N_primary  =  sum( clone_numbers[ wc[ which( clone_types[ wc ]  ==  'primary' ) ] ] )
+        } else VAF_1$N_primary  =  0
+
+        # add copy number of original allele A:
+        # VAF_A  =  pnt_mut_A[ which( pnt_mut_A$PointMut_ID == nqu[ j ] ) , ]
+        VAF_1$Copy_number_A  =  pnt_mut_A[[ ( nqu [ j ] + 1 ) / 2 ]]$Copy_number
+
+        VAF  =  rbind( VAF, VAF_1)
+    }
+
+
+    return( VAF )
+}
+
 
 #' Function to write info about relationship between genes and hallmarks
 #'

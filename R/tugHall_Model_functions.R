@@ -991,6 +991,8 @@ get_VAF_primary_clones  <- function( env, clones, pnt_clones ){
 
     VAF$N_speckled_normal_total  =  N_speckled
     VAF$N_primary_total          =  env$P
+    VAF$N_metastatic   =    0
+    VAF$N_metastatic_total   =   env$M
 
     return( VAF )
 }

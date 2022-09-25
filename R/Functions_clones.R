@@ -295,6 +295,7 @@ get_VAF  <-  function( pnt_mut, data_last, file_name = 'Output/VAF_data.txt'){
 #' @param vf data.frame getting from get_VAF() function
 #' @param rho Vector of rho parameter in the range (0,1)
 #' @param file_name Name of file to save VAF
+#' @param save_to_file Logical parameter to save or do not save data to the file. By default save_to_file = TRUE
 #'
 #' @return VAF for different rho with separation for metastatic cells and (primary tumor + speckled normal) cells
 #' @export
@@ -305,7 +306,7 @@ get_VAF  <-  function( pnt_mut, data_last, file_name = 'Output/VAF_data.txt'){
 #' if ( !dir.exists('./Output') ) dir.create('./Output')
 #' vf = get_VAF( pnt_mut, data_last, file_name = 'Output/VAF_data.txt')
 #' VAF = get_rho_VAF( vf = vf, rho = c( 0.0, 0.1, 0.5 ) , file_name = './Output/VAF.txt' )
-get_rho_VAF  <-  function( vf = NULL, rho = c( 0.0, 0.1, 0.5 ) , file_name = './Output/VAF.txt' ){
+get_rho_VAF  <-  function( vf = NULL, rho = c( 0.0, 0.1, 0.5 ) , file_name = './Output/VAF.txt', save_to_file = TRUE ){
     # rho is an admixture rate of intact normal cells, it can be vector of numbers
     # vf is a VAF data getting from get_VAF function
     # file_name is  file name for VAF file
@@ -363,9 +364,12 @@ get_rho_VAF  <-  function( vf = NULL, rho = c( 0.0, 0.1, 0.5 ) , file_name = './
 
     VAF$Stop_reason  =  Stop_reason
 
-    write.table( VAF, file = file_name, append = FALSE, sep = '\t',
-                    row.names = FALSE, col.names = TRUE )
-    cat( paste0( ' VAF is saved in the file ', file_name ) )
+    if ( save_to_file ){
+        write.table( VAF, file = file_name, append = FALSE, sep = '\t',
+                        row.names = FALSE, col.names = TRUE )
+        cat( paste0( ' VAF is saved in the file ', file_name ) )
+    }
+
     return( VAF )
 }
 

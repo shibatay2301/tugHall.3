@@ -904,6 +904,9 @@ write_monitor  <- function( outfile, start = FALSE, env, clones ){
                 N_speckled  =  0
             }
 
+            vf   =  get_VAF_clones( env = env, clones = clones, pnt_clones = pck.env$pnt_clones )
+            VAF  =  get_rho_VAF( vf = vf, rho = 0, save_to_file = FALSE )
+
             data <- c( env$T, length( clones ), N_intact, N_speckled, env$P, env$M, l_pm, l_dup, l_del, TMB )
 
             write(data, outfile, append=TRUE, ncolumns = length(data), sep="\t")
@@ -997,6 +1000,8 @@ get_VAF_clones  <- function( env, clones, pnt_clones ){
 
     # VAF$N_metastatic   =    0
     VAF$N_metastatic_total   =   env$M
+
+    VAF$Chr  =  as.integer( VAF$Chr )
 
     return( VAF )
 }

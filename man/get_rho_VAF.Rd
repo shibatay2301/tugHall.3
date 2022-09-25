@@ -4,7 +4,12 @@
 \alias{get_rho_VAF}
 \title{Function to get Variant allele frequencies (VAF) based on rho input parameters}
 \usage{
-get_rho_VAF(vf = NULL, rho = c(0, 0.1, 0.5), file_name = "./Output/VAF.txt")
+get_rho_VAF(
+  vf = NULL,
+  rho = c(0, 0.1, 0.5),
+  file_name = "./Output/VAF.txt",
+  save_to_file = TRUE
+)
 }
 \arguments{
 \item{vf}{data.frame getting from get_VAF() function}
@@ -12,6 +17,8 @@ get_rho_VAF(vf = NULL, rho = c(0, 0.1, 0.5), file_name = "./Output/VAF.txt")
 \item{rho}{Vector of rho parameter in the range (0,1)}
 
 \item{file_name}{Name of file to save VAF}
+
+\item{save_to_file}{Logical parameter to save or do not save data to the file. By default save_to_file = TRUE}
 }
 \value{
 VAF for different rho with separation for metastatic cells and (primary tumor + speckled normal) cells

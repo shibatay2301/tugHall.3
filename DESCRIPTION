@@ -3,6 +3,7 @@ Title: R-based script to simulate the cancer cell evolution
 Version: 3.0
 Authors@R: c(
     person("Iurii", "Nagornov", , "inagonov@ncc.go.jp", role = c("aut", "cre") ),
+    person("Munmee", "Dutta", , "dmunmee@ncc.go.jp", role = "ctb"),
     person("Jo", "Nishino", , "jnishino@ncc.go.jp", role = "ctb"),
     person("Eisaku", "Furukawa", , "efurukaw@ncc.go.jp", role = "ctb"),
     person("Mamoru", "Kato", , "mamkato@ncc.go.jp", role = "aut")

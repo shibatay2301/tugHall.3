@@ -13,6 +13,8 @@ Authors and contributor list:
 ---
 _**Iurii Nagornov**_ (Maintainer, Author)
 
+_**Munmee Dutta**_ (Contributor)
+
 _**Jo Nishino**_ (Contributor)
 
 _**Eisaku Furukawa**_ (Contributor)

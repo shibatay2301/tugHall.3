@@ -2,12 +2,12 @@
 % Please edit documentation in R/tugHall_Model_functions.R
 \name{write_monitor}
 \alias{write_monitor}
-\alias{get_VAF_primary_clones}
+\alias{get_VAF_clones}
 \title{Function to write a simulation monitoring data into the file_monitor}
 \usage{
 write_monitor(outfile, start = FALSE, env, clones)
 
-get_VAF_primary_clones(env, clones, pnt_clones)
+get_VAF_clones(env, clones, pnt_clones)
 }
 \arguments{
 \item{outfile}{File name for output info}
@@ -18,7 +18,7 @@ get_VAF_primary_clones(env, clones, pnt_clones)
 
 \item{clones}{List of objects of class 'Clone'}
 
-\item{pnt_clones}{list of point mutations}
+\item{pnt_clones}{list of point mutations usually saved in tugHall environment pck.env}
 }
 \value{
 NULL, but info about current state of simulation will write to a file
@@ -30,7 +30,7 @@ Function to write a simulation monitoring data into the file_monitor
 }
 \section{Functions}{
 \itemize{
-\item \code{get_VAF_primary_clones()}: Function to get TMB - number of point mutations per 10^6 bps (per M bps)
+\item \code{get_VAF_clones()}: Function to get TMB - number of point mutations per 10^6 bps (per M bps)
 
 }}
 \examples{

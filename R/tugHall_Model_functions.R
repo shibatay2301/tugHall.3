@@ -917,7 +917,7 @@ write_monitor  <- function( outfile, start = FALSE, env, clones ){
 
 #' @describeIn write_monitor  Function to get TMB - number of point mutations per 10^6 bps (per M bps)
 #'
-#' @param pnt_clones list of point mutations
+#' @param pnt_clones list of point mutations usually saved in tugHall environment pck.env
 #'
 #' @return Vector of three numbers: TMB, TMB for point mutation with VAF > 5% and TMB for point mutation with VAF > 10%
 #'
@@ -926,7 +926,7 @@ write_monitor  <- function( outfile, start = FALSE, env, clones ){
 #' @examples
 #' NULL
 #'
-get_VAF_primary_clones  <- function( env, clones, pnt_clones ){
+get_VAF_clones  <- function( env, clones, pnt_clones ){
 
     if ( is.null(clones) ) return( NULL )
 
@@ -935,8 +935,8 @@ get_VAF_primary_clones  <- function( env, clones, pnt_clones ){
     pnt_mut_A  =  lapply( l+1, FUN = function( x ) pnt_clones[[ x ]] )
 
     # l do not choose invasion clones:
-    l    =  which( !sapply( 1:length( clones ), FUN = function( x ) clones[[ x ]]$invasion ) )
-    cl   =  lapply( l, FUN = function( x ) clones[[ x ]] )
+    # l    =  which( !sapply( 1:length( clones ), FUN = function( x ) clones[[ x ]]$invasion ) )
+    cl   =  clones   #  lapply( l, FUN = function( x ) clones[[ x ]] )
 
     # indexes of point mutations for each clone:
     ids  =  lapply( 1:length( cl ), FUN = function( x ) cl[[ x ]]$PointMut_ID )
@@ -969,8 +969,11 @@ get_VAF_primary_clones  <- function( env, clones, pnt_clones ){
             VAF_1$N_primary  =  sum( clone_numbers[ wc[ which( clone_types[ wc ]  ==  'primary' ) ] ] )
         } else VAF_1$N_primary  =  0
 
+        if ( any( clone_types[ wc ] == 'metastatic' ) ){
+            VAF_1$N_metastatic  =  sum( clone_numbers[ wc[ which( clone_types[ wc ]  ==  'metastatic' ) ] ] )
+        } else VAF_1$N_metastatic  =  0
+
         # add copy number of original allele A:
-        # VAF_A  =  pnt_mut_A[ which( pnt_mut_A$PointMut_ID == nqu[ j ] ) , ]
         VAF_1$Copy_number_A  =  pnt_mut_A[[ ( nqu [ j ] + 1 ) / 2 ]]$Copy_number
 
         VAF  =  rbind( VAF, VAF_1)
@@ -991,7 +994,8 @@ get_VAF_primary_clones  <- function( env, clones, pnt_clones ){
 
     VAF$N_speckled_normal_total  =  N_speckled
     VAF$N_primary_total          =  env$P
-    VAF$N_metastatic   =    0
+
+    # VAF$N_metastatic   =    0
     VAF$N_metastatic_total   =   env$M
 
     return( VAF )

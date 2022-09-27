@@ -18,6 +18,7 @@ Authors:
 
 Other contributors:
 \itemize{
+  \item Munmee Dutta \email{dmunmee@ncc.go.jp} [contributor]
   \item Jo Nishino \email{jnishino@ncc.go.jp} [contributor]
   \item Eisaku Furukawa \email{efurukaw@ncc.go.jp} [contributor]
 }

@@ -13,7 +13,7 @@
 #' @export
 #'
 #' @examples
-#'
+#'  # Test addition
 #' # it takes a time for a simulation and then it will demonstrates results, \cr
 #' # so, please, wait for a while
 #' simulation( verbose = FALSE , to_plot = FALSE )

@@ -1,8 +1,9 @@
 ## code to prepare `tugHall_dataset` dataset goes here
 
-tugHall_dataset  =  simulation( seed    =  123456, work_dir =  '../Simulation/',
+smlt     =  simulation( seed    =  123456, work_dir =  '../Simulation/',
                                         verbose =  FALSE,  to_plot  =  FALSE)
 
+tugHall_dataset  =  pck.env
 # rename files to local working directory:
 tugHall_dataset$clonefile     =  './Input/cloneinit.txt'
 tugHall_dataset$cloneoutfile  =  './Output/cloneout.txt'
@@ -19,5 +20,6 @@ tugHall_dataset$mainDir      =  './'
 usethis::use_data( tugHall_dataset, overwrite = TRUE )
 
 devtools::install( build_vignettes = TRUE )
+
 
 

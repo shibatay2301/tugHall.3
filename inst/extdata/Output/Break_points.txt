@@ -1,0 +1,5 @@
+"break_points"	"Apoptosis"	"Angiogenesis"	"Growth_Antigrowth"	"Immortalization"	"Invasion_Metastasis"
+"break_point_APC"	0.256550060237934	0	0.270991224534186	0	0
+"break_point_KRAS"	0.462432306476017	0.326450247088273	0.508709519288183	0.4735684	0
+"break_point_TP53"	0.711828529905166	0.69798670769078	0.762464408878687	1	0.152361662067447
+"break_point_PIK3CA"	1	1	1	1	1

@@ -96,17 +96,24 @@ Define location of all the genes of interest:
                                     genes_list = c("CCDS4107.1", "CCDS8702.1", 
                                     "CCDS43171.1", "CCDS11118.1") )
             
+Show the default gene_map from the CCDS.current.txt file. Here the model will show the default gene list from the file. If you need to change the gene list change/define the gene "CCDS_ID" in the file.
+
+```
+           pck.env$gene_map
+```
+            
 Define parameters from './Input/parameters.txt', if it necessary, please, change it directly:
 
             define_parameters( read_fl = TRUE , file_name = './Input/parameters.txt' )
             
+View the input parameters
+```
+            View(pck.env)
+```
+
 If compaction factors are used in simulation, please, change and define them:
 
             define_compaction_factor( read_fl = TRUE , file_name = './Input/CF.txt' )
-
-To check all the parameters and names of files, just print them:
-
-            print_parameters()
 
 ### 3. Run a simulation
 
@@ -126,36 +133,34 @@ So, please, be kind to make sure that these parameters are not affected by other
 
 Start simulation, please, wait for a while ... or see Sim_monitoring.txt file in working folder:
 
-                smlt = model(genefile, clonefile, geneoutfile, cloneoutfile, 
-                              logoutfile, E0, F0, m0, uo, us, s0, k0, 
-                              censor_cells_number, censor_time_step, d0)
-                clones        =  smlt[[ 1 ]]
-                onco_clones   =  smlt[[ 2 ]]
+```
+                    smlt = model()
+```
         
 Save point mutations and CNA to the files in Output folder:
 
-            write_pnt_clones( pnt_clones, file_out = 'Output/point_mutations.txt' )
-            write_pnt_clones( cna_clones, file_out = 'Output/CNA_mutations.txt' )
+            write_pnt_clones( pck.env$pnt_clones, file_out = 'Output/point_mutations.txt' )
+            write_pnt_clones( pck.env$cna_clones, file_out = 'Output/CNA_mutations.txt' )
 
 ### 4. Post simulation data processing 
 
-Get data of the last simulation from cloneout file:
-
-            dtst = get_flow_data(cloneoutfile, genefile )
-            data_avg  =  dtst$data_avg
-            data_flow  =  dtst$data_flow
-            time_max = dtst$time_max
-            data_last = dtst$data_last
+Get data of the last simulation from cloneout file and gene file:
+```
+            dtst = get_flow_data( pck.env$cloneoutfile, pck.env$genefile )
+            pck.env$data_avg   =  dtst$data_avg
+            pck.env$data_flow  =  dtst$data_flow
+            pck.env$time_max   =  dtst$time_max
+            pck.env$data_last  =  dtst$data_last
             cna_mut = dtst$cna_mut
-            pnt_mut = dtst$pnt_mut
-            pnt_mut_B = dtst$pnt_mut_B
-            onco = dtst$onco
-            hall = dtst$hall
+            pnt_mut   =  dtst$pnt_mut
+            pnt_mut_B =  dtst$pnt_mut_B
+
+```
         
 Also get VAF data and save them into file 'Output/VAF_data.txt':
 
-            vf = get_VAF(pnt_mut, data_last )
-            VAF  =  get_rho_VAF( vf = vf, 
+            pck.env$vf = get_VAF(pnt_mut, pck.env$data_last )
+            pck.env$VAF  =  get_rho_VAF( vf = pck.env$vf, 
                                 rho = c( 0.0, 0.1, 0.2, 0.5, 0.7, 0.9 ) , 
                                 file_name = './Output/VAF.txt' )
 

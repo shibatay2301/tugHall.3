@@ -945,7 +945,7 @@ write_monitor  <- function( outfile, start = FALSE, env, clones ){
 #'
 #' @param pnt_clones list of point mutations usually saved in tugHall environment pck.env
 #'
-#' @return Vector of three numbers: TMB, TMB for point mutation with VAF > 5% and TMB for point mutation with VAF > 10%
+#' @return get_VAF_clones() returns data frame same as output of get_VAF() function
 #'
 #' @export
 #'

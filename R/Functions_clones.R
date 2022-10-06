@@ -311,7 +311,7 @@ get_rho_VAF  <-  function( vf = NULL, rho = c( 0.0, 0.1, 0.5 ) , file_name = './
     # vf is a VAF data getting from get_VAF function
     # file_name is  file name for VAF file
 
-    if ( min(rho) < 0 | max(rho) >1 ) return( NULL )
+    if ( min(rho) < 0 | max(rho) >1 ) stop( 'rho values should be in the range [0,1]' )
     nq_i  =  unique( vf$Ref_pos )
     if ( length(nq_i) < 1 ) return( NULL )
 
@@ -327,14 +327,37 @@ get_rho_VAF  <-  function( vf = NULL, rho = c( 0.0, 0.1, 0.5 ) , file_name = './
         for( i in nq_i ){
             w  =  which( vf$Ref_pos == i )
                                         # for primary tumor and speckled normal cells
-            numenator_N    =  sum( vf[ w , c( 'N_speckled_normal', 'N_primary' ) ] * vf[ w, 'Copy_number'] ) / ( N_primary_total + N_speckled_normal_total )
-            denominator_N  =  sum( vf[ w , c( 'N_speckled_normal', 'N_primary' ) ] * ( vf[ w, 'Copy_number'] + vf[ w, 'Copy_number_A'] ) ) / ( N_primary_total + N_speckled_normal_total )
+            if ( ( N_primary_total + N_speckled_normal_total ) > 0 ){
+                numenator_N    =  sum( vf[ w , c( 'N_speckled_normal', 'N_primary' ) ] * vf[ w, 'Copy_number'] ) / ( N_primary_total + N_speckled_normal_total )
+                denominator_N  =  2 * ( 1 - ( sum( vf[ w , c( 'N_speckled_normal', 'N_primary' ) ] ) / ( N_primary_total + N_speckled_normal_total ) ) )  +
+                                  sum( vf[ w , c( 'N_speckled_normal', 'N_primary' ) ] * ( vf[ w, 'Copy_number'] + vf[ w, 'Copy_number_A'] ) ) / ( N_primary_total + N_speckled_normal_total )
+                # denominator_N  =  sum( vf[ w , c( 'N_speckled_normal', 'N_primary' ) ] * ( vf[ w, 'Copy_number'] + vf[ w, 'Copy_number_A'] ) ) / ( N_primary_total + N_speckled_normal_total )
+            } else {
+                numenator_N    =  0
+                denominator_N  =  0
+            }
                                         # for metastatic cells
-            numenator_M    =  sum( vf[ w , 'N_metastatic'] * vf[ w, 'Copy_number'] ) / N_metastatic_total
-            denominator_M  =  sum( vf[ w , 'N_metastatic'] * ( vf[ w, 'Copy_number'] + vf[ w, 'Copy_number_A'] ) ) / N_metastatic_total
+            if ( N_metastatic_total > 0 ){
+                numenator_M    =  sum( vf[ w , 'N_metastatic'] * vf[ w, 'Copy_number'] ) / N_metastatic_total
+                denominator_M  =  2 * ( 1 - ( sum( vf[ w , 'N_metastatic']  ) / N_metastatic_total ) )  +
+                                  sum( vf[ w , 'N_metastatic'] * ( vf[ w, 'Copy_number'] + vf[ w, 'Copy_number_A'] ) ) / N_metastatic_total
+                #    denominator_M  =  sum( vf[ w , 'N_metastatic'] * ( vf[ w, 'Copy_number'] + vf[ w, 'Copy_number_A'] ) ) / N_metastatic_total
+            } else {
+                numenator_M    =  0
+                denominator_M  =  0
+            }
                                         # VAF calculations:
-            VAF_N_rho  =  k_scale * numenator_N / ( 2*( 1 - k_scale ) + k_scale * denominator_N )
-            VAF_M_rho  =  k_scale * numenator_M / ( 2*( 1 - k_scale ) + k_scale * denominator_M )
+            if ( numenator_N == 0 ){
+                VAF_N_rho  =  0
+            } else {
+                VAF_N_rho  =  k_scale * numenator_N / ( 2*( 1 - k_scale ) + k_scale * denominator_N )
+            }
+
+            if ( numenator_M == 0 ){
+                VAF_M_rho  =  0
+            } else {
+                VAF_M_rho  =  k_scale * numenator_M / ( 2*( 1 - k_scale ) + k_scale * denominator_M )
+            }
                                         # save to data.frame:
             VAF_1 = data.frame(site = i,
                                Chr = vf[ w[1], 'Chr' ] ,
@@ -353,23 +376,23 @@ get_rho_VAF  <-  function( vf = NULL, rho = c( 0.0, 0.1, 0.5 ) , file_name = './
     }
 
     if ( save_to_file ){
-        Stop_reason = if ( sum(pck.env$data_last$N_cells) > pck.env$censor_cells_number ){
-        Stop_reason  =  'Cells number'
-    } else {
-        if ( pck.env$data_last$Time[1] >= pck.env$censor_time_step ){
-            Stop_reason  =  'Time step'
-        } else {
-            Stop_reason  =  'Real time'
-        }
-    }
+        Stop_reason = if ( sum( pck.env$data_last$N_cells ) > pck.env$censor_cells_number ){
+                Stop_reason  =  'Cells number'
+            } else {
+                if ( pck.env$data_last$Time[1] >= pck.env$censor_time_step ){
+                    Stop_reason  =  'Time step'
+                } else {
+                    Stop_reason  =  'Real time'
+                }
+            }
 
-        VAF$Stop_reason  =  Stop_reason
+                VAF$Stop_reason  =  Stop_reason
 
 
-        write.table( VAF, file = file_name, append = FALSE, sep = '\t',
-                        row.names = FALSE, col.names = TRUE )
-        cat( paste0( ' VAF is saved in the file ', file_name ) )
-    }
+                write.table( VAF, file = file_name, append = FALSE, sep = '\t',
+                                row.names = FALSE, col.names = TRUE )
+                cat( paste0( ' VAF is saved in the file ', file_name ) )
+            }
 
     return( VAF )
 }

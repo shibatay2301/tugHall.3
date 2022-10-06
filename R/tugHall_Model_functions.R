@@ -940,7 +940,8 @@ write_monitor  <- function( outfile, start = FALSE, env, clones ){
 }
 
 
-#' @describeIn write_monitor  Function to get TMB - number of point mutations per 10^6 bps (per M bps)
+#' @describeIn write_monitor  Function to get VAF info for each site during a simulation in order to get
+#' TMB - number of point mutations per 10^6 bps (per M bps)
 #'
 #' @param pnt_clones list of point mutations usually saved in tugHall environment pck.env
 #'

@@ -23,14 +23,15 @@ get_VAF_clones(env, clones, pnt_clones)
 \value{
 NULL, but info about current state of simulation will write to a file
 
-Vector of three numbers: TMB, TMB for point mutation with VAF > 5\% and TMB for point mutation with VAF > 10\%
+get_VAF_clones() returns data frame same as output of get_VAF() function
 }
 \description{
 Function to write a simulation monitoring data into the file_monitor
 }
 \section{Functions}{
 \itemize{
-\item \code{get_VAF_clones()}: Function to get TMB - number of point mutations per 10^6 bps (per M bps)
+\item \code{get_VAF_clones()}: Function to get VAF info for each site during a simulation in order to get
+TMB - number of point mutations per 10^6 bps (per M bps)
 
 }}
 \examples{

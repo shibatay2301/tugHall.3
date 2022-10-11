@@ -88,7 +88,7 @@ drug_intervention  <-  function( kill_prob = 0, block_prob = 1, gene,
                 }
 
                 CNA_ID       =  clones_to_change[[ x ]]$CNA_ID
-                if ( CNA_ID != 0 ){
+                if ( CNA_ID[1] != 0 ){
                     for( j in CNA_ID ){
                         if ( gene %in% pck.env$cna_clones[[ j ]]$Gene_names &
                                        pck.env$cna_clones[[ j ]]$MalfunctionedByCNA ){

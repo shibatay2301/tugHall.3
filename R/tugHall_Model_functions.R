@@ -887,7 +887,6 @@ write_monitor  <- function( outfile, start = FALSE, env, clones ){
             dupdel  =  unlist( sapply( X = cna_list, FUN = function( x ) pck.env$cna_clones[[ x ]]$dupOrdel ) )
             l_dup   =  length( which( dupdel  ==  'dup' ) )
             l_del   =  length( which( dupdel  ==  'del' ) )
-            TMB     =  c(0,0,0) # get_TMB( env = env, clones = clones, pnt_clones = pck.env$pnt_clones )   #      l_pm * 1E06 / sum( pck.env$onco$cds_1 ) / ( env$N + env$P + env$M )
 
             # Get intact and speckled normal cells:
             i_n  =  which( sapply( 1:length(clones), FUN = function(x) get_type( clones[[ x ]] ) ) == 'normal')

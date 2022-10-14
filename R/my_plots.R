@@ -257,3 +257,67 @@ plot_clone_evolution  <-  function( data_flow, threshold = c(0.05,1.0), lwd = 2.
 
 
 
+
+
+# Plot VAF ----------------------------------------------------------------
+
+#' Function to plot the distributions of VAF for each gene after simulation
+#' @description \code{plot_VAF()} function draw the distributions of VAF for each gene after simulation
+#'
+#' @param VAF is Variant allele frequencies of genes in the output format of the function \code{get_rho_VAF}
+#' @param rho is \code{rho} value of VAF.
+#' @param violin Logical parameter to draw the distribution in the form of violin or box plot.
+#' By default \code{violin = FALSE}, i.e. it draws in the form of box plot.
+#' @param save_to_file Logical parameter to save or do not save plot to the file. by default \code{save_to_file = FALSE}
+#' @param file_name Name of file to save plot. By default \code{file_name = './plot_VAF.pdf' }
+#' @param wait_for_user Logical parameter to stop at each plot or do not stop. By default \code{wait_for_user = FALSE }
+#'
+#' @return \code{plot_VAF()} function returns NULL making plot with VAF distributions for each gene
+#' @export
+#'
+#' @examples
+#'
+#' NULL
+plot_VAF  <-  function( VAF, rho = 0, violin = FALSE, save_to_file = FALSE,
+                        file_name = './plot_VAF.pdf',   wait_for_user = FALSE ){
+
+    pl  =  function( VAF_1, y_data, VAFtitle, violin, wait_for_user ){
+
+        if ( violin ) {
+            form_factor = geom_violin
+        } else {
+            form_factor = geom_boxplot
+        }
+
+        p <- VAF_1 %>%
+            ggplot( aes( x = gene, y = y_data, fill = gene, color = gene ) ) +
+            geom_point() +
+            form_factor(  ) +  #  geom_boxplot() + # geom_violin(width=2.1, size=1.2)
+            xlab("Genes") +
+            ylab("Variant   allele   frequencies") +
+            ggtitle( VAFtitle ) +
+            theme(
+                legend.position="none",
+                text = element_text(size=20, face = 'bold'),
+                plot.title = element_text(size = 18, color = 'blue', face = 'bold')
+            )
+        print( p )
+        if ( wait_for_user )  readline(' To draw next plot, please, enter any key \n')
+    }
+
+    if ( save_to_file )   pdf( file = file_name, width = 8, height = 8 )
+
+    for (ro in rho ) {
+        VAF_1  =  VAF[ which( VAF$rho == ro ), ]
+        pl( VAF_1 = VAF_1, y_data = VAF_1$VAF_primary,
+            VAFtitle = paste0( 'VAF for primary and normal cells, rho = ', ro ) ,
+            violin = violin, wait_for_user = wait_for_user )
+
+        pl( VAF_1 = VAF_1, y_data = VAF_1$VAF_metastatic,
+            VAFtitle = paste0( 'VAF for metastatic cells, rho = ', ro ) ,
+            violin = violin, wait_for_user = wait_for_user )
+
+    }
+
+    if ( save_to_file ) dev.off( )
+}

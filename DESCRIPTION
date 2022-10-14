@@ -23,7 +23,9 @@ Imports:
     stats,
     stringr,
     withr,
-    utils
+    utils,
+    dplyr,
+    ggplot2
 Suggests: 
     rmarkdown,
     knitr,

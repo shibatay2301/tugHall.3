@@ -3,6 +3,16 @@
 
 ## usethis namespace: start
 #' @importFrom actuar rztpois
+#' @importFrom dplyr %>%
+#' @importFrom ggplot2 aes
+#' @importFrom ggplot2 geom_boxplot
+#' @importFrom ggplot2 geom_point
+#' @importFrom ggplot2 geom_violin
+#' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 ggtitle
+#' @importFrom ggplot2 theme
+#' @importFrom ggplot2 xlab
+#' @importFrom ggplot2 ylab
 #' @importFrom graphics axis
 #' @importFrom graphics legend
 #' @importFrom graphics lines

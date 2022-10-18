@@ -311,7 +311,7 @@ trial_mutagenesis <- function( clone1, num_mut, onco1 ) {
             pos   = unlist( pm[[3]] )
             Chr   = unlist( pm[[4]] )
             pnt0 = generate_pnt( prntl, gene, pos, onco1, Chr )
-            if ( (clone1$PointMut_ID == 0)[1] ) {
+            if ( clone1$PointMut_ID[1] == 0 ) {
                 id   =  pck.env$pnt_clones[[ length( pck.env$pnt_clones ) ]]$PointMut_ID
             } else  id   =  c( clone1$PointMut_ID, pck.env$pnt_clones[[ length( pck.env$pnt_clones ) ]]$PointMut_ID )
             clone1$PointMut_ID  =  id   # pnt_clone is generated in the generate_pnt function

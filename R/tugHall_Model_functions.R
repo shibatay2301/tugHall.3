@@ -331,7 +331,7 @@ trial_mutagenesis <- function( clone1, num_mut, onco1 ) {
             genes =  unlist( cna_mut[[3]] )
             start_end   = unlist( cna_mut[[4]] )
             cna0 = generate_cna( prntl, genes, start_end, onco1, t )
-            if ( (clone1$CNA_ID == 0)[1] ) {
+            if ( clone1$CNA_ID[1] == 0 ) {
                 id   =  pck.env$cna_clones[[ length( pck.env$cna_clones ) ]]$CNA_ID
             } else  id   =  c( clone1$CNA_ID, pck.env$cna_clones[[ length( pck.env$cna_clones ) ]]$CNA_ID )
             clone1$CNA_ID  =  id

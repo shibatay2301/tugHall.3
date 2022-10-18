@@ -10,7 +10,8 @@ plot_VAF(
   violin = FALSE,
   save_to_file = FALSE,
   file_name = "./plot_VAF.pdf",
-  wait_for_user = FALSE
+  wait_for_user = FALSE,
+  y_lim = range(0, 1)
 )
 }
 \arguments{

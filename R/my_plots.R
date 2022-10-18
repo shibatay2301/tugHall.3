@@ -279,7 +279,8 @@ plot_clone_evolution  <-  function( data_flow, threshold = c(0.05,1.0), lwd = 2.
 #'
 #' NULL
 plot_VAF  <-  function( VAF, rho = 0, violin = FALSE, save_to_file = FALSE,
-                        file_name = './plot_VAF.pdf',   wait_for_user = FALSE ){
+                        file_name = './plot_VAF.pdf',   wait_for_user = FALSE,
+                        y_lim = range(0,1)){
 
     pl  =  function( VAF_1, y_data, VAFtitle, violin, wait_for_user ){
 
@@ -295,6 +296,7 @@ plot_VAF  <-  function( VAF, rho = 0, violin = FALSE, save_to_file = FALSE,
             form_factor(  ) +  #  geom_boxplot() + # geom_violin(width=2.1, size=1.2)
             xlab("Genes") +
             ylab("Variant   allele   frequencies") +
+            ylim( y_lim ) +
             ggtitle( VAFtitle ) +
             theme(
                 legend.position="none",

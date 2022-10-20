@@ -218,7 +218,7 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
             'tumbler_for_immortalization_trial', 'tumbler_for_angiogenesis_trial',
             'tumbler_for_drug_intervention_trial' )
     for( v in vr ){
-        if ( is.null( pck.env[[ v ]] ) ){
+        if ( length( pck.env[[ v ]] ) == 0 ){
             stop( paste0( 'The parameter ', v, ' is not defined. '))
         }
     }

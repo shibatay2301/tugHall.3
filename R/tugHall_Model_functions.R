@@ -875,7 +875,9 @@ write_monitor  <- function( outfile, start = FALSE, env, clones ){
 
     if ( start ) {
         header <- c('Time', 'N_clones', 'N_normal_intact',  'N_normal_speckled', 'N_primary', 'N_metastatic',
-                    'N_point_mutations', 'N_duplications',   'N_deletions' , 'TMB', 'TMB%5', 'TMB%10' )
+                    'N_point_mutations', 'N_duplications',   'N_deletions' ,
+                    'TMB_primary', 'TMB_primary_VAF%5', 'TMB_primary_VAF%10',
+                    'TMB_metastatic', 'TMB_metastatic_VAF%5', 'TMB_metastatic_VAF%10')
         write( header, outfile, append = FALSE, ncolumns = length( header ), sep="\t" )
     } else {
         if ( length( clones )  >  0 ) {
@@ -907,25 +909,55 @@ write_monitor  <- function( outfile, start = FALSE, env, clones ){
                 vf        =  get_VAF_clones( env = env, clones = clones, pnt_clones = pck.env$pnt_clones )
                 VAF       =  get_rho_VAF( vf = vf, rho = c( 0.0 ), save_to_file = FALSE )
 
-                cffc      =  1E06 / 2 / sum( pck.env$onco$cds_1 ) / sum( env$N + env$P + env$M )
+                if ( sum( env$N + env$P ) > 0 ) {
+                        cffc_primary         =  1E06 / 2 / sum( pck.env$onco$cds_1 ) / sum( env$N + env$P )
+                    } else {
+                        cffc_primary         =  0
+                }
+                if ( sum( env$M )         > 0 ) {
+                        cffc_metastatic      =  1E06 / 2 / sum( pck.env$onco$cds_1 ) / sum( env$M         )
+                    } else {
+                        cffc_metastatic      =  0
+                    }
 
-                TMB = NULL
+                TMB_primary  =  TMB_metastatic  =  NULL
+
                 for( it in c( 0, 0.05, 0.1 ) ){
-                    wc   =   which(  VAF$VAF_primary >= it   |   VAF$VAF_metastatic >= it  )
-                    if ( length( wc ) > 0 ){
-                        sites  =  VAF$site[ wc ]
+                    wc_primary      =   which(  VAF$VAF_primary    >= it    )
+                    wc_metastatic   =   which(  VAF$VAF_metastatic >= it    )
+
+                    if ( length( wc_primary ) > 0 ){
+                        sites  =  VAF$site[ wc_primary ]
                         wc_vf  =  which( vf$Ref_pos %in% sites )
                         n_mut  =  sum( sapply( wc_vf, FUN = function( x ) {
-                            vf$Copy_number[ x ] * ( vf$N_speckled_normal[ x ] + vf$N_primary[ x ] + vf$N_metastatic[ x ] )
+                            vf$Copy_number[ x ] * ( vf$N_speckled_normal[ x ] + vf$N_primary[ x ] )
                             } ) )
                     } else {
                         n_mut  =  0
                     }
-                    TMB   =   c( TMB , n_mut )
+
+                    TMB_primary   =   c( TMB_primary , n_mut )
+
+                    if ( length( wc_metastatic ) > 0 ){
+                        sites  =  VAF$site[ wc_metastatic ]
+                        wc_vf  =  which( vf$Ref_pos %in% sites )
+                        n_mut  =  sum( sapply( wc_vf, FUN = function( x ) {
+                            vf$Copy_number[ x ] * ( vf$N_metastatic[ x ] )
+                        } ) )
+                    } else {
+                        n_mut  =  0
+                    }
+
+                    TMB_metastatic   =   c( TMB_metastatic , n_mut )
                 }
-                TMB  =  TMB * cffc
+
+                TMB_metastatic  =  TMB_metastatic * cffc_metastatic
+                TMB_primary     =  TMB_primary    * cffc_primary
+
+                TMB = c( TMB_primary, TMB_metastatic )
+
             } else{
-                TMB = c( 0, 0, 0 )
+                TMB = c( 0, 0, 0, 0, 0, 0 )
             }
 
             data <- c( env$T, length( clones ), N_intact, N_speckled, env$P, env$M, l_pm, l_dup, l_del, TMB )

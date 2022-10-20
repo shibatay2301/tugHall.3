@@ -262,6 +262,9 @@ check_packages  <-  function( pkgs = NULL ){
 
     if ( is.null( pkgs ) ) {
         pkgs  =  list(  actuar = 'rztpois',
+                        dplyr  = '%>%',
+                        ggplot2  =  c( 'aes', 'geom_boxplot', 'geom_point', 'geom_violin',
+                                       'ggplot', 'ggtitle', 'theme', 'xlab', 'ylab' ),
                         graphics = c('axis', 'legend', 'lines', 'par', 'plot', 'text', 'title' ),
                         grDevices = c('dev.off', 'pdf', 'rgb'),
                         methods = 'new',

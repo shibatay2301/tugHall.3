@@ -3,8 +3,6 @@ library('tugHall.3')
 
 set.seed( seed = 123456 )
 verbose  =  TRUE
-# if ( verbose ) print('This code will be executed: ')
-# if ( verbose ) print( simulation )
 
 # Attach packages from import list
 check_packages()

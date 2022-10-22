@@ -22,7 +22,7 @@ censor_cells_number	1e+05
 censor_time_step	40
 d0	0.5
 ctmax	50
-Compaction_factor	TRUE
+Compaction_factor	FALSE
 model_name	proportional_metastatic
 real_time_stop	120
 n_repeat	1

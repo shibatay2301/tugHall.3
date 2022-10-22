@@ -32,6 +32,7 @@
 #' @importFrom stats runif
 #' @importFrom stringr str_length
 #' @importFrom stringr str_remove
+#' @importFrom stringr str_replace_all
 #' @importFrom stringr str_split
 #' @importFrom stringr str_sub
 #' @importFrom stringr str_trim

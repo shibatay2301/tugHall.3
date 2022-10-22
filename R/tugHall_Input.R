@@ -328,4 +328,34 @@ define_compaction_factor  <-  function( cf = data.frame( Ha = 1, Hb = 1, Hd = 1,
     pck.env$CF  =  cf
 }
 
+#' Function to check the files from the previous simulation
+#'
+#' Function to check the files from the previous simulation are exist and if so to move
+#' all of them to the folder with name \code{ /Output[Time.stamp]/ },
+#' the \code{ [Time.stamp]/ } in the format \code{2022_10_22_15_51_09} or \code{year_month_day_hour_min_sec}
+#'
+#' @return \code{check_previous_data} returns NULL and renames Output folder as well as monitoring file
+#' to the folder and file with time stamp
+#' @export
+#'
+#' @examples
+#' NULL
+check_previous_data  <-  function(  ){
+    out   =  file.path( paste0(pck.env$mainDir, '/Output' ) )
+    stmp  =  str_replace_all( as.character( Sys.time() ), ' ', '_')
+    stmp  =  str_replace_all( stmp, '-', '_' )
+    stmp  =  str_replace_all( stmp, ':', '_' )
 
+    mntr  =  file.path( paste0(pck.env$mainDir, '/', pck.env$file_monitor ) )
+
+    if ( dir.exists( out ) ){
+        file.rename( from = out, to = paste0( out, '_', stmp ) )
+        dir.create( out )
+        print( paste0( '/Output/ folder was renamed to /Output_', stmp ) )
+    }
+
+    if ( file.exists( mntr ) ) {
+        file.rename( from = mntr, to = paste0( mntr, '_', stmp, '.txt' ) )
+        print( paste0( 'Monitoring file was renamed to', paste0( mntr, '_', stmp, '.txt' ) ) )
+    }
+}

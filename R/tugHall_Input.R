@@ -358,4 +358,6 @@ check_previous_data  <-  function(  ){
         file.rename( from = mntr, to = paste0( mntr, '_', stmp, '.txt' ) )
         print( paste0( 'Monitoring file was renamed to', paste0( mntr, '_', stmp, '.txt' ) ) )
     }
+
+    return( NULL )
 }

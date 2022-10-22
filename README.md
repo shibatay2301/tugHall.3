@@ -37,8 +37,9 @@ Firstly, download file 'tugHall.3_3.0.tar.gz' from repository to the working fol
     install.packages("./tugHall.3_3.0.tar.gz", repos = NULL, type = "source")
 
 How to use **tugHall.3** and how to analyze data, kindly see vignettes in the 
-package documentation.
+package documentation or see code in the pipeline examples. To get pipelines please, run the function:
 
+    copy_pipelines( dir = './')
 
 ## Cite package tugHall.3
 

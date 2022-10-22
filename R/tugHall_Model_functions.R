@@ -822,6 +822,7 @@ get_type  <-  function( clone1 ){
 #' write_header(outfile='./Output/exmpl.txt', env, onco)
 #' write_cloneout( outfile = './Output/exmpl.txt', env, clones, isFirst = TRUE, onco_clones )
 write_cloneout <- function( outfile, env, clones, isFirst, onco_clones ) {
+
     intact_normal  =  sum( sapply( clones, FUN = function( cl ) ifelse( cl$CNA_ID[ 1 ] == 0 & cl$PointMut_ID[ 1 ] == 0, cl$N_cells, 0 ) ) )
     data  =  c(env$T, 'avg', '-',  '-', '-', '-', env$c, env$d, env$i, env$im, env$a, env$k, env$E,
                intact_normal, env$N - intact_normal,  # env$N,

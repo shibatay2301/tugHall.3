@@ -5,13 +5,7 @@
 \alias{restart_simulation}
 \title{Simulation for lazy start with parameters from Input folder}
 \usage{
-simulation(
-  verbose = TRUE,
-  to_plot = TRUE,
-  seed = NA,
-  work_dir = getwd(),
-  digits = 6
-)
+simulation(verbose = TRUE, to_plot = TRUE, seed = NA, work_dir = getwd())
 
 restart_simulation(
   loadRDS = TRUE,
@@ -34,8 +28,6 @@ restart_simulation(
 
 \item{work_dir}{Working directory for a simulation, by default \code{ work_dir = getwd() }}
 
-\item{digits}{Number of digits in the numeric format of pck.env environment of tugHall}
-
 \item{loadRDS}{logical to load data of previous simulation from file fileRDS.
 If \code{loadRDS = FALSE} then it loads data from pck.env that should contain the data of a simulation.}
 
@@ -46,6 +38,8 @@ If \code{loadRDS = FALSE} then it loads data from pck.env that should contain th
 \item{change_parameters}{List of parameters to change from the previous simulation,
 each parameter should be corresponding to variable name.
 For example, \code{change_parameters = list(censor_cells_number = 1E06, censor_time_step = 60 ) }}
+
+\item{digits}{Number of digits in the numeric format of pck.env environment of tugHall}
 }
 \value{
 List of results of simulation with default values for all the parameters

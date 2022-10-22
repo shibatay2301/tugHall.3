@@ -223,6 +223,7 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
         }
     }
 
+    pck.env$digits  =  6
 }
 
 #' Function to print GLOBAL parameters

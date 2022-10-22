@@ -18,10 +18,10 @@
 #' # so, please, wait for a while
 #' simulation( verbose = FALSE , to_plot = FALSE )
 simulation  <-  function( verbose = TRUE , to_plot = TRUE,
-                                  seed = NA, work_dir = getwd(), digits = 6 ){
+                                  seed = NA, work_dir = getwd() ){
 
     local_dir( new = work_dir )
-    pck.env$digits  =  digits
+    # pck.env$digits  =  digits
 
     if ( !is.na( seed ) ) set.seed( seed = seed )
 
@@ -36,10 +36,11 @@ simulation  <-  function( verbose = TRUE , to_plot = TRUE,
                                    'gene_map.txt','parameters.txt' ) ,
                          dir = 'Input' )
 
-    define_files_names()
-    define_gene_location()
+    define_files_names( )
+    define_gene_location( )
     define_parameters( read_fl = TRUE , file_name = './Input/parameters.txt' )
     define_compaction_factor( read_fl = TRUE , file_name = './Input/CF.txt' )
+    check_previous_data( )
     if ( verbose ) print_parameters()
 
     n_c  =  0

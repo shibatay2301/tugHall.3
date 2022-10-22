@@ -17,7 +17,7 @@
 #' # so, please, wait for a while
 #' simulation( verbose = FALSE , to_plot = FALSE )
 simulation  <-  function( verbose = TRUE , to_plot = TRUE,
-                                  seed = NA, work_dir = getwd() ){
+                                  seed = 123456, work_dir = getwd() ){
 
     local_dir( new = work_dir )
 

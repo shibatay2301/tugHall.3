@@ -38,8 +38,6 @@ If \code{loadRDS = FALSE} then it loads data from pck.env that should contain th
 \item{change_parameters}{List of parameters to change from the previous simulation,
 each parameter should be corresponding to variable name.
 For example, \code{change_parameters = list(censor_cells_number = 1E06, censor_time_step = 60 ) }}
-
-\item{digits}{Number of digits in the numeric format of pck.env environment of tugHall}
 }
 \value{
 List of results of simulation with default values for all the parameters

@@ -1,4 +1,4 @@
-Working_folder	/Users/YURI/Documents/NCC/Copy_Number_Alteration/Package_trials/Simulation
+Working_folder	./
 genefile	/Input/gene_hallmarks.txt
 clonefile	/Input/cloneinit.txt
 geneoutfile	/Output/geneout.txt

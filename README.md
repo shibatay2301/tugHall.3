@@ -29,7 +29,15 @@ Short description
 ---
 The wide availability of recent cancer genomic data requires a coherent model that can sort out the relevant findings to systematically explain the clonal evolution and resultant intra-tumor heterogeneity (ITH). Here, we present a new mathematical model designed to computationally simulate the evolution of cancer cells. The model connects well-known cancer hallmarks with the specific mutational states of tumor-related genes. The cell behavior phenotypes are stochastically determined and the hallmarks interfere probabilistically with the phenotypic probabilities. In turn, the hallmark variables depend on the mutational states of tumor-related genes. Thus, it is expected our software can be used to deepen our understanding of cancer-cell evolution and generation of ITH.
 
-How to use **tugHall.3** and how to analyze data, kindly see vignettes.
+Installation
+---
+Please, kindly install tugHall.3 package from source file.
+Firstly, download file 'tugHall.3_3.0.tar.gz' from repository to the working folder, and then:
+
+    install.packages("./tugHall.3_3.0.tar.gz", repos = NULL, type = "source")
+
+How to use **tugHall.3** and how to analyze data, kindly see vignettes in the 
+package documentation.
 
 
 ## Cite package tugHall.3

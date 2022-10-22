@@ -153,7 +153,29 @@ copy_files_to_Input  <-  function( files = c('CCDS.current.txt', 'CF.txt', 'clon
 
 }
 
+#' Function to copy the pipelines from extdata folder in the library to /Pipelines/ folder in the working directory
+#'
+#' @param dir Folder to where files should be save, by default dir = './'
+#'
+#' @return List of logic numbers for each copied file, TRUE - success, FALSE - not success
+#' @export
+#'
+#' @examples
+#' copy_pipelines( dir = 'Input' )
+copy_pipelines  <-  function( dir = './' ){
 
+    dir_pck =  system.file('extdata', 'Pipelines', package = 'tugHall.3', mustWork = TRUE )
+    files  =  list.files( dir_pck )
+    fls  =  lapply( X = files,
+                    FUN = function( x ) system.file('extdata/Pipelines', x, package = 'tugHall.3', mustWork = TRUE ) )
+    # fls  =  unlist( fls )
+
+    if ( !file.exists( dir ) ) dir.create( dir )
+    lapply( X = 1:length( fls ) , FUN = function( x ){
+        file.copy( fls[[ x ]],  dir, overwrite = TRUE, recursive = TRUE, copy.mode = TRUE )
+    } )
+
+}
 
 #' Function to copy the files of an example of simulation or from '/extdata/Output/' folder in the library to '/Output/' folder in the working directory
 #'

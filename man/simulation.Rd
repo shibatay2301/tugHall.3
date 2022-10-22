@@ -5,7 +5,7 @@
 \alias{restart_simulation}
 \title{Simulation for lazy start with parameters from Input folder}
 \usage{
-simulation(verbose = TRUE, to_plot = TRUE, seed = NA, work_dir = getwd())
+simulation(verbose = TRUE, to_plot = TRUE, seed = 123456, work_dir = getwd())
 
 restart_simulation(
   loadRDS = TRUE,

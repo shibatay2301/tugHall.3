@@ -79,7 +79,7 @@ simulation  <-  function( verbose = TRUE , to_plot = TRUE,
                                         file_name = './Output/order_genes_dysfunction.txt' )
 
     if ( to_plot ){
-        plot_order_dysfunction( pck.env$rdr_dysf , pos = c(5,800), logscale = 'y', cex = 1. )
+        plot_order_dysfunction( pck.env$rdr_dysf , pos = c(10,500), logscale = 'y', cex = 0.85 )
 
         plot_average_simulation_data( pck.env$data_avg, pck.env$time_max )
 

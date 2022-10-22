@@ -54,7 +54,7 @@ pck.env$rdr_dysf  =  get_order_of_genes_dysfunction( pnt_mut = pnt_mut,
                                                      file_name = './Output/order_genes_dysfunction.txt' )
 
 
-plot_order_dysfunction( pck.env$rdr_dysf , pos = c(5,800), logscale = 'y', cex = 1. )
+plot_order_dysfunction( pck.env$rdr_dysf , pos = c(10,500), logscale = 'y', cex = 0.9 )
 
 plot_average_simulation_data( pck.env$data_avg, pck.env$time_max )
 
@@ -72,5 +72,8 @@ plot_clone_evolution( pck.env$data_flow, threshold = c(0.0, 0.01), lwd = 2.0,
                           luminosity = c(" ", "random", "light", "bright", "dark")[4],
                           yr = NA , add_initial = FALSE, log_scale = TRUE )
 
+plot_VAF( VAF = pck.env$VAF, rho = 0 , violin = FALSE )
+
+plot_VAF( VAF = pck.env$VAF, rho = 0 , violin = TRUE )
 
 res  =  get_tugHall.Environment()

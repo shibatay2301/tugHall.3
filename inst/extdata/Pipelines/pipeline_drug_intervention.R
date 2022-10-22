@@ -85,7 +85,7 @@ VAF_drivers  =  get_rho_VAF( vf = vf_drivers, save_to_file = FALSE )
 VAF_pass  =  get_rho_VAF( vf = vf_pass, save_to_file = FALSE )
 
 if (length(VAF_drivers) > 0 ) plot_VAF( VAF = VAF_drivers, rho = 0 , violin = FALSE )
-if (length(VAF_pass) > 0 ) plot_VAF( VAF = VAF_pass, rho = 0 , violin = FALSE )
+if (length(VAF_pass) > 0 )    plot_VAF( VAF = VAF_pass,    rho = 0 , violin = FALSE )
 
 
 # Drug intervention trial:

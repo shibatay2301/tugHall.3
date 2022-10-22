@@ -13,6 +13,7 @@
 #' @importFrom ggplot2 theme
 #' @importFrom ggplot2 xlab
 #' @importFrom ggplot2 ylab
+#' @importFrom ggplot2 ylim
 #' @importFrom graphics axis
 #' @importFrom graphics legend
 #' @importFrom graphics lines

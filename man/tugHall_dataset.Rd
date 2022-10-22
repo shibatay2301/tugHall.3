@@ -7,9 +7,16 @@
 \format{
 A data frame with 15 data.frames/lists and 33 objects:
 \describe{
-\item{Input parameters}{Input parameters: censor_cells_number, censor_time_step, Compaction_factor, \cr
-d0, E0, F0, k0, m0, lambda_del, lambda_dup, m_del, m_dup, model_name, monitor, n_repeat, \cr
-s0, real_time_stop, uo_del, uo_dup, us_del, us_dup, uo, us }
+\item{Input parameters}{'Compaction_factor', 'E0', 'F0', 'censor_cells_number',
+'censor_time_step', 'clonefile', 'cloneoutfile', 'd0', 'ctmax',
+'gene_map', 'genefile', 'geneoutfile', 'k0',
+'lambda_del', 'lambda_dup', 'logoutfile', 'm0',
+'m_del', 'm_dup', 'model_name', 'monitor',
+'n_repeat', 's0', 'real_time_stop',
+'uo', 'uo_del', 'uo_dup', 'us', 'us_del', 'us_dup',
+'tumbler_for_metastasis_trial', 'tumbler_for_apoptosis_trial',
+'tumbler_for_immortalization_trial', 'tumbler_for_angiogenesis_trial',
+'tumbler_for_drug_intervention_trial'  }
 \item{CF}{Data frame of compaction factor }
 \item{Names of files and folder}{Names of files to input and output data: clonefile, cloneoutfile, \cr
 file_monitor, genefile, geneoutfile, logoutfile, mainDir }

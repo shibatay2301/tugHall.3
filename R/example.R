@@ -7,7 +7,6 @@
 #' @param to_plot Logical type to plot or do not plot graphical results of a simulation
 #' @param seed Numeric type to set seed for a simulation, if seed = NA (by default) then it will be skipped
 #' @param work_dir Working directory for a simulation, by default \code{ work_dir = getwd() }
-#' @param digits Number of digits in the numeric format of pck.env environment of tugHall
 #'
 #' @return List of results of simulation with default values for all the parameters
 #' @export
@@ -21,7 +20,6 @@ simulation  <-  function( verbose = TRUE , to_plot = TRUE,
                                   seed = NA, work_dir = getwd() ){
 
     local_dir( new = work_dir )
-    # pck.env$digits  =  digits
 
     if ( !is.na( seed ) ) set.seed( seed = seed )
 
@@ -71,8 +69,6 @@ simulation  <-  function( verbose = TRUE , to_plot = TRUE,
     # onco = dtst$onco
     # hall = dtst$hall
 
-
-
     if ( verbose ) print('Also get VAF data and save them into file Output/VAF_data.txt ' )
     pck.env$vf = get_VAF( pnt_mut, pck.env$data_last )
     pck.env$VAF  =  get_rho_VAF( vf = pck.env$vf, rho = c( 0.0, 0.1, 0.2, 0.5, 0.7, 0.9 ) ,
@@ -102,6 +98,10 @@ simulation  <-  function( verbose = TRUE , to_plot = TRUE,
                                       "green", "blue", "purple", "pink", "monochrome")[1],
                               luminosity = c(" ", "random", "light", "bright", "dark")[4],
                               yr = NA , add_initial = FALSE, log_scale = TRUE )
+
+        # Plot VAF for rho = 0
+        readline('Next? ')
+        plot_VAF( VAF = pck.env$VAF, rho = 0 , violin = FALSE )
     }
 
     res  =  get_tugHall.Environment()

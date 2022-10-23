@@ -142,8 +142,33 @@ make_input_range  <-  function( frmt ){
 make_input_dataset  <-  function( frmt, rng, n_simulations = 10,
                                   discrete = TRUE, n_graduations = 11 ){
 
-    DF  = NULL
+    if ( n_graduations < 2 ) stop( 'n_graduations sholud be more than 1. ' )
+    DF  = frmt$format
+    DF[ 1:n_simulations, ]  =  DF[ 1, ]
 
+    for( j in 1:ncol( DF ) ){
 
+        if ( class( rng[ , j ]) == 'numeric' ){
 
+            mn  =  rng[ 1, j ]
+            mx  =  rng[ 2, j ]
+
+            if ( discrete ){
+                st  =  ( mx - mn ) / ( n_graduations - 1 )
+                DF[ 1:n_simulations, j ]  =  sample( ( 1:n_graduations - 1 ), size = n_simulations,
+                                                     replace = TRUE )  *  st
+            } else {
+                DF[ 1:n_simulations, j ]  =  runif( n_simulations, min = mn, max = mx )
+            }
+        } else {
+            if ( class( rng[ , j ]) == 'logical' ){
+                DF[ 1:n_simulations, j ]  =  sample( c( FALSE, TRUE ), size = n_simulations,
+                                                     replace = TRUE )
+            } else {
+                print( paste0( 'The values for the column ', names( DF )[ j ], ' is not generated, so, please, do it by hands.' ) )
+            }
+        }
+    }
+
+    return( DF )
 }

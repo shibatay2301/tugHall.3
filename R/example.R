@@ -5,7 +5,7 @@
 #'
 #' @param verbose Logical type to show or do not show messages during execution
 #' @param to_plot Logical type to plot or do not plot graphical results of a simulation
-#' @param seed Numeric type to set seed for a simulation, if seed = NA (by default) then it will be skipped
+#' @param seed Numeric type to set seed for a simulation, if seed = NA then it will be skipped
 #' @param work_dir Working directory for a simulation, by default \code{ work_dir = getwd() }
 #'
 #' @return List of results of simulation with default values for all the parameters

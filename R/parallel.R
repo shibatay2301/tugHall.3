@@ -6,7 +6,11 @@
 #' input parameters because they will be constant for all the simulations
 #'
 #' @description \code{make_input_format()} function allows to prepare a format of dataset of input parameters from
-#' results of a trial simulation. By default it is empty.
+#' results of a trial simulation. By default it equals all the names of files with some additional arguments: \cr
+#' \code{par_exclude = c(  'censor_cells_number', 'censor_time_step', 'clonefile', 'cloneoutfile', 'ctmax',
+#' 'genefile', 'geneoutfile', 'lambda_del', 'lambda_dup', 'logoutfile', 'model_name', 'monitor',
+#' 'n_repeat', 'real_time_stop', 'tumbler_for_metastasis_trial', 'tumbler_for_apoptosis_trial',
+#' 'tumbler_for_immortalization_trial', 'tumbler_for_angiogenesis_trial', 'tumbler_for_drug_intervention_trial' ) }
 #'
 #' @return \code{make_input_format()} returns data frame with a single row corresponding to
 #' a set of current input parameters
@@ -15,11 +19,14 @@
 #'
 #' @examples
 #' NULL
-make_input_format  <-  function( par_exclude = list() ){
+make_input_format  <-  function( par_exclude = c(  'censor_cells_number', 'censor_time_step', 'clonefile', 'cloneoutfile', 'ctmax',
+                                                   'genefile', 'geneoutfile', 'lambda_del', 'lambda_dup', 'logoutfile', 'model_name', 'monitor',
+                                                   'n_repeat', 'real_time_stop', 'tumbler_for_metastasis_trial', 'tumbler_for_apoptosis_trial',
+                                                   'tumbler_for_immortalization_trial', 'tumbler_for_angiogenesis_trial', 'tumbler_for_drug_intervention_trial' )  ){
 
     par_all  =  c( 'Compaction_factor', 'E0', 'F0', 'censor_cells_number',
                    'censor_time_step', 'clonefile', 'cloneoutfile', 'd0', 'ctmax',
-                   'gene_map', 'genefile', 'geneoutfile', 'k0',
+                   'genefile', 'geneoutfile', 'k0',
                    'lambda_del', 'lambda_dup', 'logoutfile', 'm0',
                    'm_del', 'm_dup', 'model_name', 'monitor',
                    'n_repeat', 's0', 'real_time_stop',

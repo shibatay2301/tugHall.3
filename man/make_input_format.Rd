@@ -4,7 +4,14 @@
 \alias{make_input_format}
 \title{Function to prepare a format of dataset of input parameters for parallel calculations}
 \usage{
-make_input_format(par_exclude = list())
+make_input_format(
+  par_exclude = c("censor_cells_number", "censor_time_step", "clonefile", "cloneoutfile",
+    "ctmax", "genefile", "geneoutfile", "lambda_del", "lambda_dup", "logoutfile",
+    "model_name", "monitor", "n_repeat", "real_time_stop",
+    "tumbler_for_metastasis_trial", "tumbler_for_apoptosis_trial",
+    "tumbler_for_immortalization_trial", "tumbler_for_angiogenesis_trial",
+    "tumbler_for_drug_intervention_trial")
+)
 }
 \arguments{
 \item{par_exclude}{List of parameters to exclude from data frame of
@@ -16,7 +23,11 @@ a set of current input parameters
 }
 \description{
 \code{make_input_format()} function allows to prepare a format of dataset of input parameters from
-results of a trial simulation. By default it is empty.
+results of a trial simulation. By default it equals all the names of files with some additional arguments: \cr
+\code{par_exclude = c(  'censor_cells_number', 'censor_time_step', 'clonefile', 'cloneoutfile', 'ctmax',
+'genefile', 'geneoutfile', 'lambda_del', 'lambda_dup', 'logoutfile', 'model_name', 'monitor',
+'n_repeat', 'real_time_stop', 'tumbler_for_metastasis_trial', 'tumbler_for_apoptosis_trial',
+'tumbler_for_immortalization_trial', 'tumbler_for_angiogenesis_trial', 'tumbler_for_drug_intervention_trial' ) }
 }
 \examples{
 NULL

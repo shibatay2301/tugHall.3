@@ -2,6 +2,7 @@
 % Please edit documentation in R/parallel.R
 \name{make_input_format}
 \alias{make_input_format}
+\alias{make_input_range}
 \title{Function to prepare a format of dataset of input parameters for parallel calculations}
 \usage{
 make_input_format(
@@ -12,14 +13,20 @@ make_input_format(
     "tumbler_for_immortalization_trial", "tumbler_for_angiogenesis_trial",
     "tumbler_for_drug_intervention_trial")
 )
+
+make_input_range(frmt)
 }
 \arguments{
 \item{par_exclude}{List of parameters to exclude from data frame of
 input parameters because they will be constant for all the simulations}
+
+\item{frmt}{List of results of function \code{make_input_format()} as input format for the range of each parameter}
 }
 \value{
 \code{make_input_format()} returns data frame with a single row corresponding to
 a set of current input parameters
+
+\code{make_input_range()} returns
 }
 \description{
 \code{make_input_format()} function allows to prepare a format of dataset of input parameters from
@@ -29,6 +36,12 @@ results of a trial simulation. By default it equals all the names of files with 
 'n_repeat', 'real_time_stop', 'tumbler_for_metastasis_trial', 'tumbler_for_apoptosis_trial',
 'tumbler_for_immortalization_trial', 'tumbler_for_angiogenesis_trial', 'tumbler_for_drug_intervention_trial' ) }
 }
+\section{Functions}{
+\itemize{
+\item \code{make_input_range()}: Function to make the range for each input parameter in the data frame
+
+}}
 \examples{
+NULL
 NULL
 }

@@ -86,6 +86,43 @@ make_input_format  <-  function( par_exclude = c(  'censor_cells_number', 'censo
 
 
 
+#' @describeIn make_input_format Function to make the range for each input parameter in the data frame
+#'
+#' @param frmt List of results of function \code{make_input_format()} as input format for the range of each parameter
+#'
+#' @return \code{make_input_range()} returns
+#'
+#' @export
+#'
+#' @examples
+#' NULL
+make_input_range  <-  function( frmt ){
+
+    rng  =  frmt$format
+    rng[ 2, ] = rng[ 1, ]
+    tps  =  sapply( frmt$format, class)
+
+    for( i in 1:ncol( rng ) ){
+        if ( tps[ i ] == 'numeric' ){
+            rng[ 1, i ] = 0
+            rng[ 2, i ] = 1
+        } else {
+            if ( tps[ i ] == 'logical' ){
+                rng[ 1, i ] = FALSE
+                rng[ 2, i ] = TRUE
+            } else {
+                if (tps[ i ] == 'character'  ){
+                    rng[ 1, i ] = NA
+                    rng[ 2, i ] = NA
+                    print( 'NA in the range data frame for string parameter. Please, change it in the future.' )
+                } else stop( paste0( 'Type of variable ',  names( rng)[ i ], ' is not define in the function.' ) )
+            }
+        }
+    }
+
+
+}
+
 #' Function to prepare dataset of input parameters for parallel calculations
 #'
 #' @return \code{make_input_dataset()} returns data frame with different sets of input parameters
@@ -95,9 +132,5 @@ make_input_format  <-  function( par_exclude = c(  'censor_cells_number', 'censo
 #' @examples
 #' NULL
 make_input_dataset  <-  function( ){
-
-    if ( length( pck.env ) < 30 ){
-        stop( 'Please, use this function after trial simulation to get a format of data.' )
-    }
 
 }

@@ -52,11 +52,7 @@ and the second row is maximal values of parameters.
 }
 \description{
 \code{make_input_format()} function allows to prepare a format of dataset of input parameters from
-results of a trial simulation. By default it equals all the names of files with some additional arguments: \cr
-\code{par_exclude = c(  'censor_cells_number', 'censor_time_step', 'clonefile', 'cloneoutfile', 'ctmax',
-'genefile', 'geneoutfile', 'lambda_del', 'lambda_dup', 'logoutfile', 'model_name', 'monitor',
-'n_repeat', 'real_time_stop', 'tumbler_for_metastasis_trial', 'tumbler_for_apoptosis_trial',
-'tumbler_for_immortalization_trial', 'tumbler_for_angiogenesis_trial', 'tumbler_for_drug_intervention_trial' ) }
+results of a trial simulation.
 }
 \section{Functions}{
 \itemize{

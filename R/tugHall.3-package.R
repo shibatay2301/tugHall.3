@@ -31,6 +31,7 @@
 #' @importFrom stats rexp
 #' @importFrom stats rnorm
 #' @importFrom stats runif
+#' @importFrom stringr str_c
 #' @importFrom stringr str_length
 #' @importFrom stringr str_remove
 #' @importFrom stringr str_replace_all

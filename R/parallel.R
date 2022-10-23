@@ -1,6 +1,6 @@
 ### Code to prepare parallel simulations
 
-#' Function to prepare a format of dataset of input parameters for parallel calculations
+#' @describeIn make_input_dataset Function to prepare a format of dataset of input parameters for parallel calculations
 #'
 #' @param par_exclude List of parameters to exclude from data frame of
 #' input parameters because they will be constant for all the simulations
@@ -86,11 +86,12 @@ make_input_format  <-  function( par_exclude = c(  'censor_cells_number', 'censo
 
 
 
-#' @describeIn make_input_format Function to make the range for each input parameter in the data frame
+#' @describeIn make_input_dataset Function to make the range for each input parameter in the data frame
 #'
 #' @param frmt List of results of function \code{make_input_format()} as input format for the range of each parameter
 #'
-#' @return \code{make_input_range()} returns
+#' @return \code{make_input_range()} returns a data frame with two rows, the first row is minimal values,
+#' and the second row is maximal values of parameters.
 #'
 #' @export
 #'
@@ -120,10 +121,17 @@ make_input_range  <-  function( frmt ){
         }
     }
 
-
+    return( rng )
 }
 
 #' Function to prepare dataset of input parameters for parallel calculations
+#'
+#' @param rng Data frame was gotten as a result of function \code{make_input_range()}
+#' @param n_simulations Number of rows for output data frame corresponding to a number of simulations.
+#' @param discrete Logical parameter, if TRUE then random values will be generated from discrete set of values,
+#' if FALSE then random values will be generated from continuous range.
+#' @param n_graduations Number of discrete values for parameter generation.
+#' Applicable only if discrete is TRUE.
 #'
 #' @return \code{make_input_dataset()} returns data frame with different sets of input parameters
 #'
@@ -131,6 +139,9 @@ make_input_range  <-  function( frmt ){
 #'
 #' @examples
 #' NULL
-make_input_dataset  <-  function( ){
+make_input_dataset  <-  function( frmt, rng, n_simulations = 10,
+                                  discrete = TRUE, n_graduations = 11 ){
+
+    DF  = NULL
 
 }

@@ -1,5 +1,10 @@
 ### Code to prepare parallel simulations
 
+
+# Get input dataset -------------------------------------------------------
+
+
+
 #' @describeIn make_input_dataset Function to prepare a format of dataset of input parameters for parallel calculations
 #'
 #' @param par_exclude List of parameters to exclude from data frame of
@@ -168,3 +173,13 @@ make_input_dataset  <-  function( frmt, rng, n_simulations = 10,
 
     return( DF )
 }
+
+
+
+
+
+
+
+# Run parallel simulations ------------------------------------------------
+
+

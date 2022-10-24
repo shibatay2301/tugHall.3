@@ -1,7 +1,6 @@
 tugHall version 3.0
 ====================
-
-[![License](https://img.shields.io/badge/License-GPLv3-orange.svg)](https://github.com/tugHall/Clone-based/blob/master/Documentation/LICENSE)
+[![License](https://img.shields.io/badge/License-GPLv3-orange.svg)](https://github.com/tugHall/tugHall.3/blob/main/LICENSE.md)
 
 **tugHall** _(**tu**mor **g**ene-**Hall**mark)_ is a cancer-cell evolution model simulator, wherein gene mutations are linked to the hallmarks of cancer, 
 which influence tumor cell behaviors. 

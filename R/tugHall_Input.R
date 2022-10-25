@@ -205,6 +205,25 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
         pck.env$tumbler_for_angiogenesis_trial      =  tumbler_for_angiogenesis_trial
         pck.env$tumbler_for_drug_intervention_trial  =  tumbler_for_drug_intervention_trial
     }
+
+    # The list of parameters:
+    vr = c( 'Compaction_factor', 'E0', 'F0', 'censor_cells_number',
+            'censor_time_step', 'clonefile', 'cloneoutfile', 'd0', 'ctmax',
+            'gene_map', 'genefile', 'geneoutfile', 'k0',
+            'lambda_del', 'lambda_dup', 'logoutfile', 'm0',
+            'm_del', 'm_dup', 'model_name', 'monitor',
+            'n_repeat', 's0', 'real_time_stop',
+            'uo', 'uo_del', 'uo_dup', 'us', 'us_del', 'us_dup',
+            'tumbler_for_metastasis_trial', 'tumbler_for_apoptosis_trial',
+            'tumbler_for_immortalization_trial', 'tumbler_for_angiogenesis_trial',
+            'tumbler_for_drug_intervention_trial' )
+    for( v in vr ){
+        if ( length( pck.env[[ v ]] ) == 0 ){
+            stop( paste0( 'The parameter ', v, ' is not defined. '))
+        }
+    }
+
+    pck.env$digits  =  6
 }
 
 #' Function to print GLOBAL parameters
@@ -310,4 +329,36 @@ define_compaction_factor  <-  function( cf = data.frame( Ha = 1, Hb = 1, Hd = 1,
     pck.env$CF  =  cf
 }
 
+#' Function to check the files from the previous simulation
+#'
+#' Function to check the files from the previous simulation are exist and if so to move
+#' all of them to the folder with name \code{ /Output[Time.stamp]/ },
+#' the \code{ [Time.stamp]/ } in the format \code{2022_10_22_15_51_09} or \code{year_month_day_hour_min_sec}
+#'
+#' @return \code{check_previous_data} returns NULL and renames Output folder as well as monitoring file
+#' to the folder and file with time stamp
+#' @export
+#'
+#' @examples
+#' NULL
+check_previous_data  <-  function(  ){
+    out   =  file.path( paste0(pck.env$mainDir, '/Output' ) )
+    stmp  =  str_replace_all( as.character( Sys.time() ), ' ', '_')
+    stmp  =  str_replace_all( stmp, '-', '_' )
+    stmp  =  str_replace_all( stmp, ':', '_' )
 
+    mntr  =  file.path( paste0(pck.env$mainDir, '/', pck.env$file_monitor ) )
+
+    if ( dir.exists( out ) ){
+        file.rename( from = out, to = paste0( out, '_', stmp ) )
+        dir.create( out )
+        print( paste0( '/Output/ folder was renamed to /Output_', stmp ) )
+    }
+
+    if ( file.exists( mntr ) ) {
+        file.rename( from = mntr, to = paste0( mntr, '_', stmp, '.txt' ) )
+        print( paste0( 'Monitoring file was renamed to', paste0( mntr, '_', stmp, '.txt' ) ) )
+    }
+
+    return( NULL )
+}

@@ -23,9 +23,12 @@ model <- function( ){
 #                   E0, F0, m0, s0, k0, censor_cells_number, censor_time_step, d0 ) {
 
     local_environment( env = pck.env )
-    if ( !is.na( pck.env$digits ) ){
-        defer(options( digits = pck.env$digits ), envir = pck.env )
+    if ( is.na( pck.env$digits ) ){
+        pck.env$digits  =  6
+        # defer(options( digits = pck.env$digits ), envir = pck.env )
     }
+
+    local_options( list( digits = pck.env$digits ) )
 
     write_log(genefile, clonefile, geneoutfile, cloneoutfile, logoutfile,
               E0, F0, m0, uo, us, s0, k0, ctmax,

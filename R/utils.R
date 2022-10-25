@@ -93,8 +93,8 @@ utils::globalVariables( c( 'Compaction_factor', 'E0', 'F0', 'censor_cells_number
                            'gene_map', 'genefile', 'geneoutfile', 'k0',
                            'lambda_del', 'lambda_dup', 'logoutfile', 'm0',
                            'm_del', 'm_dup', 'model_name', 'monitor',
-                           'n_repeat', 's0', 'str_remove', 'real_time_stop', 'uo',
-                           'uo_del', 'uo_dup', 'us', 'us_del', 'us_dup',
+                           'n_repeat', 's0', 'real_time_stop',
+                           'uo', 'uo_del', 'uo_dup', 'us', 'us_del', 'us_dup',
                            'tumbler_for_metastasis_trial', 'tumbler_for_apoptosis_trial',
                            'tumbler_for_immortalization_trial', 'tumbler_for_angiogenesis_trial',
                            'tumbler_for_drug_intervention_trial' ) )
@@ -153,7 +153,29 @@ copy_files_to_Input  <-  function( files = c('CCDS.current.txt', 'CF.txt', 'clon
 
 }
 
+#' Function to copy the pipelines from extdata folder in the library to /Pipelines/ folder in the working directory
+#'
+#' @param dir Folder to where files should be save, by default dir = './'
+#'
+#' @return List of logic numbers for each copied file, TRUE - success, FALSE - not success
+#' @export
+#'
+#' @examples
+#' copy_pipelines( dir = 'Input' )
+copy_pipelines  <-  function( dir = './' ){
 
+    dir_pck =  system.file('extdata', 'Pipelines', package = 'tugHall.3', mustWork = TRUE )
+    files  =  list.files( dir_pck )
+    fls  =  lapply( X = files,
+                    FUN = function( x ) system.file('extdata/Pipelines', x, package = 'tugHall.3', mustWork = TRUE ) )
+    # fls  =  unlist( fls )
+
+    if ( !file.exists( dir ) ) dir.create( dir )
+    lapply( X = 1:length( fls ) , FUN = function( x ){
+        file.copy( fls[[ x ]],  dir, overwrite = TRUE, recursive = TRUE, copy.mode = TRUE )
+    } )
+
+}
 
 #' Function to copy the files of an example of simulation or from '/extdata/Output/' folder in the library to '/Output/' folder in the working directory
 #'
@@ -262,12 +284,15 @@ check_packages  <-  function( pkgs = NULL ){
 
     if ( is.null( pkgs ) ) {
         pkgs  =  list(  actuar = 'rztpois',
+                        dplyr  = '%>%',
+                        ggplot2  =  c( 'aes', 'geom_boxplot', 'geom_point', 'geom_violin',
+                                       'ggplot', 'ggtitle', 'theme', 'xlab', 'ylab', 'ylim' ),
                         graphics = c('axis', 'legend', 'lines', 'par', 'plot', 'text', 'title' ),
                         grDevices = c('dev.off', 'pdf', 'rgb'),
                         methods = 'new',
                         randomcoloR = 'randomColor',
                         stats = c('aggregate', 'rbinom', 'rexp', 'rnorm', 'runif' ),
-                        stringr = c('str_length', 'str_split', 'str_sub', 'str_trim', 'str_remove'),
+                        stringr = c('str_length', 'str_split', 'str_sub', 'str_trim', 'str_remove', 'str_replace_all', 'str_c' ),
                         utils = c('read.delim', 'read.table', 'write.table', 'globalVariables' ),
                         withr  =  c('local_environment', 'local_par', 'local_dir', 'local_options', 'defer' )
                         )

@@ -172,6 +172,7 @@ make_input_dataset  <-  function( frmt, rng, n_simulations = 10,
     }
 
     DF$ID  =  1:n_simulations
+    DF     =  DF[  , c( ncol(DF), 1:( ncol(DF) - 1 ) ) ]
 
     return( DF )
 }

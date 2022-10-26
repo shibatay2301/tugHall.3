@@ -39,6 +39,14 @@ write.table( x = as.data.frame( t ( DF_constant ) ), file = './Input_const_param
              sep = '\t', row.names = TRUE, col.names = FALSE )
 
 
+
+
+# Functions for parallel simulation ---------------------------------------
+
+
+
+
+
 # Make parallel simulations -----------------------------------------------
 
 library( 'parallel' )

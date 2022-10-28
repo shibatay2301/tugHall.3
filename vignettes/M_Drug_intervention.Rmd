@@ -15,6 +15,10 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r, echo=FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
 
 # Table of Contents
 
@@ -80,6 +84,7 @@ Standard simulation includes several steps:
 Load the tugHall.3 simulation package:
 
             library(tugHall.3)
+            
         
 Definen number of **digits** in the numeric format for tugHall.3 environment:
 
@@ -226,13 +231,16 @@ If it necessary, get order of genes dysfunction for all clones:
 
 To visualize results of a simulation one may plot them using special functions:
 
+```{r, fig.width = 4, echo=FALSE}
+plot_order_dysfunction( pck.env$rdr_dysf , pos = c(5,800), logscale = 'y', cex = 1. )
+```
 
-            
+       
             plot_order_dysfunction( pck.env$rdr_dysf , pos = c(5,800), logscale = 'y', cex = 1. )
 
             plot_average_simulation_data( pck.env$data_avg, pck.env$time_max )
             
-            
+
             
 Plot the main clones
 

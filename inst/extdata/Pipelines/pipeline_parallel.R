@@ -28,7 +28,7 @@ DF   =  make_input_dataset( frmt = frmt, rng = rng, n_simulations = 1000,
 write.table( x = DF, file = './Input_DataSet.txt', append = FALSE,
              sep = '\t', row.names = FALSE, col.names = TRUE )
 
-# Make data frame with constant parameters and their vakues:
+# Make data frame with constant parameters and their values:
 
 DF_val  =  lapply( X = par_exclude, FUN = function( x ) pck.env[[ x ]] )
 

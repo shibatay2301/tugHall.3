@@ -9,6 +9,11 @@ library( 'tugHall.3' )
 simulation( verbose = FALSE, to_plot = FALSE,
             seed = 123456 , work_dir = '../Simulation/')
 
+### OR JUST load dataset as package environment without simulation like:
+
+clear_tugHall.Environment()  # clear package environment before loading
+load_tugHall.Environment( results = tugHall_dataset )
+
 par_exclude = c(  'censor_cells_number', 'censor_time_step', 'clonefile',
                   'cloneoutfile', 'ctmax', 'genefile', 'geneoutfile',
                   'lambda_del', 'lambda_dup', 'logoutfile', 'model_name',

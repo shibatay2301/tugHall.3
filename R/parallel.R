@@ -226,6 +226,26 @@ make_input_dataset  <-  function( frmt, rng, n_simulations = 10,
     DF$ID  =  1:n_simulations
     DF     =  DF[  , c( ncol(DF), 1:( ncol(DF) - 1 ) ) ]
 
+    # Calculate weightes from Break points of weights:
+
+    for ( ptrn  in c('Ha', 'Hb', 'Hd', 'Hi', 'Him' ) ){
+
+        w_hall  =  ! is.na( as.vector( str_match( names( DF ), pattern = paste0( ptrn, '_' ) ) ) )
+        w_hall  =  c( ( which( w_hall )[ 1 ] ):( which( w_hall )[ 1 ] + length( pck.env$hall[[ ptrn ]] ) - 1 )  )
+        w_BP    =  which( ! is.na( as.vector( str_match( names( DF ), pattern = paste0( 'BreakPoint_' ,ptrn, '_' ) ) ) ) )
+
+        #   print( DF[1:3, c(1, w_hall, w_BP ) ] )
+        # Sort weights:
+        for ( i in 1:nrow( DF ) ){
+
+            DF[ i, w_BP   ]  =  sort( as.numeric( DF[ i, w_BP ] ) )
+
+            DF[ i, w_hall ]  =     c(    as.numeric( DF[ i, w_BP   ] ),   1  ) -
+                                   c( 0, as.numeric( DF[ i, w_BP   ] )       )
+        }
+
+    }
+
     return( DF )
 }
 

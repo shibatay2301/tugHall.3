@@ -6,8 +6,9 @@ library( 'tugHall.3' )
 
 # Please, use here your own simulation example
 #         to get appropriate values of constant parameters
-simulation( verbose = FALSE, to_plot = FALSE,
-            seed = 123456 , work_dir = '../Simulation/')
+
+# Please, just delete the comment symbol to run a simulation
+# simulation( verbose = FALSE, to_plot = FALSE, seed = 123456 , work_dir = '../Simulation/')
 
 ### OR JUST load dataset as package environment without simulation like:
 
@@ -160,8 +161,11 @@ print( 'Please, prepare in the working directory the folder Input/ with all the 
 print( 'All the files from Input folder will be copied to the input folders for parallel calculations,' )
 print( 'and some of them will be modified in accordance with dataset of the input parameters.' )
 
-
-
+for( j in 1:10 ){
+    save_to_input( DF_constant = DF_constant, DF = DF, i = j,
+                    main_dir = main_dir, par_var = par_var,
+                                 file_save  =  'parameters.txt' )
+}
 
 # The local function to implement parallel simulations
 

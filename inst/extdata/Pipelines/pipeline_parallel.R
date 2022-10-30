@@ -149,7 +149,17 @@ save_to_input  <-  function( DF_constant, DF, i = 1, main_dir, par_var,
 
 }
 
+# The local function to implement parallel simulations from prepared input folders
 
+SIM_PARALLEL <- function( i ){
+
+    res  =  simulation( verbose = FALSE , to_plot = FALSE, seed = NA,
+                        work_dir = file.path( getwd(), 'Parallel_simulations', i ),
+                        copy_input  =  FALSE )
+
+    # Return VAF from a simulation
+    return( res$VAF )
+}
 
 # Make parallel simulations -----------------------------------------------
 
@@ -161,14 +171,45 @@ print( 'Please, prepare in the working directory the folder Input/ with all the 
 print( 'All the files from Input folder will be copied to the input folders for parallel calculations,' )
 print( 'and some of them will be modified in accordance with dataset of the input parameters.' )
 
-for( j in 1:10 ){
+N_simulations  =  16
+
+for( j in 1:N_simulations ){
     save_to_input( DF_constant = DF_constant, DF = DF, i = j,
                     main_dir = main_dir, par_var = par_var,
                                  file_save  =  'parameters.txt' )
 }
 
-# The local function to implement parallel simulations
 
+
+# Get number of processors:
+numCores  =  detectCores()
+print( paste0(' Number of processors in the simulation equals  ', numCores ) )
+
+# Define the convenient number of cores
+numCores  = round( numCores / 2 )
+print( paste0(' Number of using processors in the simulation equals  ', numCores ) )
+
+id_simulations  =  1:N_simulations
+
+# Check required libraries:
+check_packages()
+
+mclapply( id_simulations, SIM_PARALLEL, mc.cores = numCores )
+
+
+
+
+
+
+
+
+
+
+
+
+# THE OLD FUNCTIONS -------------------------------------------------------
+
+# The local function to implement parallel simulations
 
 SIM_PARALLEL <- function( i ){
 
@@ -198,21 +239,6 @@ SIM_PARALLEL <- function( i ){
 }
 
 
-
-# Get number of processors:
-numCores  =  detectCores()
-print( paste0(' Number of processors in the simulation equals  ', numCores ) )
-
-numCores  = round( numCores / 2 )
-
-print( paste0(' Number of using processors in the simulation equals  ', numCores ) )
-
-id_simulations  =  1:nrow( DF )
-
-# Check requared libraries:
-check_packages()
-
-mclapply( id_simulations, SIM_PARALLEL, mc.cores = numCores )
 
 # GET Results of simulations ----------------------------------------------
 

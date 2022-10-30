@@ -153,13 +153,18 @@ save_to_input  <-  function( DF_constant, DF, i = 1, main_dir, par_var,
 
 # The local function to implement parallel simulations from prepared input folders
 
-SIM_PARALLEL <- function( i ){
+### PAY ATTENTION that copy_input  =  TRUE makes all the simulation from default INPUT data
+###
+### copy_input  =  FALSE  makes simulation from generated data frame,
+###                       but it should be REALISTIC values of parameters
+###
+SIM_PARALLEL <- function( i, copy_input  =  TRUE ){
 
     fldr  =  file.path( getwd(), 'Parallel_simulations', i )
     if ( !dir.exists(fldr) ) dir.create( fldr )
     res  =  simulation( verbose = FALSE , to_plot = FALSE, seed = NA,
                         work_dir = fldr,
-                        copy_input  =  FALSE )
+                        copy_input  =  copy_input )
 
     # Return VAF from a simulation
     return( res$VAF )
@@ -225,7 +230,7 @@ RES = MergeListOfDf( VAF )
 RES_2  =  Reduce( function(x, y) merge(x, y, all=TRUE), VAF )
 
 ### Save data frame to a file:
-write.table( x = RES_2, file = './VAF_parallel.txt', append = TRUE,
+write.table( x = RES_2, file = './VAF_parallel.txt', append = FALSE,
              sep = '\t', row.names = FALSE, col.names = TRUE )
 
 

@@ -155,7 +155,7 @@ SIM_PARALLEL <- function( i ){
 
     res  =  simulation( verbose = FALSE , to_plot = FALSE, seed = NA,
                         work_dir = file.path( getwd(), 'Parallel_simulations', i ),
-                        copy_input  =  FALSE )
+                        copy_input  =  TRUE )
 
     # Return VAF from a simulation
     return( res$VAF )
@@ -194,7 +194,7 @@ id_simulations  =  1:N_simulations
 # Check required libraries:
 check_packages()
 
-mclapply( id_simulations, SIM_PARALLEL, mc.cores = numCores )
+vafs  =  mclapply( id_simulations, SIM_PARALLEL, mc.cores = numCores )
 
 
 

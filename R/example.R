@@ -38,11 +38,12 @@ simulation  <-  function( verbose = TRUE , to_plot = TRUE,
                              dir = 'Input' )
     }
 
+    check_previous_data( )
     define_files_names( )
     define_gene_location( )
     define_parameters( read_fl = TRUE , file_name = './Input/parameters.txt' )
     define_compaction_factor( read_fl = TRUE , file_name = './Input/CF.txt' )
-    check_previous_data( )
+
     if ( verbose ) print_parameters()
 
     n_c  =  0

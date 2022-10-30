@@ -153,9 +153,11 @@ save_to_input  <-  function( DF_constant, DF, i = 1, main_dir, par_var,
 
 SIM_PARALLEL <- function( i ){
 
+    fldr  =  file.path( getwd(), 'Parallel_simulations', i )
+    if ( !dir.exists(fldr) ) dir.create( fldr )
     res  =  simulation( verbose = FALSE , to_plot = FALSE, seed = NA,
-                        work_dir = file.path( getwd(), 'Parallel_simulations', i ),
-                        copy_input  =  TRUE )
+                        work_dir = fldr,
+                        copy_input  =  FALSE )
 
     # Return VAF from a simulation
     return( res$VAF )
@@ -196,53 +198,34 @@ check_packages()
 
 vafs  =  mclapply( id_simulations, SIM_PARALLEL, mc.cores = numCores )
 
+VAF  = lapply( X = 1:length(vafs) , FUN = function( x ){
+                                                    VF_1  =  vafs[[ x ]]
+                                                    VF_1$ID  =  x
+                                                    return( VF_1 )
+                                                        } )
 
+### Combine results from the list to a single data frame:
+###   TWO methods:
 
-
-
-
-
-
-
-
-
-
-# THE OLD FUNCTIONS -------------------------------------------------------
-
-# The local function to implement parallel simulations
-
-SIM_PARALLEL <- function( i ){
-
-                Initialization( i, name_model = name_model, name_weights = name_weights, name_init = name_init )
-
-                Get_parameters( file = file_param, i , name_weights = name_weights, name_init = name_init, name_model = name_model )
-
-                ### Get_initial_clones( clonefile = clonefile )   ### This function to generate the file for initial clones
-
-                VAF  <-  SIM( i )
-
-                if ( !is.null( VAF ) ) {
-                    df   <-  Safe_SIM_MAX( VAF, i , onco , num_of_max = 5, file = paste0( ResultDir, 'data_sim_all_', floor( i / 1000 ), '.txt' ) )
-                } else {
-                    df <- NULL
-                }
-
-                if ( !is.null( VAF ) ) {
-                    df   <-  Safe_SIM_MAX_Primary( VAF, i , onco , num_of_max = 5, file = paste0( ResultDir, 'data_sim_primary_', floor( i / 1000 ), '.txt' ) )
-                } else {
-                    df <- NULL
-                }
-                ### REMOVE the files and folder after calculations
-                unlink( paste0( 'Output/', name_weights, "/", name_model, "/", name_init, "/", i ) , recursive = TRUE, force = TRUE )
-
-    return( df )
+# The first one:
+MergeListOfDf = function( data  ){
+    if ( length( data ) == 2 ) {
+        return( merge( data[[ 1 ]] , data[[ 2 ]], all = TRUE ) )
+    }
+    return( merge( MergeListOfDf( data[ -1 ] ) , data[[ 1 ]], all = TRUE ) )
 }
 
+RES = MergeListOfDf( VAF )
 
 
-# GET Results of simulations ----------------------------------------------
+# OR
+# The second method:
+RES_2  =  Reduce( function(x, y) merge(x, y, all=TRUE), VAF )
+
+### Save data frame to a file:
+write.table( x = RES_2, file = './VAF_parallel.txt', append = TRUE,
+             sep = '\t', row.names = FALSE, col.names = TRUE )
 
 
-
-
-
+# to see all the data of VAF:
+plot_VAF( VAF = RES_2, violin = FALSE, y_lim = c(0,0.55) )

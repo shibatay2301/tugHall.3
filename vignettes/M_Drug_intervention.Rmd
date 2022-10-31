@@ -1,9 +1,8 @@
 ---
 title: "Preparation of simulation and Drug intervention"
-author: "Munmee Dutta"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Preparation of simulation}
+  %\VignetteIndexEntry{Preparation of simulation and Drug intervention}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

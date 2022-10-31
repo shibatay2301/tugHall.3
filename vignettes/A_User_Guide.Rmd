@@ -1,6 +1,6 @@
 ---
 title: "USER GUIDE of tugHall.3"
-#authors: "Iurii Nagornov, Nishino Jo, Eisaku Furukawa and Mamoru Kato"
+#authors: "Iurii Nagornov, Munmee Dutta, Nishino Jo, Eisaku Furukawa and Mamoru Kato"
 ## date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 ```
 
 
-## Authors: Iurii Nagornov, Nishino Jo, Eisaku Furukawa and Mamoru Kato
+## Authors: Iurii Nagornov, Munmee Dutta, Nishino Jo, Eisaku Furukawa and Mamoru Kato
 
 ## Organization: National Cancer Center Japan, Research Institute, Division of Bioinformatics
 

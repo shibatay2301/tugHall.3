@@ -58,6 +58,10 @@ Standard simulation includes several steps:
 
 5. Plot the results of simulation
 
+6. Split and plot original simulation separately for drivers and passengers:
+
+
+
 ### 1. Preparation of Input and Output folders from working directory
 
 Load the tugHall.3 simulation package:
@@ -251,7 +255,27 @@ Plot the Variant Allele Frequency (VAF) data for normal, primary and metastatic 
 VAF = tugHall_dataset$VAF
 plot_VAF( VAF = VAF, rho = 0 , violin = FALSE )
 ```
- 
+
+
+### Split and plot original simulation separately for drivers and passengers:
+
+Split the VAF from original simulation results for drivers and passengers:
+
+```{r, echo=TRUE}
+ vf_drivers  =  vf_init[ which(  vf_init$MalfunctionedByPointMut ), ]
+            vf_pass     =  vf_init[ which( !vf_init$MalfunctionedByPointMut ), ]
+            VAF_drivers  =  get_rho_VAF( vf = vf_drivers, save_to_file = FALSE )
+            VAF_pass  =  get_rho_VAF( vf = vf_pass, save_to_file = FALSE )
+```
+
+Plot the Variant Allele Frequency (VAF) data of drivers and passengers seperately for normal, primary and metastatic cells
+
+```{r, echo=TRUE, fig.height=6, fig.width=6}
+if (length(VAF_drivers) > 0 ) plot_VAF( VAF = VAF_drivers, rho = 0 , violin = FALSE )
+            if (length(VAF_pass) > 0 ) plot_VAF( VAF = VAF_pass, rho = 0 , violin = FALSE )
+```
+
+
 
 # Parallel simulations
 

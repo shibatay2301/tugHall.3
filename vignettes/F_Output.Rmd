@@ -87,9 +87,9 @@ knitr::kable(x, align = "c", caption = "**The Output data from cloneout.txt file
 ```
 
 1. **Time** - the time step, e.g., 1, 50.
-2. **N\_cells** - the number of cells in this clone, e.g. 1000, 2.
-3. **AvgOrIndx** - "avg" or "index": "avg" is for a line with averaged values across different (index) lines at the same time step; "index" shows the cell's index at the current time step,  e.g., avg, 4,7.
-4. **ID** - the unique ID of clone, e.g., 1, 50.
+2. **AvgOrIndx** - "avg" or "index": "avg" is for a line with averaged values across different (index) lines at the same time step; "index" shows the cell's       index at the current time step,  e.g., avg, 4,7.
+3. **ID** - the unique ID of clone, e.g., 1, 50.
+4. **N\_cells** - the number of cells in this clone, e.g. 1000, 2.
 5. **Parent_ID** - the parent index,  e.g., 0, 45.
 6. **Birth_time** - the time step of the clone's birth,  e.g., 0, 5.
 7. **c** - the counter of cell divisions for the clone, it equals average counter across all the cells in the clone.
@@ -112,17 +112,18 @@ x[,c(1:11,13)] <- lapply(x[,c(1:11,13)], str_trunc, 7, ellipsis = "")
 knitr::kable(x, align = "c", caption = "**cloneout.txt**. Columns are from 14 to 24.")
 ```
 
-14. **N_normal** - the number of normal cells at this time step, e.g., 134, 5432.
-15. **Nmax** - the theoretically maximal number of primary tumor cells, e.g., 10000, 5000.
-16. **N_primary** - the number of primary tumor cells at this time step, e.g., 134, 5432.
-17. **N_metastatic** - the number of metastatic cells at this time step, e.g., 16, 15439.
-18. **Ha** - the value of the hallmark "Apoptosis" for the cell, e.g., 0.1, 0.4444.
-19. **Him** - the value of the hallmark "Invasion / Metastasis" for the cell, e.g., 0.1, 0.4444.
-20. **Hi** - the value of the hallmark "Immortalization" for the cell, e.g., 0.1, 0.4444.
-21. **Hd** - the value of the hallmark "Growth / Anti-growth" for the cell, e.g., 0.1, 0.4444 .
-22. **Hb** - the value of the hallmark "Angiogenesis" for the cell, e.g., 0.1, 0.4444 .
-23. **type** - the type of the cell: 'normal' or 'primary' or 'metastatic'.
-24. **mut_den** - the density of mutations for the cell, it equals to ratio a number of mutated driver genes to a number of all the genes, e.g., 0, 0.32.
+14. **N_normal_intact** - the number of normal intact cells at this time step, e.g., 488, 500.
+15. **N_normal_speckled** - the number of normal speckled cells at this time step, e.g., 0, 3.
+16. **Nmax** - the theoretically maximal number of primary tumor cells, e.g., 10000, 5000.
+17. **N_primary** - the number of primary tumor cells at this time step, e.g., 134, 5432.
+18. **N_metastatic** - the number of metastatic cells at this time step, e.g., 16, 15439.
+19. **Ha** - the value of the hallmark "Apoptosis" for the cell, e.g., 0.1, 0.4444.
+20. **Him** - the value of the hallmark "Invasion / Metastasis" for the cell, e.g., 0.1, 0.4444.
+21. **Hi** - the value of the hallmark "Immortalization" for the cell, e.g., 0.1, 0.4444.
+22. **Hd** - the value of the hallmark "Growth / Anti-growth" for the cell, e.g., 0.1, 0.4444 .
+23. **Hb** - the value of the hallmark "Angiogenesis" for the cell, e.g., 0.1, 0.4444 .
+24. **type** - the type of the cell: 'normal' or 'primary' or 'metastatic'.
+
 
  
 ```{r, echo=FALSE, results='asis'}
@@ -131,12 +132,17 @@ x[is.na(x)] <- ""
 x <- x[,c(1,3,25:28)] # ncol(x)] 
 knitr::kable(x, align = "c", caption = "**cloneout.txt**. Columns are from 25 to 28.")
 ```
-25. **driver_genes** - the binary numbers indicate the driver mutation at the gene related to order of genes in onco as well as order of the next columns with genes' names, e.g., '1 0 0 0' means that the first gene has a driver mutation and other genes have no.
-26. **passenger_genes** - the binary numbers indicate the passenger mutation at the gene related to order of genes in onco as well as order of the next columns with genes' names, e.g., '0 0 1 0' means that the third gene has a passanger mutation and other genes have no.
-27. **PointMut_ID** - the index of data row for point mutation data frame saved at the end of simulation in the file **Point_mutations.txt**, e.g., 23, 32.
-28. **CNA_ID** - the index of data row for CNA data frame saved at the end of simulation in the file **CNA.txt**, e.g., 44, 21.
 
-There are two columns (25th and 26th) with the indexes of point mutations and CNAs. 
+25. **mut_den** - the density of mutations for the cell, it equals to ratio a number of mutated driver genes to a number of all the genes, e.g., 0, 0.32.
+
+26. **driver_genes** - the binary numbers indicate the driver mutation at the gene related to order of genes in onco as well as order of the next columns with genes' names, e.g., '1 0 0 0' means that the first gene has a driver mutation and other genes have no.
+
+27. **passenger_genes** - the binary numbers indicate the passenger mutation at the gene related to order of genes in onco as well as order of the next columns with genes' names, e.g., '0 0 1 0' means that the third gene has a passanger mutation and other genes have no.
+
+28. **PointMut_ID** - the index of data row for point mutation data frame saved at the end of simulation in the file **Point_mutations.txt**, e.g., 23, 32.
+
+
+There are two columns (26th and 27th) with the indexes of point mutations and CNAs. 
 Each index corresponds to index in the related data frames for point mutations and for CNAs represented in additional tables below.
 
  
@@ -147,7 +153,9 @@ x <- x[,c(1,3,29:32)] # ncol(x)]
 knitr::kable(x, align = "c", caption = "**cloneout.txt**. Columns are from 29 to 32.")
 ```
 
-29-32. **Chr1_CDS_(gene's name)**, for example **Chr1_CDS_APC** - the length of CDS for each gene in the order of names of genes for FIRST parental chromosome of a clone. The CDS length of genes for second parental chromosome can be different in principle. The point mutation is proportional to **CDS_(gene's name)** od each chromosome. 
+29. **CNA_ID** - the index of data row for CNA data frame saved at the end of simulation in the file **CNA.txt**, e.g., 44, 21.
+
+30-32. **Chr1_CDS_(gene's name)**, for example **Chr1_CDS_APC** - the length of CDS for each gene in the order of names of genes for FIRST parental chromosome         of a clone. The CDS length of genes for second parental chromosome can be different in principle. The point mutation is proportional to **CDS_(gene's             name)** od each chromosome. 
 
 
  
@@ -160,8 +168,9 @@ x[] <- lapply(x, str_trunc, 8, ellipsis = "")
 knitr::kable(x, align = "c", caption = "**cloneout.txt**. Columns are from 33 to 36.")
 ```
 
-33-36. **Chr1_Len_(gene's name)**, for example **Chr1_Len_APC** - the length of gene in the order of names of genes for ONLY FIRST chromosome of a clone. The length of genes for second chromosome can be different in principle. The CNA mutation is proportional to **Len_(gene's name)**. 
+33. **Chr1_CDS_(gene's name)**, for example **Chr1_CDS_PIK3CA** - the length of CDS for each gene in the order of names of genes for FIRST parental chromosome of a clone. The CDS length of genes for second parental chromosome can be different in principle. The point mutation is proportional to **CDS_(gene's name)** od each chromosome. 
 
+34-36. **Chr1_Len_(gene's name)**, for example **Chr1_Len_APC** - the length of gene in the order of names of genes for ONLY FIRST chromosome of a clone. The length of genes for second chromosome can be different in principle. The CNA mutation is proportional to **Len_(gene's name)**. 
 
  
 ```{r, echo=FALSE, results='asis'}
@@ -173,13 +182,15 @@ x[] <- lapply(x, str_trunc, 8, ellipsis = "")
 knitr::kable(x, align = "c", caption = "**cloneout.txt**. Columns are from 37 to 40.")
 ```
 
-37. **Chr1_p0** - the probability that during a trial, a cell of the clone has **NO** mutation [per time-step]. Applied to all cells in the clone.
+37. **Chr1_Len_(gene's name)**, for example **Chr1_Len_PIK3CA** - the length of gene in the order of names of genes for ONLY FIRST chromosome of a clone. The length of genes for second chromosome can be different in principle. The CNA mutation is proportional to **Len_(gene's name)*
 
-38. **Chr1_prob_point_mut** - the **conditional** probability that if cell will have a mutation it should be a **point mutation**. 
+38. **Chr1_p0** - the probability that during a trial, a cell of the clone has **NO** mutation [per time-step]. Applied to all cells in the clone.
 
-39. **Chr1_prob_del** - the **conditional** probability that if cell will have a mutation it should be a **deletion**. 
+39. **Chr1_prob_point_mut** - the **conditional** probability that if cell will have a mutation it should be a **point mutation**. 
 
-40. **Chr1_prob_dup** - the **conditional** probability that if cell will have a mutation it should be a **duplication**. 
+40. **Chr1_prob_del** - the **conditional** probability that if cell will have a mutation it should be a **deletion**. 
+
+41. **Chr1_prob_dup** - the **conditional** probability that if cell will have a mutation it should be a **duplication**. 
 
 
 Last columns (from 41 to the end) show the data related to the **SECOND** parental chromosome with the same set of data as for the first parental chromosome.
@@ -215,11 +226,11 @@ knitr::kable(x, align = "c", caption = "**CNA mutation data frame which will be 
 
 1. **CNA_ID** - ID of CNA. 
 2. **Parental_1or2** - indicates either of the two parental chromosomes. 
-3. **DuplicationOrDeletion** - indicator of duplication or deletion for CNA.
+3. **dupOrdel** - indicator of duplication or deletion for CNA.
 4. **Chr** - name of a chromosome.
-5. **Reference_start** - the reference position of the CNA start.
-6. **Reference_end** - the reference position of the CNA end.
-7. **Gene_name** - the name(s) of a gene(s).
+5. **Ref_start** - the reference position of the CNA start.
+6. **Ref_end** - the reference position of the CNA end.
+7. **Gene_names** - the name(s) of a gene(s).
 8. **MalfunctionedByCNA** - logical indicator of whether or not the gene(s) is malfunctioned by the CNA. 
 9. **mut_order** - indicator of mutation order in the simulation, it's used to detect order of mutations in the clone at each chromosome.
 

@@ -50,7 +50,7 @@ knitr::opts_chunk$set(
 
 # Drug intervention       
         
-After standard simulation, drug intervention includes the following steps:
+Drug intervention follows the standard simulation and, it involves the following steps:
 
 
 1. Drug intervention trials
@@ -100,7 +100,7 @@ plot_VAF( VAF = VAF_drug, rho = 0, violin = FALSE )
 
 ### 3. check the blocking drivers and plot the results
 
-Here one can check the blocking drivers which will be moved to passengers after drug intervention.
+Here you can block the drivers by the drug which will eventually be moved to passengers after the drug intervention.
 
 ```{r, echo=TRUE}
 vf_drivers  =  vf_drug[ which(  vf_drug$MalfunctionedByPointMut ), ]

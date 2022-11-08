@@ -7,6 +7,7 @@
 #' @param to_plot Logical type to plot or do not plot graphical results of a simulation
 #' @param seed Numeric type to set seed for a simulation, if seed = NA then it will be skipped
 #' @param work_dir Working directory for a simulation, by default \code{ work_dir = getwd() }
+#' @param copy_input Logical parameter to copy or do not copy default Input folder to the simulation folder
 #'
 #' @return List of results of simulation with default values for all the parameters
 #' @export
@@ -17,7 +18,8 @@
 #' # so, please, wait for a while
 #' simulation( verbose = FALSE , to_plot = FALSE )
 simulation  <-  function( verbose = TRUE , to_plot = TRUE,
-                                  seed = 123456, work_dir = getwd() ){
+                                  seed = 123456, work_dir = getwd(),
+                          copy_input  =  TRUE ){
 
     local_dir( new = work_dir )
 
@@ -29,16 +31,19 @@ simulation  <-  function( verbose = TRUE , to_plot = TRUE,
     # Attach packages from import list
     check_packages()
 
-    copy_files_to_Input( files = c( 'CCDS.current.txt', 'CF.txt',
-                                   'cloneinit.txt','gene_hallmarks.txt',
-                                   'gene_map.txt','parameters.txt' ) ,
-                         dir = 'Input' )
+    if ( copy_input ){
+        copy_files_to_Input( files = c( 'CCDS.current.txt', 'CF.txt',
+                                       'cloneinit.txt','gene_hallmarks.txt',
+                                       'gene_map.txt','parameters.txt' ) ,
+                             dir = 'Input' )
+    }
 
+    check_previous_data( )
     define_files_names( )
     define_gene_location( )
     define_parameters( read_fl = TRUE , file_name = './Input/parameters.txt' )
     define_compaction_factor( read_fl = TRUE , file_name = './Input/CF.txt' )
-    check_previous_data( )
+
     if ( verbose ) print_parameters()
 
     n_c  =  0

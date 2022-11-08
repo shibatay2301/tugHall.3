@@ -1,16 +1,19 @@
 ---
-title: "Preparation of simulation and Drug intervention"
+title: "Drug intervention"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Preparation of simulation and Drug intervention}
+  %\VignetteIndexEntry{Drug intervention}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+
 ---
+
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
+  
 )
 ```
 
@@ -39,308 +42,83 @@ knitr::opts_chunk$set(
 
 [Versions](K_Versions.html)
 
-[References](L_References.html)
+[Drug interventions](L_Drug_interventions.html)
 
-[Drug interventions](M_Drug_interventions.html)
-
+[References](M_References.html)
 
 ---
 
-# Standart simulation         
+# Drug intervention       
         
-Standard simulation includes several steps:
+Drug intervention follows the standard simulation and, it involves the following steps:
 
-1. Preparation of Input and Output folders from working directory
 
-2. Preparation of input files and parameters
+1. Drug intervention trials
 
-3. Run a simulation
+2. Plot the results of simulation after drug intervention
 
-4. Post simulation data processing 
-
-5. Plot the results of simulation
-
-6. Split original VAF for drivers and passengers:
-
-7. Plot the results of simulation separately for drivers and passengers 
-
-8. Drug intervention trials
-
-9. Plot the results of simulation after drug intervention
-
-10. check the blocking drivers and plot the results
+3. check the blocking drivers and plot the results
 
 
 ---
-
-
-### 1. Preparation of Input and Output folders from working directory
-            
 Load the tugHall.3 simulation package:
 
-            library(tugHall.3)
-        
-Definen number of **digits** in the numeric format for tugHall.3 environment:
-
-            pck.env$digits = 6
+```{r, echo=TRUE}
+library(tugHall.3)
+```
             
 
-Attach packages from import list
-            
-            check_packages()
-            
+### 1. Drug intervention trials
 
-
-
-### 2. Preparation of input files and parameters
-
-Firstly, we need to copy all the input files to Input folder by calling the function,
-(make sure that **working directory** is in a proper place):
-
-           
-            copy_files_to_Input( files = c( 'CCDS.current.txt', 'CF.txt',
-                                'cloneinit.txt','gene_hallmarks.txt',
-                                'gene_map.txt','parameters.txt' ) ,
-                                 dir = 'Input' )
-                                 
-                                 
-
-Next define names of all the files to input and output:
-                                 
-           
-            define_files_names()
-            
-            
-            
-Define location of all the genes of interest:
-    
-            
-            define_gene_location()
-            
-            
-            
-
-Define parameters from './Input/parameters.txt', if it is necessary, please, change it directly:
-
-            
-            define_parameters( read_fl = TRUE , file_name = './Input/parameters.txt' )
-            
-            
-
-If compaction factors are used in simulation, please, change and define them:
-
-            
-            define_compaction_factor( read_fl = TRUE , file_name = './Input/CF.txt' )
-            
-            
-
-Next check/confirm the input parameters and compaction factors:
-
-           
-            print_parameters()
-            
-            
-
-
-### 3. Run a simulation
-
-For a simulation **tugHall.3** uses the global parameters generated automatically:
-
-                              
-                              'CF', 'Compaction_factor', 'E0', 'F0', 'censor_cells_number',
-                              'censor_time_step', 'clonefile', 'cloneoutfile',
-                              'cna_clones', 'd0', 'env', 'file_monitor',
-                              'gene_map', 'genefile', 'geneoutfile', 'hall', 'k0',
-                              'lambda_del', 'lambda_dup', 'logoutfile', 'm0',
-                              'm_del', 'm_dup', 'model_name', 'monitor',
-                              'n_repeat', 'onco', 'pnt_clones', 's0',
-                              'real_time_stop', 'uo', 'uo_del', 'uo_dup',
-                              'us', 'us_del', 'us_dup'
-                              
-
-So, please, be kind to make sure that these parameters are not affected by other packages or programs.
-
-
-Start **simulation**, please, wait for a while ... or see Sim_monitoring.txt file in working folder:
-
-           
-            smlt = model()
-            
-
-Save point mutations and CNA to the files in Output folder:
-
-            
-            write_pnt_clones( pck.env$pnt_clones, file_out = 'Output/point_mutations.txt' )
-            write_pnt_clones( pck.env$cna_clones, file_out = 'Output/CNA_mutations.txt' )
-            
-
-
-
-### 4. Post simulation data processing 
-
-Get data of the last simulation from cloneout file and gene file:
-
-            
-            dtst = get_flow_data( pck.env$cloneoutfile, pck.env$genefile )
-            pck.env$data_avg   =  dtst$data_avg
-            pck.env$data_flow  =  dtst$data_flow
-            pck.env$time_max   =  dtst$time_max
-            pck.env$data_last  =  dtst$data_last
-            cna_mut = dtst$cna_mut
-            pnt_mut   =  dtst$pnt_mut
-            pnt_mut_B =  dtst$pnt_mut_B
-            
-
-
-Please check the Onco  and hall objects after simulation and verify it with the input data
-
-           
-            pck.env$onco
-            pck.env$hall
-            
-            
-
-Also get VAF data and save them into file 'Output/VAF_data.txt':
-
-            
-            pck.env$vf = get_VAF( pnt_mut, pck.env$data_last )
-            pck.env$VAF  =  get_rho_VAF( vf = pck.env$vf, rho = c( 0.0, 0.1, 0.2, 0.5, 0.7, 0.9 ) ,
-                             file_name = './Output/VAF.txt' )
-                             
-                             
-            
-
-If it necessary, get order of genes dysfunction for all clones:
-
-            
-            pck.env$rdr_dysf  =  get_order_of_genes_dysfunction( pnt_mut = pnt_mut,
-                                                     pck.env$data_last, cna_mut,
-                                                     file_name = './Output/order_genes_dysfunction.txt' )
-                                                     
-                                                     
-
-
-
-### 5. Plot the results of simulation
-
-To visualize results of a simulation one may plot them using special functions:
-
-
-            
-            plot_order_dysfunction( pck.env$rdr_dysf , pos = c(5,800), logscale = 'y', cex = 1. )
-
-            plot_average_simulation_data( pck.env$data_avg, pck.env$time_max )
-            
-            
-            
-Plot the main clones
-
-
-            plot_clone_evolution( pck.env$data_flow, threshold = c(0.01, 1 ), lwd = 2.0,
-                          hue = c(" ", "random", "red", "orange", "yellow",
-                                  "green", "blue", "purple", "pink", "monochrome")[1],
-                          luminosity = c(" ", "random", "light", "bright", "dark")[4],
-                          yr = NA , add_initial = TRUE, log_scale = TRUE )
-                          
-                          
-            
-Plot the minor clones but large amount of them
-
-
-            plot_clone_evolution( pck.env$data_flow, threshold = c(0.0, 0.01), lwd = 2.0,
-                          hue = c(" ", "random", "red", "orange", "yellow",
-                                  "green", "blue", "purple", "pink", "monochrome")[1],
-                          luminosity = c(" ", "random", "light", "bright", "dark")[4],
-                          yr = NA , add_initial = FALSE, log_scale = TRUE )
-                          
-                          
-
-Get/store the results from the simulation 
-
-           
-            res  =  get_tugHall.Environment()
-            vf_init  =  pck.env$vf
-            
-
-
-
-Plot the Variant Allele Frequency (VAF) data for normal, primary and metastatic cells
-
-           
-            plot_VAF( VAF = pck.env$VAF, rho = 0 , violin = FALSE )
-            
-
-
-
-
-### 6. Split original VAF for drivers and passengers:
-
-
-           
-            vf_drivers  =  vf_init[ which(  vf_init$MalfunctionedByPointMut ), ]
-            vf_pass     =  vf_init[ which( !vf_init$MalfunctionedByPointMut ), ]
-            VAF_drivers  =  get_rho_VAF( vf = vf_drivers, save_to_file = FALSE )
-            VAF_pass  =  get_rho_VAF( vf = vf_pass, save_to_file = FALSE )
-            
-
-  
-  
-### 7. Plot the results of simulation separately for drivers and passengers 
-
-After splitting the original Variant Allele Frequency (VAF) data for drivers and passengers, plot VAF data for normal, primary and metastatic cells
-
-
-            if (length(VAF_drivers) > 0 ) plot_VAF( VAF = VAF_drivers, rho = 0 , violin = FALSE )
-            if (length(VAF_pass) > 0 ) plot_VAF( VAF = VAF_pass, rho = 0 , violin = FALSE )
-            
-
-
-
-### 8. Drug intervention trials
+Please follow the D_simulation for tugHall.3 simulation, before moving to drug intervention. One can use the result of simulation for drug intervention using this specific function. 
 
 Here, two kind of probabilities are being used, "kill_prob" and "block_prob".  "kill_prob" is the probability of killing cancer cells corresponding to the malfunctioned gene. "block_prob" is the probability of blocking cancer cells corresponding to the malfunctioned gene. "gene" is the name of target gene to kill and block tumor cells by a drug. Here, the gene should be selected from the simulation results and one should check the target gene in the 'VAF_data.txt' file.
 
 
+```{r, echo=TRUE}
+load_tugHall.Environment( results = tugHall_dataset )
+drug_intervention( kill_prob = 0, block_prob = 0.5, gene = "KRAS" )
+env = tugHall_dataset$env 
+clones = tugHall_dataset$clones
+pnt_clones = tugHall_dataset$pnt_clones
+        vf_drug  =  get_VAF_clones( env, clones, pnt_clones)
+        VAF_drug  =  get_rho_VAF( vf = vf_drug, save_to_file = FALSE )
+```
 
-            
-             drug_intervention( kill_prob = 0, block_prob = 0.5, gene = 'KRAS' )
-             vf_drug  =  get_VAF_clones( env = pck.env$env, clones = pck.env$clones,
-                            pnt_clones = pck.env$pnt_clones )
-            VAF_drug  =  get_rho_VAF( vf = vf_drug, save_to_file = FALSE )
-            
 
 
-
-## 9. Plot the results of simulation after drug intervention
+## 2. Plot the results of simulation after drug intervention
 
 To visualize results of a simulation after using drug intervention to target a gene, one may plot them using special function:
 
-           
-            plot_VAF( VAF = VAF_drug, rho = 0, violin = FALSE )
-            
+```{r, echo=TRUE, fig.height=6, fig.width=6}
+plot_VAF( VAF = VAF_drug, rho = 0, violin = FALSE )
+```
 
 
 
 
-### 10. check the blocking drivers and plot the results
+### 3. check the blocking drivers and plot the results
 
+Here you can block the drivers by the drug which will eventually be moved to passengers after the drug intervention.
 
-Here one can check the blocking drivers which will be moved to passengers after drug intervention.
-
-
-            
-            vf_drivers  =  vf_drug[ which(  vf_drug$MalfunctionedByPointMut ), ]
-            vf_pass     =  vf_drug[ which( !vf_drug$MalfunctionedByPointMut ), ]
-            VAF_drivers  =  get_rho_VAF( vf = vf_drivers, save_to_file = FALSE )
-            VAF_pass  =  get_rho_VAF( vf = vf_pass, save_to_file = FALSE 
-            
+```{r, echo=TRUE}
+vf_drivers  =  vf_drug[ which(  vf_drug$MalfunctionedByPointMut ), ]
+vf_pass     =  vf_drug[ which( !vf_drug$MalfunctionedByPointMut ), ]
+VAF_drivers  =  get_rho_VAF( vf = vf_drivers, save_to_file = FALSE )
+VAF_pass  =  get_rho_VAF( vf = vf_pass, save_to_file = FALSE)
+```
+        
 
 
 To visualize the results of simulation after drug intervention for drivers and passengers separately, one can use the specific function:
     
+```{r, echo=TRUE, fig.height=6, fig.width=6}
+if (length(VAF_drivers) > 0 ) plot_VAF( VAF = VAF_drivers, rho = 0 , violin = FALSE )
+if (length(VAF_pass) > 0 ) plot_VAF( VAF = VAF_pass, rho = 0 , violin = FALSE )
+```
             
-            if (length(VAF_drivers) > 0 ) plot_VAF( VAF = VAF_drivers, rho = 0 , violin = FALSE )
-            if (length(VAF_pass) > 0 ) plot_VAF( VAF = VAF_pass, rho = 0 , violin = FALSE )
+            
             
             
 

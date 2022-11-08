@@ -5,13 +5,7 @@
 \alias{restart_simulation}
 \title{Simulation for lazy start with parameters from Input folder}
 \usage{
-simulation(
-  verbose = TRUE,
-  to_plot = TRUE,
-  seed = 123456,
-  work_dir = getwd(),
-  copy_input = TRUE
-)
+simulation(verbose = TRUE, to_plot = TRUE, seed = 123456, work_dir = getwd())
 
 restart_simulation(
   loadRDS = TRUE,
@@ -33,8 +27,6 @@ restart_simulation(
 \item{seed}{Numeric type to set seed for a simulation, if seed = NA then it will be skipped}
 
 \item{work_dir}{Working directory for a simulation, by default \code{ work_dir = getwd() }}
-
-\item{copy_input}{Logical parameter to copy or do not copy default Input folder to the simulation folder}
 
 \item{loadRDS}{logical to load data of previous simulation from file fileRDS.
 If \code{loadRDS = FALSE} then it loads data from pck.env that should contain the data of a simulation.}

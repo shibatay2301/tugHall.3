@@ -6,8 +6,6 @@
 \alias{tugHall.3-package}
 \title{tugHall.3: R-based script to simulate the cancer cell evolution}
 \description{
-\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
-
 tugHall (tumor gene-Hallmark) is a cancer-cell evolution model simulator, wherein gene mutations are linked to the hallmarks of cancer, which influence tumor cell behaviors.
 }
 \author{

@@ -132,12 +132,12 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
         pck.env$n_repeat           =  as.numeric( data_log[ which( data_log$var == 'n_repeat' ), 2 ] )  # max number of repetitions
 
         # Parameters:
-        pck.env$E0  =  as.numeric( data_log[ which( data_log$var ==  'E0' ), 2 ] )     # parameter in the division probability
-        pck.env$F0  =  as.numeric( data_log[ which( data_log$var ==  'F0' ), 2 ] )     # parameter in the division probability
+        pck.env$E0  =  as.numeric( data_log[ which( data_log$var ==  'E' ), 2 ] )     # parameter in the division probability
+        pck.env$F0  =  as.numeric( data_log[ which( data_log$var ==  'F' ), 2 ] )     # parameter in the division probability
         pck.env$m0  =  as.numeric( data_log[ which( data_log$var == 'm0' ), 2 ] )     # mutation probability
         pck.env$uo  =  as.numeric( data_log[ which( data_log$var == 'uo' ), 2 ] )     # oncogene mutation probability
         pck.env$us  =  as.numeric( data_log[ which( data_log$var == 'us' ), 2 ] )     # suppressor mutation probability
-        pck.env$s0  =  as.numeric( data_log[ which( data_log$var ==  's0' ), 2 ] )     # parameter in the sigmoid function
+        pck.env$s0  =  as.numeric( data_log[ which( data_log$var ==  's' ), 2 ] )     # parameter in the sigmoid function
         pck.env$d0  =  as.numeric( data_log[ which( data_log$var == 'd0' ), 2 ] )     # Initial probability to divide cells
         pck.env$ctmax  =  as.numeric( data_log[ which( data_log$var == 'ctmax' ), 2 ] )     # Hayflick limitation for cell division
         k0          =  as.character( data_log[ which( data_log$var == 'k0' ), 2 ] )     # Environmental death probability

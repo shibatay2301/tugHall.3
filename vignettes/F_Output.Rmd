@@ -112,6 +112,8 @@ x[,c(1:11,13)] <- lapply(x[,c(1:11,13)], str_trunc, 7, ellipsis = "")
 knitr::kable(x, align = "c", caption = "**cloneout.txt**. Columns are from 14 to 24.")
 ```
 
+The normal cells can be divided into "intact normal" and "speckled normal" cells.
+
 14. **N_normal_intact** - the number of normal intact cells at this time step, e.g., 488, 500.
 15. **N_normal_speckled** - the number of normal speckled cells at this time step, e.g., 0, 3.
 16. **Nmax** - the theoretically maximal number of primary tumor cells, e.g., 10000, 5000.
@@ -248,12 +250,19 @@ knitr::kable(x, align = "c", caption = "**Sim_monitoring.txt** file with data ge
 
 1. **Time** - time step. 
 2. **N_clones** - total number of clone at a time step. 
-3. **N_normal** - total number of normal cells at a time step. 
-4. **N_primary** - total number of primary tumor cells at a time step. 
-5. **N_metastatic** - total number of metastatic cells at a time step. 
-6. **N_point_mutations** - total number of unique point mutations at a time step. 
-7. **N_duplications** - total number of unique duplications  at a time step. 
-8. **N_deletions** - total number of unique deletions at a time step. 
-							
+3. **N_normal_intact** - total number of normal intact cells at a time step. 
+4. **N_normal_speckled** - total number of normal speckled cells at a time step. 
+5. **N_primary** - total number of primary tumor cells at a time step.
+6. **N_metastatic** - total number of metastatic cells at a time step. 
+7. **N_point_mutations** - total number of unique point mutations at a time step. 
+8. **N_duplications** - total number of unique duplications  at a time step. 
+9. **N_deletions** - total number of unique deletions at a time step. 
+10. **TMB_primary** - total number of tumor mutation burden of primary tumor cells at a time step.
+11. **TMB_primary_VAF.5** - total number of tumor mutation burden of primary tumor cells of which the VAFs are over 5% at a time step.
+12. **TMB_primary_VAF.10** - total number of tumor mutation burden of primary tumor cells of which the VAFs are over 10% at a time step.
+13. **TMB_metastatic** - total number of tumor mutation burden of metastatic cells at a time step.
+14. **TMB_metastatic_VAF.5** - total number of tumor mutation burden of metastatic cells of which the VAFs are over 5% at a time step.
+15. **TMB_metastatic_VAF.10** - total number of tumor mutation burden of metastatic cells of which the VAFs are over 10% at a time step.
+
 ---
 

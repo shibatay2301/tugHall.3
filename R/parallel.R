@@ -77,10 +77,60 @@ make_input_format  <-  function( par_exclude = c(  'censor_cells_number', 'censo
                             row.names = names( c ( Ha, Hb, Hd, Hi, Him ) ) ) )
     rownames( DF_hall)  =  1
 
+    # Block for break points between weights of gene-hallmarks
+
+    BreakPoint_Ha           =  sapply( X = 1 : ( length( pck.env$hall$Ha_w ) - 1),
+                                       FUN = function( x ) {
+                                           sum( pck.env$hall$Ha_w[ 1: x ] ) / pck.env$CF$Ha
+                                       }
+    )
+    names( BreakPoint_Ha )  =  str_c(  'BreakPoint_Ha_',  1 : length( BreakPoint_Ha ) )
+
+
+    BreakPoint_Hi           =  sapply( X = 1 : ( length( pck.env$hall$Hi_w ) - 1),
+                                       FUN = function( x ) {
+                                           sum( pck.env$hall$Hi_w[ 1: x ] ) / pck.env$CF$Hi
+                                       }
+    )
+    names( BreakPoint_Hi )  =  str_c(  'BreakPoint_Hi_',  1 : length( BreakPoint_Hi ) )
+
+
+    BreakPoint_Him           =  sapply( X = 1 : ( length( pck.env$hall$Him_w ) - 1),
+                                       FUN = function( x ) {
+                                           sum( pck.env$hall$Him_w[ 1: x ] ) / pck.env$CF$Him
+                                       }
+    )
+    names( BreakPoint_Him )  =  str_c(  'BreakPoint_Him_',  1 : length( BreakPoint_Him ) )
+
+
+    BreakPoint_Hb           =  sapply( X = 1 : ( length( pck.env$hall$Hb_w ) - 1),
+                                       FUN = function( x ) {
+                                           sum( pck.env$hall$Hb_w[ 1: x ] ) / pck.env$CF$Hb
+                                       }
+    )
+    names( BreakPoint_Hb )  =  str_c(  'BreakPoint_Hb_',  1 : length( BreakPoint_Hb ) )
+
+
+    BreakPoint_Hd           =  sapply( X = 1 : ( length( pck.env$hall$Hd_w ) - 1),
+                                       FUN = function( x ) {
+                                           sum( pck.env$hall$Hd_w[ 1: x ] ) / pck.env$CF$Hd
+                                       }
+    )
+    names( BreakPoint_Hd )  =  str_c(  'BreakPoint_Hd_',  1 : length( BreakPoint_Hd ) )
+
+    DF_BreakPoints  =  t( data.frame( c ( BreakPoint_Ha, BreakPoint_Hb, BreakPoint_Hd,
+                                          BreakPoint_Hi, BreakPoint_Him ),
+                               row.names = names( c ( BreakPoint_Ha, BreakPoint_Hb, BreakPoint_Hd,
+                                                      BreakPoint_Hi, BreakPoint_Him ) ) ) )
+    DF_BreakPoints  =  as.data.frame( DF_BreakPoints )
+    rownames( DF_BreakPoints)  =  1
+
+
+    #Block for compaction factors
     DF_CF  =  data.frame( pck.env$CF )
     colnames( DF_CF )  =  str_c(  'CompFactor_', colnames( DF_CF ) )
 
-    DF  =  cbind( DF_hall, DF_CF, DF_par )
+    DF  =  cbind( DF_hall, DF_BreakPoints, DF_CF, DF_par )
 
     return( list( format = DF, Const_parameters = par_exclude ) )
 }
@@ -169,6 +219,31 @@ make_input_dataset  <-  function( frmt, rng, n_simulations = 10,
                 print( paste0( 'The values for the column ', names( DF )[ j ], ' is not generated, so, please, do it by hands.' ) )
             }
         }
+    }
+
+
+    # Add IDs of simulations to DF
+    DF$ID  =  1:n_simulations
+    DF     =  DF[  , c( ncol(DF), 1:( ncol(DF) - 1 ) ) ]
+
+    # Calculate weightes from Break points of weights:
+
+    for ( ptrn  in c('Ha', 'Hb', 'Hd', 'Hi', 'Him' ) ){
+
+        w_hall  =  ! is.na( as.vector( str_match( names( DF ), pattern = paste0( ptrn, '_' ) ) ) )
+        w_hall  =  c( ( which( w_hall )[ 1 ] ):( which( w_hall )[ 1 ] + length( pck.env$hall[[ ptrn ]] ) - 1 )  )
+        w_BP    =  which( ! is.na( as.vector( str_match( names( DF ), pattern = paste0( 'BreakPoint_' ,ptrn, '_' ) ) ) ) )
+
+        #   print( DF[1:3, c(1, w_hall, w_BP ) ] )
+        # Sort weights:
+        for ( i in 1:nrow( DF ) ){
+
+            DF[ i, w_BP   ]  =  sort( as.numeric( DF[ i, w_BP ] ) )
+
+            DF[ i, w_hall ]  =     c(    as.numeric( DF[ i, w_BP   ] ),   1  ) -
+                                   c( 0, as.numeric( DF[ i, w_BP   ] )       )
+        }
+
     }
 
     return( DF )

@@ -197,6 +197,10 @@ knitr::kable(x, align = "c", caption = "**cloneout.txt**. Columns are from 37 to
 
 Last columns (from 41 to the end) show the data related to the **SECOND** parental chromosome with the same set of data as for the first parental chromosome.
 
+
+## "point_mutations.txt"
+
+The "point_mutations.txt" contains the point mutation data from the simulation. It will be saved at the end of the simulation.
  
 ```{r, echo=FALSE, results='asis'}
 x <- read.csv(file = "../inst/extdata/Output/point_mutations.txt",header = TRUE, sep = "\t", stringsAsFactors = FALSE)

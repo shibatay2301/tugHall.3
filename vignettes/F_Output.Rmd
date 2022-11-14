@@ -222,6 +222,9 @@ knitr::kable(x, align = "c", caption = "Point mutation data frame which will be 
 10. **mut_order** - indicator of mutation order in the simulation, it's used to detect order of mutations in the clone at each chromosome.
 
 
+## "CNA_mutations.txt"
+
+The "CNA_mutations.txt" contains the CNA mutation data from the simulation and it will be saved at the end of the simulation.
 
 ```{r, echo=FALSE, results='asis'}
 x <- read.csv(file = "../inst/extdata/Output/CNA_mutations.txt",header = TRUE, sep = "\t", stringsAsFactors = FALSE)
@@ -240,11 +243,11 @@ knitr::kable(x, align = "c", caption = "**CNA mutation data frame which will be 
 8. **MalfunctionedByCNA** - logical indicator of whether or not the gene(s) is malfunctioned by the CNA. 
 9. **mut_order** - indicator of mutation order in the simulation, it's used to detect order of mutations in the clone at each chromosome.
 
----
-
- 
 
 
+## "Sim_monitoring.txt"
+
+The file "Sim_monitoring.txt" contains the data getting during the simulation.
 
 ```{r, echo=FALSE, results='asis'}
 x <- read.csv(file = "../inst/extdata/Sim_monitoring.txt",header = TRUE, sep = "\t", stringsAsFactors = FALSE)
@@ -268,5 +271,76 @@ knitr::kable(x, align = "c", caption = "**Sim_monitoring.txt** file with data ge
 14. **TMB_metastatic_VAF.5** - total number of tumor mutation burden of metastatic cells of which the VAFs are over 5% at a time step.
 15. **TMB_metastatic_VAF.10** - total number of tumor mutation burden of metastatic cells of which the VAFs are over 10% at a time step.
 
----
+
+## "Break_points.txt"
+
+The file "Break_points.txt" contains the breakpoints related to differences between weights and can't be related to gene/hallmarks rows. It is obtained at the end of the simulation.
+
+```{r, echo=FALSE, results='asis'}
+x <- read.csv(file = "../inst/extdata/Output/Break_points.txt",header = TRUE, sep = "\t", stringsAsFactors = FALSE)
+x = x[ 1 : 5, ]
+knitr::kable(x, align = "c", caption = "The output of **Break_points.txt** file. Given below is an example of the file.")
+
+```
+
+1. **break_points** - Different break points for each gene
+2. **Apoptosis** - The hallmark of apoptosis 
+3. **Angiogenesis** - The hallmark of angiogenesis
+4. **Growth_Antigrowth** - The hallmark of growth and antigrowth which is related to the single hallmark
+5. **Immortalization** - The hallmark of immortalization
+6. **Invasion_Metastasis** - The hallmark of invasion and metastasis
+
+
+## "VAF.txt"
+
+The "VAF.txt" file contains the Variant Allele Frequency (VAF) information of the simulation. This file is saved at the end of the simulation.
+
+```{r, echo=FALSE, results='asis'}
+x <- read.csv(file = "../inst/extdata/Output/VAF.txt",header = TRUE, sep = "\t", stringsAsFactors = FALSE)
+x = x[ 1 : 5, ]
+knitr::kable(x, align = "c", caption = "The output of **VAF.txt** file. Given below is an example of the file.")
+
+```
+
+1. **site** -
+2. **chr** - The chromosome number.
+3. **gene** - The gene for which the VAF is calculated.
+4. **rho** - rho is the estimation of the tumor purity.
+5. **VAF_primary** - Variant Allele Frequency of the primary cells at a time step.
+6. **VAF_primary_numerator** -
+7. **VAF_primary_denominator** -
+8. **VAF_metastatic** - Variant Allele Frequency of the metastatic cells at a time step.
+9. **VAF_metastatic_numerator** -
+10. **VAF_metastatic_denominator** -
+11. **Stop_reason** - The "stop_reason" of the simulation can be three possible values - real time, time step and cell numbers
+
+
+## "VAF_data.txt"
+
+```{r, echo=FALSE, results='asis'}
+x <- read.csv(file = "../inst/extdata/Output/VAF_data.txt",header = TRUE, sep = "\t", stringsAsFactors = FALSE)
+x = x[ 1 : 5, ]
+knitr::kable(x, align = "c", caption = "The output of **VAF_data.txt** file. Given below is an example of the file.")
+
+```
+
+1. **PointMut_ID** - The point mutation ID.
+2. **Parental_1or2** -
+3. **Chr** - The chromosome.
+4. **Ref_pos** - The reference position.
+5. **Phys_pos** - The physical position.
+6. **Delta** -
+7. **Copy_number** - 
+8. **Gene_name** - The target gene name.
+9. **MalfunctionedByPointMut** - Whether the gene was malfunctioned by point mutation or not. It is shown by two logical value TRUE and FALSE.
+10. **mut_order** - The mutation order.
+11. **N_speckled_normal** - The total number of normal speckled cells at a time step.
+12. **N_primary** - The total number of normal primary cells at a time step.
+13. **N_metastatic** - The total number of metastatic cells ata time step.
+14. **Copy_number_A** -
+15. **N_spekled_normal_total** -
+16. **N_primary_total** -
+17. **N_metastatic_total** -
+
+
 

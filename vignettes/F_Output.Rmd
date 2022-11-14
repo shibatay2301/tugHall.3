@@ -293,7 +293,7 @@ knitr::kable(x, align = "c", caption = "The output of **Break_points.txt** file.
 
 ## "VAF.txt"
 
-The "VAF.txt" file contains the Variant Allele Frequency (VAF) information of the simulation. This file is saved at the end of the simulation.
+The "VAF.txt" file contains the Variant Allele Frequency (VAF) information of each gene and each site in the genes. This file is saved at the end of the simulation.
 
 ```{r, echo=FALSE, results='asis'}
 x <- read.csv(file = "../inst/extdata/Output/VAF.txt",header = TRUE, sep = "\t", stringsAsFactors = FALSE)
@@ -302,16 +302,16 @@ knitr::kable(x, align = "c", caption = "The output of **VAF.txt** file. Given be
 
 ```
 
-1. **site** -
-2. **chr** - The chromosome number.
-3. **gene** - The gene for which the VAF is calculated.
-4. **rho** - rho is the estimation of the tumor purity.
-5. **VAF_primary** - Variant Allele Frequency of the primary cells at a time step.
-6. **VAF_primary_numerator** -
-7. **VAF_primary_denominator** -
-8. **VAF_metastatic** - Variant Allele Frequency of the metastatic cells at a time step.
-9. **VAF_metastatic_numerator** -
-10. **VAF_metastatic_denominator** -
+1. **site** - position at mutated site in the gene.
+2. **chr** - The chromosome where a gene is located, e.g., '13', '5'.
+3. **gene** - The name of gene for which the VAF is calculated, e.g., APC, KRAS.
+4. **rho** - rho is the tumor purity. The rho parameter in the formula of VAF calculation in the range [0,1], e.g., 0.0, 0.3.
+5. **VAF_primary** - VAF for cells in the primary tumor = VAF_primary_numerator / VAF_primary_denominator, e.g. 0.2345..
+6. **VAF_primary_numerator** - numerator in the formula of VAF calculation for tumor primary cells and speckled normal cells, e.g., 0.9997295.
+7. **VAF_primary_denominator** - denominator in the formula of VAF calculation for tumor primary cells and speckled normal cells, e.g., 1.9994589.
+8. **VAF_metastatic** - VAF for metastatic cells = VAF_metastatic_numerator / VAF_metastatic_denominator, e.g. 0.35.
+9. **VAF_metastatic_numerator** - numerator in the formula of VAF calculation for metastatic cells, e.g., 0.9997295.
+10. **VAF_metastatic_denominator** - denominator in the formula of VAF calculation for metastatic cells, e.g., 1.9994589.
 11. **Stop_reason** - The "stop_reason" of the simulation can be three possible values - real time, time step and cell numbers
 
 

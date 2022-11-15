@@ -40,6 +40,7 @@
 #' @importFrom stringr str_split
 #' @importFrom stringr str_sub
 #' @importFrom stringr str_trim
+#' @importFrom stringr str_trunc
 #' @importFrom utils globalVariables
 #' @importFrom utils read.delim
 #' @importFrom utils read.table

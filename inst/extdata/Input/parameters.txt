@@ -3,12 +3,12 @@ clonefile	Input/cloneinit.txt
 geneoutfile	Output/geneout.txt
 cloneoutfile	Output/cloneout.txt
 logoutfile	Output/log.txt
-E	1e-04
-F	10
+E0	1e-04
+F0	10
 m0	1e-07
 uo	0.5
 us	0.5
-s	10
+s0	10
 k0	NA
 m_dup	1e-08
 m_del	1e-09

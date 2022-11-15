@@ -197,6 +197,10 @@ knitr::kable(x, align = "c", caption = "**cloneout.txt**. Columns are from 37 to
 
 Last columns (from 41 to the end) show the data related to the **SECOND** parental chromosome with the same set of data as for the first parental chromosome.
 
+
+## "point_mutations.txt"
+
+The "point_mutations.txt" contains the point mutation data from the simulation. It will be saved at the end of the simulation.
  
 ```{r, echo=FALSE, results='asis'}
 x <- read.csv(file = "../inst/extdata/Output/point_mutations.txt",header = TRUE, sep = "\t", stringsAsFactors = FALSE)
@@ -218,6 +222,9 @@ knitr::kable(x, align = "c", caption = "Point mutation data frame which will be 
 10. **mut_order** - indicator of mutation order in the simulation, it's used to detect order of mutations in the clone at each chromosome.
 
 
+## "CNA_mutations.txt"
+
+The "CNA_mutations.txt" contains the CNA mutation data from the simulation and it will be saved at the end of the simulation.
 
 ```{r, echo=FALSE, results='asis'}
 x <- read.csv(file = "../inst/extdata/Output/CNA_mutations.txt",header = TRUE, sep = "\t", stringsAsFactors = FALSE)
@@ -236,11 +243,11 @@ knitr::kable(x, align = "c", caption = "**CNA mutation data frame which will be 
 8. **MalfunctionedByCNA** - logical indicator of whether or not the gene(s) is malfunctioned by the CNA. 
 9. **mut_order** - indicator of mutation order in the simulation, it's used to detect order of mutations in the clone at each chromosome.
 
----
-
- 
 
 
+## "Sim_monitoring.txt"
+
+The file "Sim_monitoring.txt" contains the data getting during the simulation.
 
 ```{r, echo=FALSE, results='asis'}
 x <- read.csv(file = "../inst/extdata/Sim_monitoring.txt",header = TRUE, sep = "\t", stringsAsFactors = FALSE)
@@ -264,5 +271,94 @@ knitr::kable(x, align = "c", caption = "**Sim_monitoring.txt** file with data ge
 14. **TMB_metastatic_VAF.5** - total number of tumor mutation burden of metastatic cells of which the VAFs are over 5% at a time step.
 15. **TMB_metastatic_VAF.10** - total number of tumor mutation burden of metastatic cells of which the VAFs are over 10% at a time step.
 
----
+
+## "Break_points.txt"
+
+The file "Break_points.txt" contains the breakpoints related to differences between weights and can't be related to gene/hallmarks rows. It is obtained at the end of the simulation.
+
+```{r, echo=FALSE, results='asis'}
+x <- read.csv(file = "../inst/extdata/Output/Break_points.txt",header = TRUE, sep = "\t", stringsAsFactors = FALSE)
+x = x[ 1 : 5, ]
+knitr::kable(x, align = "c", caption = "The output of **Break_points.txt** file. Given below is an example of the file.")
+
+```
+
+1. **break_points** - Different break points for each gene
+2. **Apoptosis** - The hallmark of apoptosis 
+3. **Angiogenesis** - The hallmark of angiogenesis
+4. **Growth_Antigrowth** - The hallmark of growth and antigrowth which is related to the single hallmark
+5. **Immortalization** - The hallmark of immortalization
+6. **Invasion_Metastasis** - The hallmark of invasion and metastasis
+
+
+## "VAF.txt"
+
+The "VAF.txt" file contains the Variant Allele Frequency (VAF) information of each gene and each site in the genes. This file is saved at the end of the simulation.
+
+```{r, echo=FALSE, results='asis'}
+x <- read.csv(file = "../inst/extdata/Output/VAF.txt",header = TRUE, sep = "\t", stringsAsFactors = FALSE)
+x = x[ 1 : 5, ]
+knitr::kable(x, align = "c", caption = "The output of **VAF.txt** file. Given below is an example of the file.")
+
+```
+
+1. **site** - position at mutated site in the gene.
+2. **chr** - The chromosome where a gene is located, e.g., '13', '5'.
+3. **gene** - The name of gene for which the VAF is calculated, e.g., APC, KRAS.
+4. **rho** - rho is the tumor purity. The rho parameter in the formula of VAF calculation in the range [0,1], e.g., 0.0, 0.3.
+5. **VAF_primary** - VAF for cells in the primary tumor = VAF_primary_numerator / VAF_primary_denominator, e.g. 0.2345..
+6. **VAF_primary_numerator** - numerator in the formula of VAF calculation for tumor primary cells and speckled normal cells, e.g., 0.9997295.
+7. **VAF_primary_denominator** - denominator in the formula of VAF calculation for tumor primary cells and speckled normal cells, e.g., 1.9994589.
+8. **VAF_metastatic** - VAF for metastatic cells = VAF_metastatic_numerator / VAF_metastatic_denominator, e.g. 0.35.
+9. **VAF_metastatic_numerator** - numerator in the formula of VAF calculation for metastatic cells, e.g., 0.9997295.
+10. **VAF_metastatic_denominator** - denominator in the formula of VAF calculation for metastatic cells, e.g., 1.9994589.
+11. **Stop_reason** - The "stop_reason" of the simulation can be three possible values - real time, time step and cell numbers
+
+
+## "VAF_data.txt"
+
+The "VAF_data.txt" file contains the information about the point mutations and its locations at chromosome, gene etc. (first 10 lines):
+
+```{r, echo=FALSE, results='asis'}
+x <- read.table(file = "../inst/extdata/Output/VAF_data.txt",header = TRUE, sep = "\t", nrows = 10)
+x[is.na(x)] <- ""
+x = x[ , c(1:8)]
+knitr::kable(x, align = "c", caption = "**Information on point mutations in the clones at final time step.**")
+```
+
+
+```{r, echo=FALSE, results='asis'}
+x <- read.table(file = "../inst/extdata/Output/VAF_data.txt",header = TRUE, sep = "\t", nrows = 10)
+x[is.na(x)] <- ""
+x = x[ , c(1,9:13)]
+knitr::kable(x, align = "c", caption = "**Information on point mutations in the clones at final time step (continuous).**")
+```
+
+
+```{r, echo=FALSE, results='asis'}
+x <- read.table(file = "../inst/extdata/Output/VAF_data.txt",header = TRUE, sep = "\t", nrows = 10)
+x[is.na(x)] <- ""
+x = x[ , c(1,14:ncol(x))]
+knitr::kable(x, align = "c", caption = "**Information on point mutations in the clones at final time step (continuous).**")
+```
+
+1. **PointMut_ID** - ID of point mutation.
+2. **Parental_1or2** - indicates either of the two parental chromosomes.
+3. **Chr** - name of a chromosome.
+4. **Ref_pos** - the reference position of an allele. The reference position is on the coordinate system of the human reference genome.
+5. **Phys_pos** - the physical position of an allele. The physical length of a (parental) chromosome is extended or shrunk by CNA duplications or deletions, respectively. When a duplication happens, the reference position is divided into two or more physical positions, which are represented by multiple elements in a vector. When a deletion happens and the allele is lost, the lost is represented by “-” on the coordinate system of physical positions.
+6. **Delta** - difference between the reference and physical positions.
+7. **Copy_number** - the copy number of an allele at the chromosome where mutation is happened (allele B).
+8. **Gene_name** - the name of a gene.
+9. **MalfunctionedByPointMut** - logical indicator of whether the gene was malfunctioned by point mutation or not. It is shown by two logical value TRUE and FALSE.
+10. **mut_order** - indicator of mutation order in the simulation, it's used to detect order of mutations in the clone at each chromosome.
+11. **N_speckled_normal** - the total number of speckled normal cells at final time step which have that PointMut_ID.
+12. **N_primary** - the total number of primary tumor cells at final time step which have that PointMut_ID.
+13. **N_metastatic** - the number of  metastatic cells at final time step which have that PointMut_ID.
+14. **Copy_number_A** - the copy number of an allele at the chromosome where mutation is NOT happened (allele A).
+15. **N_spekled_normal_total** - the total amount of speckled normal cells in the pool of simulation at the last time step.
+16. **N_primary_total** - the total amount of primary tumor cells in the pool of simulation at the last time step.
+17. **N_metastatic_total** - the total amount of metastatic cells in the pool of simulation at the last time step.
+
+
 

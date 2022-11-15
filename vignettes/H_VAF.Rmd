@@ -141,6 +141,8 @@ knitr::kable(x, align = "c", caption = "**Variant allele frequencies (continuous
 
 10. **VAF_metastatic_denominator** - denominator in the formula of VAF calculation for metastatic cells, e.g., 1.9994589.
 
+11. **Stop_reason** - The "stop_reason" of the simulation can be three possible values - real time, time step and cell numbers
+
  
 
 

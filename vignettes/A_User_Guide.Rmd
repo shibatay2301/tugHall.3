@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 ```
 
 
-## Authors: Iurii Nagornov, Nishino Jo, Eisaku Furukawa and Mamoru Kato
+## Authors: Iurii Nagornov, Munmee Dutta, Nishino Jo, Eisaku Furukawa and Mamoru Kato
 
 ## Organization: National Cancer Center Japan, Research Institute, Division of Bioinformatics
 

@@ -317,30 +317,48 @@ knitr::kable(x, align = "c", caption = "The output of **VAF.txt** file. Given be
 
 ## "VAF_data.txt"
 
-```{r, echo=FALSE, results='asis'}
-x <- read.csv(file = "../inst/extdata/Output/VAF_data.txt",header = TRUE, sep = "\t", stringsAsFactors = FALSE)
-x = x[ 1 : 5, ]
-knitr::kable(x, align = "c", caption = "The output of **VAF_data.txt** file. Given below is an example of the file.")
+The "VAF_data.txt" file contains the information about the point mutations and its locations at chromosome, gene etc. (first 10 lines):
 
+```{r, echo=FALSE, results='asis'}
+x <- read.table(file = "../inst/extdata/Output/VAF_data.txt",header = TRUE, sep = "\t", nrows = 10)
+x[is.na(x)] <- ""
+x = x[ , c(1:8)]
+knitr::kable(x, align = "c", caption = "**Information on point mutations in the clones at final time step.**")
 ```
 
-1. **PointMut_ID** - The point mutation ID.
-2. **Parental_1or2** -
-3. **Chr** - The chromosome.
-4. **Ref_pos** - The reference position.
-5. **Phys_pos** - The physical position.
-6. **Delta** -
-7. **Copy_number** - 
-8. **Gene_name** - The target gene name.
-9. **MalfunctionedByPointMut** - Whether the gene was malfunctioned by point mutation or not. It is shown by two logical value TRUE and FALSE.
-10. **mut_order** - The mutation order.
-11. **N_speckled_normal** - The total number of normal speckled cells at a time step.
-12. **N_primary** - The total number of normal primary cells at a time step.
-13. **N_metastatic** - The total number of metastatic cells ata time step.
-14. **Copy_number_A** -
-15. **N_spekled_normal_total** -
-16. **N_primary_total** -
-17. **N_metastatic_total** -
+
+```{r, echo=FALSE, results='asis'}
+x <- read.table(file = "../inst/extdata/Output/VAF_data.txt",header = TRUE, sep = "\t", nrows = 10)
+x[is.na(x)] <- ""
+x = x[ , c(1,9:13)]
+knitr::kable(x, align = "c", caption = "**Information on point mutations in the clones at final time step (continuous).**")
+```
+
+
+```{r, echo=FALSE, results='asis'}
+x <- read.table(file = "../inst/extdata/Output/VAF_data.txt",header = TRUE, sep = "\t", nrows = 10)
+x[is.na(x)] <- ""
+x = x[ , c(1,14:ncol(x))]
+knitr::kable(x, align = "c", caption = "**Information on point mutations in the clones at final time step (continuous).**")
+```
+
+1. **PointMut_ID** - ID of point mutation.
+2. **Parental_1or2** - indicates either of the two parental chromosomes.
+3. **Chr** - name of a chromosome.
+4. **Ref_pos** - the reference position of an allele. The reference position is on the coordinate system of the human reference genome.
+5. **Phys_pos** - the physical position of an allele. The physical length of a (parental) chromosome is extended or shrunk by CNA duplications or deletions, respectively. When a duplication happens, the reference position is divided into two or more physical positions, which are represented by multiple elements in a vector. When a deletion happens and the allele is lost, the lost is represented by “-” on the coordinate system of physical positions.
+6. **Delta** - difference between the reference and physical positions.
+7. **Copy_number** - the copy number of an allele at the chromosome where mutation is happened (allele B).
+8. **Gene_name** - the name of a gene.
+9. **MalfunctionedByPointMut** - logical indicator of whether the gene was malfunctioned by point mutation or not. It is shown by two logical value TRUE and FALSE.
+10. **mut_order** - indicator of mutation order in the simulation, it's used to detect order of mutations in the clone at each chromosome.
+11. **N_speckled_normal** - the total number of speckled normal cells at final time step which have that PointMut_ID.
+12. **N_primary** - the total number of primary tumor cells at final time step which have that PointMut_ID.
+13. **N_metastatic** - the number of  metastatic cells at final time step which have that PointMut_ID.
+14. **Copy_number_A** - the copy number of an allele at the chromosome where mutation is NOT happened (allele A).
+15. **N_spekled_normal_total** - the total amount of speckled normal cells in the pool of simulation at the last time step.
+16. **N_primary_total** - the total amount of primary tumor cells in the pool of simulation at the last time step.
+17. **N_metastatic_total** - the total amount of metastatic cells in the pool of simulation at the last time step.
 
 
 

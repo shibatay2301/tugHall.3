@@ -148,11 +148,11 @@ The input of the probabilities used in the model is possible in the code for par
 | **real_time_stop	= 120**  | Max time of running after that the program forcibly stops| in seconds |
 | **n_repeat	= 1**  | Max number of repetition of the program until the NON-ZERO output will be getting | must be integer |
 | **monitor	= TRUE**| The indicator to safe or not to the monitoring file *Sim_monitoring.txt* during a simulation | logical |
-| **tumbler_for_metastasis_trial = TRUE** |
-| **tumbler_for_apoptosis_trial = TRUE** |
-| **tumbler_for_immortalization_trial = TRUE** |
-| **tumbler_for_angiogenesis_trial = TRUE** |
-| **tumbler_for_drug_intervention_trial = TRUE** |
+| **tumbler_for_metastasis_trial = TRUE** | The indicator to turn on/off invasion/metastasis transformation trial | logical |
+| **tumbler_for_apoptosis_trial = TRUE** | The indicator to turn on/off apoptosis trial | logical |
+| **tumbler_for_immortalization_trial = TRUE** | The indicator to turn on/off immortalization trial | logical |
+| **tumbler_for_angiogenesis_trial = TRUE** | The indicator to turn on/off angiogenesis trial | logical |
+| **tumbler_for_drug_intervention_trial = TRUE** | The indicator to turn on/off drug_intervention trial | logical |
 | <img width=160/> | <img width=340/> |  <img width=200/> |
 
 $^*$ [see Suplementary materials in Bioinformatics,V.36,N11,2020,p.3597](https://doi.org/10.1093/bioinformatics/btaa182)

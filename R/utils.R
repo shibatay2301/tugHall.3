@@ -333,12 +333,16 @@ foolproof  <-  function(){
                                         pck.env$hall$Hb, pck.env$hall$Him )  ) )
     genes_map   =  sort( unique( pck.env$gene_map$Gene ) )
 
-    if ( !all.equal( genes_onco, genes_map ) ){
-        stop( 'Names of genes defined in onco and gene_map are different.' )
-    }
+    if ( length( genes_onco ) == length( genes_map ) & length( genes_onco ) == length( genes_hall ) ){
+        if ( !all.equal( genes_onco, genes_map ) ){
+            stop( 'Names of genes defined in onco and gene_map are different.' )
+        }
 
-    if ( ! length( genes_onco) == length( genes_hall ) ){
-        stop( 'Not all the genes use in hallmrks definition.' )
+        if ( ! length( genes_onco) == length( genes_hall ) ){
+            stop( 'Not all the genes use in hallmrks definition.' )
+        }
+    } else {
+        stop( 'Names of genes are different in onco, hall and gene_map.' )
     }
 
     #3. NA and NULL check in onco and hall:

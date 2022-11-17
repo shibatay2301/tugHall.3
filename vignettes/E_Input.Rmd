@@ -124,29 +124,35 @@ The input of the probabilities used in the model is possible in the code for par
 
 |  Probability variable and value | Description  |  Units  |
 |:---|:---|:---|
-| **E0 = 2E-4**    | Parameter $E_0$ related to environmental resource limitation |  $^*$ |
-| **F0 = 1E0**     | Parameter $F_0$ related angiogenesis  |  $^*$ |
-| **m =  1E-6**    | Point mutation probability  $m'$ | per cell's division per base pair |
+| **E0 = 1E-04**    | Parameter $E_0$ related to environmental resource limitation |  $^*$ |
+| **F0 = 10**     | Parameter $F_0$ related angiogenesis  |  $^*$ |
+| **m =  1E-07**    | Point mutation probability  $m'$ | per cell's division per base pair |
 | **uo = 0.5**     | Gene malfunction probability by point mutation for oncogene $u_o$ | per mutation  |
 | **us = 0.5**     | Gene malfunction probability by point mutation for suppressor $u_s$ |  per mutation |
-| **s =  10**      | Parameter in the sigmoid function $s$ |  $^*$ |
-| **k =  0.1**     | Environmental death probability $k'$ |  per time-step  |
-| **m_dup      =  0.01**     | CNA duplication probability $m_{dup}$ | per cell's division  |
-| **m_del      =  0.01**     | CNA deletion probability $m_{del}$ |  per cell's division  |
-| **lambda_dup =  7000**        | CNA duplication average length $\lambda_{dup}$  | the geometrical distribution for the length  |
-| **lambda_del =  5000**        | CNA deletion average length $\lambda_{del}$  |  the geometrical distribution for the length |
-| **uo,dup = 0.8**     | Gene malfunction probability by CNA duplication for oncogene $u_{o,dup}$ |  per mutation |
-| **us,dup = 0**     | Gene malfunction probability by CNA duplication for suppressor, $u_{s,dup}$. Currently, 0 is assumed. | per mutation  |
-| **uo,del = 0**     | Gene malfunction probability by CNA deletion for oncogene $u_{o,del}$. Currently, 0 is assumed. | per mutation  |
-| **us,del = 0.8**     | Gene malfunction probability by CNA deletion for suppressor, $u_{s,del}$.  | per mutation  |
-| **d0 = 0.35**     |  Initial division rate  | per time-step  | 
-| **censor_cells_number = 30000 **     | Max cell number where the program forcibly stops  | number of cells |
-| **censor_time_step = 200**        | Max time where the program forcibly stops  | in time-steps |
+| **s0 =  10**      | Parameter in the sigmoid function $s$ |  $^*$ |
+| **k0 =  NA**     | Environmental death probability $k'$ |  per time-step  |
+| **m_dup      =  1E-08**     | CNA duplication probability $m_{dup}$ | per cell's division  |
+| **m_del      =  1E-09**     | CNA deletion probability $m_{del}$ |  per cell's division  |
+| **lambda_dup =  5000**        | CNA duplication average length $\lambda_{dup}$  | the geometrical distribution for the length  |
+| **lambda_del =  7000**        | CNA deletion average length $\lambda_{del}$  |  the geometrical distribution for the length |
+| **uo_dup = 0.8**     | Gene malfunction probability by CNA duplication for oncogene $u_{o,dup}$ |  per mutation |
+| **us_dup = 0.8**     | Gene malfunction probability by CNA duplication for suppressor, $u_{s,dup}$. Currently, 0 is assumed. | per mutation  |
+| **uo_del = 0**     | Gene malfunction probability by CNA deletion for oncogene $u_{o,del}$. Currently, 0 is assumed. | per mutation  |
+| **us_del = 0.8**     | Gene malfunction probability by CNA deletion for suppressor, $u_{s,del}$.  | per mutation  |
+| **censor_cells_number = 1E+05** | Max cell number where the program forcibly stops  | number of cells |
+| **censor_time_step = 40**        | Max time where the program forcibly stops  | in time-steps |
+| **d0 = 0.5**     |  Initial division rate  | per time-step  | 
+| **ctmax = 50** | Hayflick limitation for cell division | in time-steps|
 | **Compaction_factor	= TRUE**   | Indicator about an usage of compaction factor | Logical |
 | **model_name	= 'proportional_metastatic'**  | Model definition, it can be 'proportional_metastatic' or 'threshold_metastatic' or 'simplified' |  string/character variable |
 | **real_time_stop	= 120**  | Max time of running after that the program forcibly stops| in seconds |
 | **n_repeat	= 1**  | Max number of repetition of the program until the NON-ZERO output will be getting | must be integer |
 | **monitor	= TRUE**| The indicator to safe or not to the monitoring file *Sim_monitoring.txt* during a simulation | logical |
+| **tumbler_for_metastasis_trial = TRUE** |
+| **tumbler_for_apoptosis_trial = TRUE** |
+| **tumbler_for_immortalization_trial = TRUE** |
+| **tumbler_for_angiogenesis_trial = TRUE** |
+| **tumbler_for_drug_intervention_trial = TRUE** |
 | <img width=160/> | <img width=340/> |  <img width=200/> |
 
 $^*$ [see Suplementary materials in Bioinformatics,V.36,N11,2020,p.3597](https://doi.org/10.1093/bioinformatics/btaa182)

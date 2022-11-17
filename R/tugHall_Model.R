@@ -64,6 +64,9 @@ model <- function( ){
     # assign("hall", hall, envir = .GlobalEnv )
     # assign("uo", uo, envir = .GlobalEnv )
     # assign("us", us, envir = .GlobalEnv )
+
+    # Check parameters:
+    foolproof()
     clone1 = clone$new(gene_size=length( pck.env$onco$cds_1 ),
                        m=m0, s=s0, k=k0, E=E0)          # clone1  -  empty object of clone
     clones = init_clones(clonefile, clone1)           # clones - the clones with hallmarks from cellfile - cellinit.txt - initial cells
@@ -163,6 +166,8 @@ model <- function( ){
 #' NULL
 model_keep_run  <-  function(){
 
+    # Check parameters:
+    foolproof()
 
     write_log(genefile, clonefile, geneoutfile, cloneoutfile, logoutfile,
               E0, F0, m0, uo, us, s0, k0, ctmax,

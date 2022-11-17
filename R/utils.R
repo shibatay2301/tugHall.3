@@ -305,3 +305,89 @@ check_packages  <-  function( pkgs = NULL ){
     }
 }
 
+
+#' Foolproof function allows to checking the consistency of all the input parameters
+#'
+#' @description Foolproof function allows to checking the consistency of all the input parameters.
+#' It should be used just before a loop of simulation. So, all the parameters should be defined,
+#' objects onco and hall should be initialized as well. The function checks the list of parameters' names,
+#' absence of NA and NULL in the input data, self-consistency of genes names,
+#' correctness of hallmarks values, and finally, that all the necessary information is defined.
+#'
+#' @return NULL
+#'
+#' @export
+#'
+#' @examples
+#' NULL
+foolproof  <-  function(){
+
+    ### Have to check:
+    # 1. List of genes in different objects: onco, hall, gene_map
+    #2. list of variables - whole or particular
+    #3. NA and NULL check in onco and hall
+
+    # 1. List of genes in different objects: onco, hall, gene_map
+    genes_onco  =  sort( unique( pck.env$onco$name) )
+    genes_hall  =  sort( unique( c( pck.env$hall$Ha, pck.env$hall$Hi, pck.env$hall$Hd,
+                                        pck.env$hall$Hb, pck.env$hall$Him )  ) )
+    genes_map   =  sort( unique( pck.env$gene_map$Gene ) )
+
+    if ( length( genes_onco ) == length( genes_map ) & length( genes_onco ) == length( genes_hall ) ){
+        if ( !all.equal( genes_onco, genes_map ) ){
+            stop( 'Names of genes defined in onco and gene_map are different.' )
+        }
+
+        if ( ! length( genes_onco) == length( genes_hall ) ){
+            stop( 'Not all the genes use in hallmrks definition.' )
+        }
+    } else {
+        stop( 'Names of genes are different in onco, hall and gene_map.' )
+    }
+
+    #3. NA and NULL check in onco and hall:
+
+    ### Check onco object:
+    flds  =  c( "name", "cds_1", "cds_2", "rna_1", "rna_2", "p0_1", "p0_2", "prob_1", "prob_2",
+                "sum_prob_1", "sum_prob_2", "onsp", "len" )
+
+    for( v in flds ){
+        if ( length(  pck.env$onco[[ v ]] ) == 0 |
+             any( is.na(   pck.env$onco[[ v ]] ) )   |
+             is.null( pck.env$onco[[ v ]] ) ){
+            stop( paste0( 'The parameter ', v, ' in the onco object is not defined.'))
+        }
+    }
+
+    ### Check hall object:
+    flds  =  c( "Ha", "Hi", "Hd", "Hb", "Him", "Ha_w", "Hi_w", "Hd_w", "Hb_w", "Him_w" )
+
+    for( v in flds ){
+        if ( length(  pck.env$hall[[ v ]] ) == 0 |
+             any( is.na(   pck.env$hall[[ v ]] ) )    |
+             is.null( pck.env$hall[[ v ]] ) ){
+            stop( paste0( 'The parameter ', v, ' in the hall object is not defined.'))
+        }
+    }
+
+    #2. list of variables - whole or particular
+    env_names  =  c( 'Compaction_factor', 'E0', 'F0', 'censor_cells_number',
+                     'censor_time_step', 'clonefile', 'cloneoutfile', 'd0', 'ctmax',
+                     'gene_map', 'genefile', 'geneoutfile', 'k0',
+                     'lambda_del', 'lambda_dup', 'logoutfile', 'm0',
+                     'm_del', 'm_dup', 'model_name', 'monitor',
+                     'n_repeat', 's0', 'real_time_stop',
+                     'uo', 'uo_del', 'uo_dup', 'us', 'us_del', 'us_dup',
+                     'tumbler_for_metastasis_trial', 'tumbler_for_apoptosis_trial',
+                     'tumbler_for_immortalization_trial', 'tumbler_for_angiogenesis_trial',
+                     'tumbler_for_drug_intervention_trial' )
+
+    # Check that all the parameters are defined and have values
+    for( v in env_names ){
+        if ( length( pck.env[[ v ]] ) == 0 | any( is.na( pck.env[[ v ]] ) ) | is.null( pck.env[[ v ]] ) ){
+            stop( paste0( 'The parameter ', v, ' is not defined. '))
+        }
+    }
+
+    return( NULL )
+}

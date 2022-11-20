@@ -150,9 +150,23 @@ hist( x = rejection, unadj = FALSE, true = NULL, file = NULL,
 
 # 4.GET ACCURATE MAP based on SAMPLING ------------------------------------
 
+library( 'EasyABC' )
 
 
+toy_model  =  function(x){ c( 100 * exp( - (x[1] - 30) ** 2 / 32 ),
+                              100 * exp( - (x[2] - 55) ** 2 / 32 ) ) }
 
+toy_prior  =  list( c( "unif", 0, 100 ), c( "unif", 0, 100 ) )
+sum_stat_obs  =  c( 100, 100 )
+set.seed(1)
+n=1000
+
+ABC_rej  =  ABC_rejection( model = toy_model, prior = toy_prior,
+                           nb_simul = n,
+                           summary_stat_target = sum_stat_obs,
+                           tol = 0.008 )
+ABC_rej$param
+ABC_rej$stats
 
 
 

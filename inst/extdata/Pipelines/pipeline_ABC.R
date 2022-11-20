@@ -216,6 +216,7 @@ ABC_Marjoram_original  =  ABC_mcmc( method="Marjoram_original",
                                     prior=toy_prior,
                                     summary_stat_target=sum_stat_obs,
                                     n_rec=n )
+
 print( paste0( 'The number of simulations is ', ABC_Marjoram_original$nsim ) )
 
 ABC_Marjoram_original$param
@@ -257,6 +258,11 @@ ABC_Albert  =  SABC(   r.model  =  toy_model,
                        y        =  sum_stat_obs )
 
 print( paste0( 'The number of simulations is ', cntr ) )
+
+hist( ABC_Albert$E[ , 1 ], breaks = 25 )
+hist( ABC_Albert$E[ , 2 ], breaks = 25 )
+
+
 
 
 

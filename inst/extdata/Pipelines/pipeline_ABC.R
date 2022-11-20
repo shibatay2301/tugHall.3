@@ -153,22 +153,53 @@ hist( x = rejection, unadj = FALSE, true = NULL, file = NULL,
 library( 'EasyABC' )
 
 
+
 toy_model  =  function(x){ c( 100 * exp( - (x[1] - 30) ** 2 / 32 ),
                               100 * exp( - (x[2] - 55) ** 2 / 32 ) ) }
+
 
 toy_prior  =  list( c( "unif", 0, 100 ), c( "unif", 0, 100 ) )
 sum_stat_obs  =  c( 100, 100 )
 set.seed(1)
+
+
+############# REJECTION ABC
 n=1000
 
 ABC_rej  =  ABC_rejection( model = toy_model, prior = toy_prior,
                            nb_simul = n,
                            summary_stat_target = sum_stat_obs,
-                           tol = 0.008 )
+                           tol = 0.008,
+                           progress_bar = TRUE )
 ABC_rej$param
 ABC_rej$stats
 
+hist( ABC_rej$param[ , 1] )
+hist( ABC_rej$param[ , 2] )
 
 
+############# Adaptive ABC
+
+### Ref:
+# Beaumont, M. A., Cornuet, J., Marin, J., and Robert, C. P. (2009)
+# Adaptive approximate Bayesian computation. Biometrika, 96, 983–990.
+
+tolerance  =  c( 1E-1, 1E-2 )
+n = 20
+
+ABC_Beaumont  =  ABC_sequential( method = "Beaumont",
+                                 model  = toy_model,
+                                 prior  = toy_prior,
+                                 nb_simul = n,
+                                 summary_stat_target = sum_stat_obs,
+                                 tolerance_tab = tolerance,
+                                 verbose = TRUE )
+
+
+ABC_Beaumont$weights
+ABC_Beaumont$param
+
+hist( ABC_Beaumont$param[, 1])
+hist( ABC_Beaumont$param[, 2])
 
 

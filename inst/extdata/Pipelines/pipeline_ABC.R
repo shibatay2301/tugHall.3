@@ -228,6 +228,36 @@ ABC_Marjoram_original$stats_normalization
 
 
 
+### Performing a A Simulated Annealing Approach to Approximate Bayes Computations scheme
+
+### Ref:
+# Albert C., Kunsch HR., Scheidegger A. (2014)
+# A Simulated Annealing Approach to Approximate Bayes Computations.
+# Stat. Comput., 1–16, arXiv:1208.2157.
+
+# Sampler:
+r.prior  =  function()   c( runif( 1, 0, 100), runif( 1, 0, 100) )
+
+# Density:
+d.prior  =  function(x)  dunif( x[1], 0, 100 ) * dunif( x[2], 0, 100 )
+
+n.sample  =  300
+
+iter.max  =  n.sample * 30
+
+eps.init  =  2
+
+ABC_Albert  =  SABC(   r.model  =  toy_model,
+                       r.prior  =  r.prior,
+                       d.prior  =  d.prior,
+                       n.sample =  n.sample,
+                       eps.init =  eps.init,
+                       iter.max =  iter.max,
+                       method   =  "informative",
+                       y        =  sum_stat_obs )
+
+
+
 
 
 

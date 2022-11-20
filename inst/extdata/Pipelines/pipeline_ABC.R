@@ -153,7 +153,7 @@ hist( x = rejection, unadj = FALSE, true = NULL, file = NULL,
 library( 'EasyABC' )
 
 toy_model  =  function(x){
-    # cntr  <<-  cntr + 1
+    cntr  <<-  cntr + 1
     # print( paste0( 'Simulation N ', cntr ) )
     y = c( 100 * exp( - (x[1] - 30) ** 2 / 32 ),
              100 * exp( - (x[2] - 55) ** 2 / 32 ) )
@@ -246,7 +246,7 @@ n.sample  =  300
 iter.max  =  n.sample * 30
 
 eps.init  =  2
-
+cntr  =  0
 ABC_Albert  =  SABC(   r.model  =  toy_model,
                        r.prior  =  r.prior,
                        d.prior  =  d.prior,
@@ -256,7 +256,7 @@ ABC_Albert  =  SABC(   r.model  =  toy_model,
                        method   =  "informative",
                        y        =  sum_stat_obs )
 
-
+print( paste0( 'The number of simulations is ', cntr ) )
 
 
 

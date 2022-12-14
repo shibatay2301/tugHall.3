@@ -124,7 +124,7 @@ g_range_y  =  range( 0, max( data_avg[c('mut_den')] ) + 0.05 )
 plot_2D_lines( x = data_avg$Time, data_avg,
                    nl = c('mut_den'), xr = g_range_x, yr = g_range_y,
                    legend_names = '',
-                   names = c( 'Time step', 'Mutation rate' ) ,
+                   names = c( 'Time step', 'Average density of gene mulfunction' ) ,
                    safe_pdf  =  FALSE, filename = '', draw_key = FALSE )
 ```
 

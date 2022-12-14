@@ -132,9 +132,10 @@ define_compaction_factor( read_fl = TRUE , file_name = './Input/CF.txt' )
 ```
 
 
-Next check/confirm the input parameters and compaction factors:
+Before simulation, check that the previous results are deleted and delete, if not. Also check the input parameters and compaction factors before simulation:
 
 ```{r, echo=TRUE}
+check_previous_data( )
 # print_parameters()
 ```
       

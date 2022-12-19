@@ -37,9 +37,11 @@ knitr::opts_chunk$set(
 
 [Relation to experimental measurements](J_Relation.html)
 
-[Versions](K_Versions.html)
+[Drug intervention](K_Drug_intervention.html)
 
-[References](L_References.html)
+[Versions](L_Versions.html)
+
+[References](M_References.html)
 
 
 ---
@@ -90,191 +92,148 @@ check_packages()
 Firstly, we need to copy all the input files to Input folder by calling the function,
 (make sure that **working directory** is in a proper place):
 
- 
-```{r, echo=TRUE}
-copy_files_to_Input( files = c( 'CCDS.current.txt', 'CF.txt',
-                                'cloneinit.txt','gene_hallmarks.txt',
-                                'gene_map.txt','parameters.txt' ) ,
-                                 dir = 'Input' )
-```
+        copy_files_to_Input( files = c( 'CCDS.current.txt', 'CF.txt',
+                                        'cloneinit.txt','gene_hallmarks.txt',
+                                        'gene_map.txt','parameters.txt' ) ,
+                                         dir = 'Input' )
+
 
             
 Next define names of all the files to input and output:
 
-```{r, echo=TRUE}
-define_files_names()
-```
-    
-            
+        define_files_names()
+
 Define location of all the genes of interest:
 
-```{r, echo=TRUE}
-define_gene_location()
-```
+        define_gene_location()
 
 Next check/view the default gene_map from the CCDS.current.txt file. Here the model will show the default gene list from the file. If you need to change the gene list change/define the gene "CCDS_ID" in the file:
 
-```{r, echo=TRUE}
-# pck.env$gene_map
-```
-
+        pck.env$gene_map
 
 Define parameters from './Input/parameters.txt', if it is necessary, please, change it directly:
 
-```{r, echo=TRUE}
-define_parameters( read_fl = TRUE , file_name = './Input/parameters.txt' )
-```
+
+        define_parameters( read_fl = TRUE , file_name = './Input/parameters.txt' )
+
 
 If compaction factors are used in simulation, please, change and define them:
 
-```{r, echo=TRUE}
-define_compaction_factor( read_fl = TRUE , file_name = './Input/CF.txt' )
-```
-
+        define_compaction_factor( read_fl = TRUE , file_name = './Input/CF.txt' )
 
 Before simulation, check that the previous results are deleted and delete, if not. Also check the input parameters and compaction factors before simulation:
 
-```{r, echo=TRUE}
-check_previous_data( )
-# print_parameters()
-```
+        check_previous_data( )
+
       
 
 ### 3. Run a simulation
 
 Start **simulation**, please, wait for a while ... or see Sim_monitoring.txt file in working folder:
-```{r, echo=TRUE}
- smlt = model()
-```
 
+        smlt = model()
         
 Save point mutations and CNA to the files in Output folder:
 
-```{r, echo=TRUE}
-write_pnt_clones( pck.env$pnt_clones, file_out = 'Output/point_mutations.txt' )
-write_pnt_clones( pck.env$cna_clones, file_out = 'Output/CNA_mutations.txt' )
-```
+
+        write_pnt_clones( pck.env$pnt_clones, file_out = 'Output/point_mutations.txt' )
+        write_pnt_clones( pck.env$cna_clones, file_out = 'Output/CNA_mutations.txt' )
+
 
 ### 4. Post simulation data processing 
 
 Get data of the last simulation from cloneout file and gene file:
 
-```{r, echo=TRUE}
-dtst = get_flow_data( pck.env$cloneoutfile, pck.env$genefile )
-            pck.env$data_avg   =  dtst$data_avg
-            pck.env$data_flow  =  dtst$data_flow
-            pck.env$time_max   =  dtst$time_max
-            pck.env$data_last  =  dtst$data_last
-            cna_mut = dtst$cna_mut
-            pnt_mut   =  dtst$pnt_mut
-            pnt_mut_B =  dtst$pnt_mut_B
-```
+        dtst = get_flow_data( pck.env$cloneoutfile, pck.env$genefile )
+                    pck.env$data_avg   =  dtst$data_avg
+                    pck.env$data_flow  =  dtst$data_flow
+                    pck.env$time_max   =  dtst$time_max
+                    pck.env$data_last  =  dtst$data_last
+                    cna_mut = dtst$cna_mut
+                    pnt_mut   =  dtst$pnt_mut
+                    pnt_mut_B =  dtst$pnt_mut_B
 
             
 Please check the Onco  and hall objects after simulation and verify it with the input data
 
-```{r, echo=TRUE}
-#pck.env$onco
-#pck.env$hall
-```
 
+        pck.env$onco
+        pck.env$hall
         
 Also get VAF data and save them into file 'Output/VAF_data.txt':
 
-```{r, echo=TRUE}
-pck.env$vf = get_VAF( pnt_mut, pck.env$data_last )
-pck.env$VAF  =  get_rho_VAF( vf = pck.env$vf, rho = c( 0.0, 0.1, 0.2, 0.5, 0.7, 0.9 ) ,
-                             file_name = './Output/VAF.txt' )
-```
-     
 
+        pck.env$vf = get_VAF( pnt_mut, pck.env$data_last )
+        pck.env$VAF  =  get_rho_VAF( vf = pck.env$vf, rho = c( 0.0, 0.1, 0.2, 0.5, 0.7, 0.9 ) ,
+                                     file_name = './Output/VAF.txt' )
+
+     
 If it necessary, get order of genes dysfunction for all clones:
 
 
-```{r, echo=TRUE}
-pck.env$rdr_dysf  =  get_order_of_genes_dysfunction( pnt_mut = pnt_mut,
-                                                     pck.env$data_last, cna_mut,
-                                                     file_name = './Output/order_genes_dysfunction.txt' )
-                                                     
-```
-          
+        pck.env$rdr_dysf  =  get_order_of_genes_dysfunction( 
+                        pnt_mut = pnt_mut,
+                        pck.env$data_last, cna_mut,
+                        file_name ='./Output/order_genes_dysfunction.txt' )
         
 ### 5. Plot the results of simulation
 
 To visualize results of a simulation one may plot them using special functions:
 
+        rdr_dysf = tugHall_dataset$rdr_dysf
+        plot_order_dysfunction( rdr_dysf , pos = c(5,800), logscale = 'y', cex = 1. )
+        data_avg = tugHall_dataset$data_avg
+        plot_average_simulation_data( data_avg, pck.env$time_max )
+        
 
-```{r, echo=TRUE, fig.height=6, fig.width=6}
-rdr_dysf = tugHall_dataset$rdr_dysf
-plot_order_dysfunction( rdr_dysf , pos = c(5,800), logscale = 'y', cex = 1. )
-data_avg = tugHall_dataset$data_avg
-plot_average_simulation_data( data_avg, pck.env$time_max )
-```
-       
-            
-            
 Plot the main clones
 
+        data_flow = tugHall_dataset$data_flow
+        plot_clone_evolution( data_flow, threshold = c(0.01, 1 ), lwd = 2.0,
+                                  hue = c(" ", "random", "red", "orange", "yellow",
+                                          "green", "blue", "purple", "pink", "monochrome")[1],
+                                  luminosity = c(" ", "random", "light", "bright", "dark")[4],
+                                  yr = NA , add_initial = TRUE, log_scale = TRUE )
 
-```{r, echo=TRUE, fig.height=6, fig.width=6}
-data_flow = tugHall_dataset$data_flow
-plot_clone_evolution( data_flow, threshold = c(0.01, 1 ), lwd = 2.0,
-                          hue = c(" ", "random", "red", "orange", "yellow",
-                                  "green", "blue", "purple", "pink", "monochrome")[1],
-                          luminosity = c(" ", "random", "light", "bright", "dark")[4],
-                          yr = NA , add_initial = TRUE, log_scale = TRUE )
-```
 
-            
-                          
 Plot the minor clones but large amount of them
 
 
-```{r, echo=TRUE, fig.height=6, fig.width=6}
-data_flow = tugHall_dataset$data_flow
-plot_clone_evolution( data_flow, threshold = c(0.0, 0.01), lwd = 2.0,
-                          hue = c(" ", "random", "red", "orange", "yellow",
-                                  "green", "blue", "purple", "pink", "monochrome")[1],
-                          luminosity = c(" ", "random", "light", "bright", "dark")[4],
-                          yr = NA , add_initial = FALSE, log_scale = TRUE )
-```
+        data_flow = tugHall_dataset$data_flow
+        plot_clone_evolution( data_flow, threshold = c(0.0, 0.01), lwd = 2.0,
+                                  hue = c(" ", "random", "red", "orange", "yellow",
+                                          "green", "blue", "purple", "pink", "monochrome")[1],
+                                  luminosity = c(" ", "random", "light", "bright", "dark")[4],
+                                  yr = NA , add_initial = FALSE, log_scale = TRUE )
 
-            
 
 Get/store the results from the simulation 
 
-```{r, echo=TRUE}
-res  =  get_tugHall.Environment()
-            vf_init  =  pck.env$vf
-```
-           
-            
+        res  =  get_tugHall.Environment()
+                    vf_init  =  pck.env$vf
+
 
 Plot the Variant Allele Frequency (VAF) data for normal, primary and metastatic cells
 
-```{r, echo=TRUE, fig.height=6, fig.width=6}
-VAF = tugHall_dataset$VAF
-plot_VAF( VAF = VAF, rho = 0 , violin = FALSE )
-```
+        VAF = tugHall_dataset$VAF
+        plot_VAF( VAF = VAF, rho = 0 , violin = FALSE )
 
 
 ### Split and plot original simulation separately for drivers and passengers:
 
 Split the VAF from original simulation results for drivers and passengers:
 
-```{r, echo=TRUE}
- vf_drivers  =  vf_init[ which(  vf_init$MalfunctionedByPointMut ), ]
-            vf_pass     =  vf_init[ which( !vf_init$MalfunctionedByPointMut ), ]
-            VAF_drivers  =  get_rho_VAF( vf = vf_drivers, save_to_file = FALSE )
-            VAF_pass  =  get_rho_VAF( vf = vf_pass, save_to_file = FALSE )
-```
+         vf_drivers  =  vf_init[ which(  vf_init$MalfunctionedByPointMut ), ]
+                    vf_pass     =  vf_init[ which( !vf_init$MalfunctionedByPointMut ), ]
+                    VAF_drivers  =  get_rho_VAF( vf = vf_drivers, save_to_file = FALSE )
+                    VAF_pass  =  get_rho_VAF( vf = vf_pass, save_to_file = FALSE )
 
 Plot the Variant Allele Frequency (VAF) data of drivers and passengers seperately for normal, primary and metastatic cells
 
-```{r, echo=TRUE, fig.height=6, fig.width=6}
-if (length(VAF_drivers) > 0 ) plot_VAF( VAF = VAF_drivers, rho = 0 , violin = FALSE )
-            if (length(VAF_pass) > 0 ) plot_VAF( VAF = VAF_pass, rho = 0 , violin = FALSE )
-```
+        if (length(VAF_drivers) > 0 ) 
+                plot_VAF( VAF = VAF_drivers, rho = 0 , violin = FALSE )
+        if (length(VAF_pass) > 0 ) 
+                plot_VAF( VAF = VAF_pass,    rho = 0 , violin = FALSE )
 
 
 

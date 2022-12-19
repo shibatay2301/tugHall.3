@@ -40,9 +40,9 @@ knitr::opts_chunk$set(
 
 [Relation to experimental measurements](J_Relation.html)
 
-[Versions](K_Versions.html)
+[Drug intervention](K_Drug_intervention.html)
 
-[Drug interventions](L_Drug_interventions.html)
+[Versions](L_Versions.html)
 
 [References](M_References.html)
 

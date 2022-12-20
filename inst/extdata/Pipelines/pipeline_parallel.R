@@ -16,6 +16,7 @@ clear_tugHall.Environment()  # clear package environment before loading
 load_tugHall.Environment( results = tugHall_dataset )
 
 
+# Parameters that should be fixed, so, all the other parameters will be variate:
 
 par_exclude = c(  'censor_cells_number', 'censor_time_step', 'clonefile',
                   'cloneoutfile', 'ctmax', 'genefile', 'geneoutfile',
@@ -25,6 +26,7 @@ par_exclude = c(  'censor_cells_number', 'censor_time_step', 'clonefile',
                   'tumbler_for_immortalization_trial', 'tumbler_for_angiogenesis_trial',
                   'tumbler_for_drug_intervention_trial' )
 
+# That is the list all the parameters:
 par_all  =  c( 'Compaction_factor', 'E0', 'F0', 'censor_cells_number',
                'censor_time_step', 'clonefile', 'cloneoutfile', 'd0', 'ctmax',
                'genefile', 'geneoutfile', 'k0',
@@ -39,10 +41,13 @@ par_all  =  c( 'Compaction_factor', 'E0', 'F0', 'censor_cells_number',
 # Parameters to variate in parallel simulations:
 par_var  =  par_all[ !( par_all %in% par_exclude ) ]
 
+# Make the format of dataset of input parameters:
 frmt  =  make_input_format( par_exclude = par_exclude )
 
+# Make the ranges for all the input parameters:
 rng  =  make_input_range( frmt = frmt )
 
+# Make the dataset of input parameters:
 DF   =  make_input_dataset( frmt = frmt, rng = rng, n_simulations = 1000,
                             discrete = TRUE, n_graduations = 11 )
 
@@ -51,7 +56,6 @@ write.table( x = DF, file = './Input_DataSet.txt', append = FALSE,
              sep = '\t', row.names = FALSE, col.names = TRUE )
 
 # Make data frame with constant parameters and their values:
-
 DF_val  =  lapply( X = par_exclude, FUN = function( x ) pck.env[[ x ]] )
 
 DF_constant  =  data.frame( DF_val, stringsAsFactors = FALSE )
@@ -59,8 +63,6 @@ colnames( DF_constant )  =  par_exclude
 
 write.table( x = as.data.frame( t ( DF_constant ) ), file = './Input_const_parameters.txt', append = FALSE,
              sep = '\t', row.names = TRUE, col.names = FALSE )
-
-
 
 
 # Functions for parallel simulation ---------------------------------------

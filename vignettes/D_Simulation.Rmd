@@ -14,7 +14,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-
 ## Table of Contents
 
 [User Guide content](A_User_Guide.html)
@@ -43,69 +42,63 @@ knitr::opts_chunk$set(
 
 [References](M_References.html)
 
+------------------------------------------------------------------------
 
----
+# Standart simulation
 
-# Standart simulation         
-        
 Standard simulation includes several steps:
 
-1. Preparation of Input and Output folders from working directory
+1.  Preparation of Input and Output folders from working directory
 
-2. Preparation of input files and parameters
+2.  Preparation of input files and parameters
 
-3. Run a simulation
+3.  Run a simulation
 
-4. Post simulation data processing 
+4.  Post simulation data processing
 
-5. Plot the results of simulation
+5.  Plot the results of simulation
 
-6. Split and plot original simulation separately for drivers and passengers:
-
-
+6.  Split and plot original simulation separately for drivers and passengers:
 
 ### 1. Preparation of Input and Output folders from working directory
 
 Load the tugHall.3 simulation package:
 
-```{r, echo=TRUE}
-library(tugHall.3)
-```
-            
-        
-Definen number of **digits** in the numeric format for tugHall.3 environment:
-
-```{r, echo=TRUE}
-pck.env$digits = 6
-```
-
+        library(tugHall.3)
 
 Attach packages from import list
-            
-```{r, echo=TRUE}
-check_packages()
-```        
 
+        check_packages()
+        
+
+All the data and input parameters are stored in the environment of the package:
+
+        pck.env  # Should be empty at the beginning
+
+If pck.env is not empty, it can be cleaning by function:
+
+        clear_tugHall.Environment()
 
 ### 2. Preparation of input files and parameters
 
-Firstly, we need to copy all the input files to Input folder by calling the function,
-(make sure that **working directory** is in a proper place):
+Firstly, we need to copy all the input files to Input folder by calling the function:
 
         copy_files_to_Input( files = c( 'CCDS.current.txt', 'CF.txt',
                                         'cloneinit.txt','gene_hallmarks.txt',
                                         'gene_map.txt','parameters.txt' ) ,
                                          dir = 'Input' )
 
-
-            
 Next define names of all the files to input and output:
 
         define_files_names()
 
 Define location of all the genes of interest:
 
-        define_gene_location()
+        define_gene_location( file_input  =  'Input/CCDS.current.txt',
+                                    genes_list  =  c( 'CCDS4107.1',  'CCDS8702.1',
+                                                      'CCDS43171.1', 'CCDS11118.1' ) )
+
+where genes_list is a vector of genes' identifications from TCGA database.
 
 Next check/view the default gene_map from the CCDS.current.txt file. Here the model will show the default gene list from the file. If you need to change the gene list change/define the gene "CCDS_ID" in the file:
 
@@ -113,9 +106,7 @@ Next check/view the default gene_map from the CCDS.current.txt file. Here the mo
 
 Define parameters from './Input/parameters.txt', if it is necessary, please, change it directly:
 
-
         define_parameters( read_fl = TRUE , file_name = './Input/parameters.txt' )
-
 
 If compaction factors are used in simulation, please, change and define them:
 
@@ -125,24 +116,21 @@ Before simulation, check that the previous results are deleted and delete, if no
 
         check_previous_data( )
 
-      
-
 ### 3. Run a simulation
 
 Start **simulation**, please, wait for a while ... or see Sim_monitoring.txt file in working folder:
 
         smlt = model()
         
-Save point mutations and CNA to the files in Output folder:
 
+Save point mutations and CNA to the files in Output folder:
 
         write_pnt_clones( pck.env$pnt_clones, file_out = 'Output/point_mutations.txt' )
         write_pnt_clones( pck.env$cna_clones, file_out = 'Output/CNA_mutations.txt' )
 
+### 4. Post simulation data processing
 
-### 4. Post simulation data processing 
-
-Get data of the last simulation from cloneout file and gene file:
+Get data of the last simulation from cloneout.txt file and gene file:
 
         dtst = get_flow_data( pck.env$cloneoutfile, pck.env$genefile )
                     pck.env$data_avg   =  dtst$data_avg
@@ -153,29 +141,26 @@ Get data of the last simulation from cloneout file and gene file:
                     pnt_mut   =  dtst$pnt_mut
                     pnt_mut_B =  dtst$pnt_mut_B
 
-            
-Please check the Onco  and hall objects after simulation and verify it with the input data
-
+Please check the onco and hall objects after simulation and verify it with the input data
 
         pck.env$onco
         pck.env$hall
         
+
 Also get VAF data and save them into file 'Output/VAF_data.txt':
 
-
-        pck.env$vf = get_VAF( pnt_mut, pck.env$data_last )
+        pck.env$vf   =  get_VAF( pnt_mut, pck.env$data_last )
         pck.env$VAF  =  get_rho_VAF( vf = pck.env$vf, rho = c( 0.0, 0.1, 0.2, 0.5, 0.7, 0.9 ) ,
                                      file_name = './Output/VAF.txt' )
 
-     
 If it necessary, get order of genes dysfunction for all clones:
-
 
         pck.env$rdr_dysf  =  get_order_of_genes_dysfunction( 
                         pnt_mut = pnt_mut,
                         pck.env$data_last, cna_mut,
                         file_name ='./Output/order_genes_dysfunction.txt' )
         
+
 ### 5. Plot the results of simulation
 
 To visualize results of a simulation one may plot them using special functions:
@@ -195,9 +180,7 @@ Plot the main clones
                                   luminosity = c(" ", "random", "light", "bright", "dark")[4],
                                   yr = NA , add_initial = TRUE, log_scale = TRUE )
 
-
 Plot the minor clones but large amount of them
-
 
         data_flow = tugHall_dataset$data_flow
         plot_clone_evolution( data_flow, threshold = c(0.0, 0.01), lwd = 2.0,
@@ -206,47 +189,52 @@ Plot the minor clones but large amount of them
                                   luminosity = c(" ", "random", "light", "bright", "dark")[4],
                                   yr = NA , add_initial = FALSE, log_scale = TRUE )
 
-
-Get/store the results from the simulation 
+Get/store the results from the simulation
 
         res  =  get_tugHall.Environment()
                     vf_init  =  pck.env$vf
-
 
 Plot the Variant Allele Frequency (VAF) data for normal, primary and metastatic cells
 
         VAF = tugHall_dataset$VAF
         plot_VAF( VAF = VAF, rho = 0 , violin = FALSE )
 
-
-### Split and plot original simulation separately for drivers and passengers:
+### 6. Split and plot original simulation separately for drivers and passengers:
 
 Split the VAF from original simulation results for drivers and passengers:
 
-         vf_drivers  =  vf_init[ which(  vf_init$MalfunctionedByPointMut ), ]
-                    vf_pass     =  vf_init[ which( !vf_init$MalfunctionedByPointMut ), ]
-                    VAF_drivers  =  get_rho_VAF( vf = vf_drivers, save_to_file = FALSE )
-                    VAF_pass  =  get_rho_VAF( vf = vf_pass, save_to_file = FALSE )
+        vf_drivers   =  vf_init[ which(  vf_init$MalfunctionedByPointMut ), ]
+        vf_pass      =  vf_init[ which( !vf_init$MalfunctionedByPointMut ), ]
+        VAF_drivers  =  get_rho_VAF( vf = vf_drivers, save_to_file = FALSE )
+        VAF_pass     =  get_rho_VAF( vf = vf_pass, save_to_file = FALSE )
 
-Plot the Variant Allele Frequency (VAF) data of drivers and passengers seperately for normal, primary and metastatic cells
+Plot the Variant Allele Frequency data of drivers and passengers separately for normal, primary and metastatic cells
 
         if (length(VAF_drivers) > 0 ) 
                 plot_VAF( VAF = VAF_drivers, rho = 0 , violin = FALSE )
         if (length(VAF_pass) > 0 ) 
                 plot_VAF( VAF = VAF_pass,    rho = 0 , violin = FALSE )
 
-
-
 # Parallel simulations
 
-To be done
+To get dataset of multiply simulations one may prepare parallel simulations using 'pipeline_parallel.R' file, which can be obtain by command copy_pipelines(). In the 'pipeline_parallel.R' file one may find all the user functions to get dataset of the input and output data. That includes several user's function that should be changed if it is necessary:
+
+        save_to_input()  #  Function to save input parameters of parallel simulations to the input file
+        
+        SIM_PARALLEL()  #  Function to implement parallel simulations
+        
+
+The pipeline can be used for supercomputer system.
 
 # Simulations with different parameters
 
-To be done 
+The function restart_simulation() allows to restart simulation from the results of the previous one. Also, it allows to change some of input parameters defining the list
+'change_parameters':
 
-# Simulation started from saved results of previous simulation 
-
-To be done 
+    restart_simulation( loadRDS = FALSE, fileRDS = '', loadInput = FALSE,
+                        change_parameters = list(censor_cells_number = 1E06,
+                                                 censor_time_step = 61 ),
+                        seed = NA, work_dir = './', digits = 6, 
+                        to_plot = FALSE, verbose = FALSE )
 
 

@@ -59,7 +59,7 @@ This figure demonstrates the number of cells for each order of genes' dysfunctio
 
 ```{r echo=TRUE, fig.height=6, warning=TRUE, fig.width=6}
 rdr = tugHall_dataset$rdr_dysf
-plot_order_dysfunction( rdr_dysf = rdr , pos = c(10,200), logscale = 'y', cex = 0.9 )
+plot_order_dysfunction( rdr_dysf = rdr , pos = c(4.5,400), logscale = 'y', cex = 0.9 )
 ```
 
 Here index is indicator of order and corresponded to numbers before text lines on the plot.

@@ -62,11 +62,11 @@ R version **3.6.0** or later
 
 Libraries: 
 
-as Import: **actuar, graphics, grDevices, methods, randomcoloR, stats, stringr, utils**.
+as Import: **actuar, dplyr, ggplot2, graphics, grDevices, methods, randomcoloR, stats, stringr, utils, withr**.
 
 as Suggests: **rmarkdown, knitr, testthat**.
 
-**tugHall** is a tool based on the model described in the paper
+**tugHall.3** is a R package based on the model described in the paper
 Iurii S Nagornov,  Mamoru Kato. tugHall: a simulator of cancer-cell evolution based on the hallmarks of cancer and tumor-related genes. 
 [Bioinformatics, V.36, N11, June 2020, pp. 3597–3599](https://doi.org/10.1093/bioinformatics/btaa182). 
 The parameters of the model are described in the Supplementary materials of the paper. 
@@ -79,19 +79,10 @@ Please, note that plots and tables of this document are related to the dataset *
 
 ## Important notes:
 
-For a simulation **tugHall.3** uses the global parameters by calling the function:
+How to use **tugHall.3** and how to analyze data, kindly see vignettes in the 
+package documentation or see code in the pipeline examples. To get pipelines please, run the function:
 
-    utils::globalVariables( c( 'CF', 'Compaction_factor', 'E0', 'F0', 'censor_cells_number',
-                               'censor_time_step', 'clonefile', 'cloneoutfile',
-                               'cna_clones', 'd0', 'env', 'file_monitor',
-                               'gene_map', 'genefile', 'geneoutfile', 'hall', 'k0',
-                               'lambda_del', 'lambda_dup', 'logoutfile', 'm0',
-                               'm_del', 'm_dup', 'model_name', 'monitor',
-                               'n_repeat', 'onco', 'pnt_clones', 's0',
-                               'real_time_stop', 'uo', 'uo_del', 'uo_dup',
-                               'us', 'us_del', 'us_dup' ) )
-
-So, please, be kind to make sure that these parameters are not affected by other packages or programs.
+    copy_pipelines( dir = './')
 
 
 ## Cite package tugHall.3
@@ -109,8 +100,6 @@ Nagornov, I., Nishino, J., Kato, M. (2020). tugHall: A Tool to Reproduce Darwini
 [Lecture Notes in Computer Science, vol 12508. Springer](https://doi.org/10.1007/978-3-030-64511-3_7)
 
 - for reference of tugHall.3 package, please, cite both papers and corresponding github repository.
-
-
 
 
 

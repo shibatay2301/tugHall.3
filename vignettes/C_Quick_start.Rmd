@@ -50,6 +50,8 @@ The simplest way to run tugHall is just run function:
 
     simulation()
 
+Also, the code of the simulation is presented in the pipeline 'pipeline_simulation.R' (that can be obtained by command copy_pipelines() )
+
 
 This function makes several changes in the working directory:
 

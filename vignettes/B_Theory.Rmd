@@ -315,6 +315,7 @@ for default value of $s_0 = 10$ that looks like:
 ```{r echo=FALSE, fig.height=5, fig.width=5}
 library(package = 'tugHall.3')
 x = (0:2000)/1000 -0.5 
+x = x[ which( x > -0.1 & x < 1.2 ) ]
 s0 = 10
 y = 1 / (1 + exp(-s0 * (x - 0.5)) )
 plot_2D( x , y, names = c('Mutation rate', 'Probability' ), xr = c(-0.1, 1.2), yr = c(0,1), pch = 20, cex = 0.3 )

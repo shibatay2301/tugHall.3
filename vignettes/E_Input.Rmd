@@ -45,6 +45,12 @@ knitr::opts_chunk$set(
 
 ---
 
+#### Note
+
+All the data and input parameters are stored in the environment of the package:
+
+        pck.env  # Should be empty at the beginning
+
 
 ## Copy /Input/ folder to working directory 
 
@@ -57,7 +63,7 @@ By default it copies all the files:
     files = c("CCDS.current.txt", "CF.txt", "cloneinit.txt", "gene_hallmarks.txt",
             "gene_map.txt", "parameters.txt")
 
-to the folder dir = 'Input'.
+to the folder dir = 'Input'. The file "CCDS.current.txt" is obtained from TCGA database and it is used as source file to get data frame of locations for genes of interest (see description of the "gene_map.txt" file).
 
 ## Input of hallmark variables and gene weights
 

@@ -72,7 +72,6 @@ library(tugHall.3)
 One can use the result of simulation for drug intervention using this specific function. 
 Here, two kind of probabilities are being used, "kill_prob" and "block_prob".  "kill_prob" is the probability of killing cancer cells corresponding to the malfunctioned gene. "block_prob" is the probability of blocking cancer cells corresponding to the malfunctioned gene. "gene" is the name of target gene to kill and block tumor cells by a drug. Here, the gene should be selected from the simulation results and one should check the target gene in the 'VAF_data.txt' file.
 
-
 ```{r, echo=TRUE}
 load_tugHall.Environment( results = tugHall_dataset )
 drug_intervention( kill_prob = 0, block_prob = 0.5, gene = "KRAS" )
@@ -123,5 +122,28 @@ if (length(VAF_pass) > 0 ) plot_VAF( VAF = VAF_pass, rho = 0 , violin = FALSE )
             
             
             
-            
+# Cancer care simulation
+
+To simulate cancer care, please, be kind to see 
+pipeline_cancer_care.R file. It follows simulation and 
+then drug intervention trial in the loop:
+
+        CC_steps    =  7                # Define number of steps for cancer care:
+        kill_prob   =  0                # Define probability to kill cells with malfunctioned gene
+        block_prob  =  0.5              # Define probability to block malfunctioned gene
+        gene        =  'PIK3CA'         # Define target gene
+        
+        for ( st in pck.env$time_max : (pck.env$time_max + CC_steps ) ){
+            drug_intervention( kill_prob = kill_prob, block_prob = block_prob, gene = gene )
+            restart_simulation( loadRDS = FALSE, fileRDS = '', loadInput = FALSE,
+                                change_parameters = list(censor_cells_number = 1E06,
+                                                         censor_time_step = st + 1 ),
+                                seed = NA, work_dir = './', digits = 6, 
+                                to_plot = FALSE, verbose = FALSE )
+        }
+
+Here the function restart_simulation() is used to simulate clone evolution for a step,
+for that a new number of steps is increased by 1 for each drug intervention. 
+The rest part of pipeline is the same as in a simulation.
+The combination of different drugs is also possible using several (2 and more) loops of drug interventions for different target genes.
 

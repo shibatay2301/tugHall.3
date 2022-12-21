@@ -126,6 +126,8 @@ To define parameters of a simulation, it is necessary to follow for pipeline_sim
 'Simulation preparation', 'Input data' of the vignette.
 To get more details for a single simulation, one may also read chapters 
 'Output data', 'Post simulation analysis', 'Figures' of the vignette.
+To get some details about VAF calculation, it is necessary to see chapter 
+'VAF calculation' and 'Relation to experimental measurements'.
 
 Preparation of parallel simulations are described in pipeline_parallel.R file of the package. 
 Making ABC and getting maximum a posteriori is shown in the pipeline 
@@ -133,7 +135,7 @@ pipeline_ABC.R file.
 How to simulate drug intervention is described in the  pipeline_drug_intervention.R file and in the 'Drug intervention' chapter of vignette.
 
 To choose the most effective drug treatment for a cancer care, please, kindly see
-pipeline_cancer_care.R file, where one ma find different schemes of drug intervention. 
+pipeline_cancer_care.R file, where one may find different schemes of drug intervention. 
 
 
 

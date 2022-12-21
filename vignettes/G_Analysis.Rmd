@@ -1,8 +1,8 @@
 ---
-title: "analysis of results"
+title: "Analysis of results"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{analysis of results}
+  %\VignetteIndexEntry{Analysis of results}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

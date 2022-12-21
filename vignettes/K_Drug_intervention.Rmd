@@ -56,7 +56,7 @@ Drug intervention follows the standard simulation and, it involves the following
 
 2. Plot the results of simulation after drug intervention
 
-3. check the blocking drivers and plot the results
+3. Check the blocking drivers and plot the results
 
 
 ---
@@ -69,17 +69,16 @@ library(tugHall.3)
 
 ### 1. Drug intervention trials
 
-Please follow the D_simulation for tugHall.3 simulation, before moving to drug intervention. One can use the result of simulation for drug intervention using this specific function. 
-
+One can use the result of simulation for drug intervention using this specific function. 
 Here, two kind of probabilities are being used, "kill_prob" and "block_prob".  "kill_prob" is the probability of killing cancer cells corresponding to the malfunctioned gene. "block_prob" is the probability of blocking cancer cells corresponding to the malfunctioned gene. "gene" is the name of target gene to kill and block tumor cells by a drug. Here, the gene should be selected from the simulation results and one should check the target gene in the 'VAF_data.txt' file.
 
 
 ```{r, echo=TRUE}
 load_tugHall.Environment( results = tugHall_dataset )
 drug_intervention( kill_prob = 0, block_prob = 0.5, gene = "KRAS" )
-env = tugHall_dataset$env 
-clones = tugHall_dataset$clones
-pnt_clones = tugHall_dataset$pnt_clones
+env = pck.env$env 
+clones = pck.env$clones
+pnt_clones = pck.env$pnt_clones
         vf_drug  =  get_VAF_clones( env, clones, pnt_clones)
         VAF_drug  =  get_rho_VAF( vf = vf_drug, save_to_file = FALSE )
 ```
@@ -88,16 +87,21 @@ pnt_clones = tugHall_dataset$pnt_clones
 
 ## 2. Plot the results of simulation after drug intervention
 
-To visualize results of a simulation after using drug intervention to target a gene, one may plot them using special function:
+To visualize results of a simulation before drug intervention,
+one may plot them using special function:
+
+```{r, echo=TRUE, fig.height=6, fig.width=6}
+plot_VAF( VAF = tugHall_dataset$VAF, rho = 0, violin = FALSE )
+```
+
+To visualize results of a simulation after drug intervention to target a gene, one may plot them using same function with new data:
 
 ```{r, echo=TRUE, fig.height=6, fig.width=6}
 plot_VAF( VAF = VAF_drug, rho = 0, violin = FALSE )
 ```
 
 
-
-
-### 3. check the blocking drivers and plot the results
+### 3. Check the blocking drivers and plot the results
 
 Here you can block the drivers by the drug which will eventually be moved to passengers after the drug intervention.
 

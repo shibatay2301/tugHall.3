@@ -37,7 +37,7 @@ date: "`r Sys.Date()`"
 
 [Output data](F_Output.html)
 
-[Post simulation analisys](G_Analisys.html)
+[Post simulation analysis](G_Analysis.html)
 
 [VAF calculation](H_VAF.html)
 
@@ -50,6 +50,7 @@ date: "`r Sys.Date()`"
 [Versions](L_Versions.html)
 
 [References](M_References.html)
+
 ---
 
 
@@ -71,10 +72,69 @@ Iurii S Nagornov,  Mamoru Kato. tugHall: a simulator of cancer-cell evolution ba
 [Bioinformatics, V.36, N11, June 2020, pp. 3597–3599](https://doi.org/10.1093/bioinformatics/btaa182). 
 The parameters of the model are described in the Supplementary materials of the paper. 
 
-Note that the program has two different procedures in general: the first is the simulation and the second is the analysis of the simulation results.
-Please, note that plots and tables of this document are related to the dataset **tugHall_dataset** which is available as 
 
-    **tugHall.3::tugHall_dataset**. 
+# General procedure of tugHall usage
+
+In principle, the general procedure of tugHall usage corresponds to next flowchart:
+
+```{r echo=FALSE, fig.height=5, fig.width=6}
+
+library(DiagrammeR)
+grViz("digraph flowchart {
+      # node definitions with substituted label text
+      node [fontname = Helvetica, shape = egg, 
+      style = filled, fillcolor = seashell, color = Indigo,
+      fontcolor = blue, fontsize = 16]  
+      edge [color = Indigo, arrowhead = vee, penwidth = 2]
+      
+      tab1 [label = '@@1']
+      tab2 [label = '@@2']
+      tab3 [label = '@@3']
+      tab4 [label = '@@4']
+      tab5 [label = '@@5']
+      tab6 [label = '@@6']
+      tab7 [label = '@@7']
+
+      # edge definitions with the node IDs
+      tab1 -> tab2;
+      tab2 -> tab3;
+      tab3 -> tab4;
+      tab4 -> tab5;
+      tab5 -> tab6;
+      tab6 -> tab7
+      }
+
+      [1]: 'Get VAF, TMB and CNA data for a patient'
+      [2]: 'Define genes of interest'
+      [3]: 'Define all the other parameters'
+      [4]: 'Make parallel simulations and get a dataset'
+      [5]: 'ABC and get Maximum A Posteriori'
+      [6]: 'Simulate Drug Interventions'
+      [7]: 'Choose the most effective drug treatment'
+      ")
+```
+
+Here, VAF is variant allele frequencies, 
+TMB is tumor mutation burden, 
+CNA is copy number alteration,
+ABC is approximate Bayesian computation. 
+
+Based on comprehensive genomic profiling test data of a patient, 
+one may define driver genes for a certain type of cancer. 
+VAF for each gene, TMB and CNA are a corresponding observation for ABC method.
+To define parameters of a simulation, it is necessary to follow for pipeline_simulation.R file with all the details in the chapters 
+'Simulation preparation', 'Input data' of the vignette.
+To get more details for a single simulation, one may also read chapters 
+'Output data', 'Post simulation analysis', 'Figures' of the vignette.
+
+Preparation of parallel simulations are described in pipeline_parallel.R file of the package. 
+Making ABC and getting maximum a posteriori is shown in the pipeline 
+pipeline_ABC.R file. 
+How to simulate drug intervention is described in the  pipeline_drug_intervention.R file and in the 'Drug intervention' chapter of vignette.
+
+To choose the most effective drug treatment for a cancer care, please, kindly see
+pipeline_cancer_care.R file, where one ma find different schemes of drug intervention. 
+
 
 
 ## Important notes:
@@ -82,8 +142,12 @@ Please, note that plots and tables of this document are related to the dataset *
 How to use **tugHall.3** and how to analyze data, kindly see vignettes in the 
 package documentation or see code in the pipeline examples. To get pipelines please, run the function:
 
-    copy_pipelines( dir = './')
+        copy_pipelines( dir = './')
 
+
+Please, note that plots and tables of the vignettes are related to the dataset **tugHall_dataset** which is available as 
+
+        **tugHall.3::tugHall_dataset**. 
 
 ## Cite package tugHall.3
 

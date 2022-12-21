@@ -120,8 +120,7 @@ if (length(VAF_drivers) > 0 ) plot_VAF( VAF = VAF_drivers, rho = 0 , violin = FA
 if (length(VAF_pass) > 0 ) plot_VAF( VAF = VAF_pass, rho = 0 , violin = FALSE )
 ```
             
-            
-            
+
 # Cancer care simulation
 
 To simulate cancer care, please, be kind to see 

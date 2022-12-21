@@ -32,7 +32,7 @@ knitr::opts_chunk$set(
 
 [Output data](F_Output.html)
 
-[Post simulation analisys](G_Analisys.html)
+[Post simulation analysis](G_Analysis.html)
 
 [VAF calculation](H_VAF.html)
 
@@ -48,10 +48,9 @@ knitr::opts_chunk$set(
 
 ---
 
-# Drug intervention       
+# Drug intervention trial      
         
 Drug intervention follows the standard simulation and, it involves the following steps:
-
 
 1. Drug intervention trials
 

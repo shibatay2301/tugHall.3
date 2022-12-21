@@ -1,8 +1,8 @@
 ---
-title: "Analisys of results"
+title: "analysis of results"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Analisys of results}
+  %\VignetteIndexEntry{analysis of results}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -29,7 +29,7 @@ knitr::opts_chunk$set(
 
 [Output data](F_Output.html)
 
-[Post simulation analisys](G_Analisys.html)
+[Post simulation analysis](G_Analysis.html)
 
 [VAF calculation](H_VAF.html)
 

@@ -51,7 +51,10 @@ define_parameters(
 
 \item{s0}{Parameter in the sigmoid function, numeric type only}
 
-\item{k0}{Environmental death probability, numeric type only}
+\item{k0}{Environmental death probability, numeric type only.
+If \code{k0 = NA} then environment death is defined by condition of equilibrium: \cr
+\code{k0  =  1 - ( ( 1 - a ) * ( 1 + d0 ) ) ^ (-1)} , where \cr
+\code{a =   1 / ( 1 + exp( -s0 * ( 0 - 0.5 ) ) )} is initial probability of apoptosis.}
 
 \item{d0}{Initial probability to divide cells, numeric type only}
 

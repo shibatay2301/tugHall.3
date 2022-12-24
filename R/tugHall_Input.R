@@ -73,7 +73,10 @@ define_gene_location  <-  function( file_input  =  'Input/CCDS.current.txt',
 #' @param   uo Oncogene mutation probability, numeric type only
 #' @param   us Suppressor mutation probability, numeric type only
 #' @param   s0 Parameter in the sigmoid function, numeric type only
-#' @param   k0 Environmental death probability, numeric type only
+#' @param   k0 Environmental death probability, numeric type only.
+#' If \code{k0 = NA} then environment death is defined by condition of equilibrium: \cr
+#' \code{k0  =  1 - ( ( 1 - a ) * ( 1 + d0 ) ) ^ (-1)} , where \cr
+#' \code{a =   1 / ( 1 + exp( -s0 * ( 0 - 0.5 ) ) )} is initial probability of apoptosis.
 #' @param   d0 Initial probability to divide cells, numeric type only
 #' @param   ctmax Hayflick limitation for cell division, integer type
 #' @param   censor_cells_number Max cell number where the program forcibly stops, integer type only

@@ -18,35 +18,9 @@ knitr::opts_chunk$set(
 ```
 
 
-# Table of Contents
+```{r child = 'Contents.Rmd'}
+```
 
-[User Guide content](A_User_Guide.html)
-
-[Theory of the model](B_Theory.html)
-
-[Quick start guide](C_Quick_start.html)
-
-[Simulation preparation](D_Simulation.html)
-
-[Input data](E_Input.html)
-
-[Output data](F_Output.html)
-
-[Post simulation analysis](G_Analysis.html)
-
-[VAF calculation](H_VAF.html)
-
-[Figures](I_Figures.html)
-
-[Relation to experimental measurements](J_Relation.html)
-
-[Drug intervention](K_Drug_intervention.html)
-
-[Versions](L_Versions.html)
-
-[References](M_References.html)
-
----
 
 # Drug intervention trial      
         

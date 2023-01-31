@@ -11,6 +11,8 @@
 #'
 #' @return List of results of simulation with default values for all the parameters
 #'
+#' @export
+#'
 #' @examples
 #'
 #' # it takes a time for a simulation and then it will demonstrates results, \cr

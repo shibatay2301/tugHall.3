@@ -153,8 +153,15 @@ save_to_input  <-  function( DF_constant, DF, i = 1, main_dir, par_var,
 
 }
 
-#' @description \code{simulation()} makes a simulation with parameters from Input folder
-#' and results save in pck.env as well in './Results_of_simulation.RDS' file in \code{work_dir} folder
+#' Function to prepare simulation for parallel calculations
+#'
+#' @description \code{simulation_parallel()} makes a simulation with parameters from Input folder
+#' and results save in pck.env as well in './Results_of_simulation.RDS' file in \code{work_dir} folder.
+#' Please, PAY ATTENTION user has to change input for all functions like: \cr
+#' - define_files_names( );
+#' - define_gene_location( );
+#' - define_parameters( read_fl = TRUE , file_name = './Input/parameters.txt' );
+#' - define_compaction_factor( read_fl = TRUE , file_name = './Input/CF.txt' ).
 #'
 #' @param verbose Logical type to show or do not show messages during execution
 #' @param to_plot Logical type to plot or do not plot graphical results of a simulation
@@ -169,7 +176,7 @@ save_to_input  <-  function( DF_constant, DF, i = 1, main_dir, par_var,
 #' # it takes a time for a simulation and then it will demonstrates results, \cr
 #' # so, please, wait for a while
 #' simulation( verbose = FALSE , to_plot = FALSE )
-simulation  <-  function( verbose = TRUE , to_plot = TRUE,
+simulation_parallel  <-  function( verbose = TRUE , to_plot = TRUE,
                           seed = 123456, work_dir = getwd(),
                           copy_input  =  TRUE ){
 
@@ -191,10 +198,15 @@ simulation  <-  function( verbose = TRUE , to_plot = TRUE,
     }
 
     check_previous_data( )
+
+    ### BLOCK TO CHANGE BY USER ###############################################
+
     define_files_names( )
     define_gene_location( )
     define_parameters( read_fl = TRUE , file_name = './Input/parameters.txt' )
     define_compaction_factor( read_fl = TRUE , file_name = './Input/CF.txt' )
+
+    ### FINISH OF BLOCK TO CHANGE BY USER #####################################
 
     if ( verbose ) print_parameters()
 
@@ -279,7 +291,7 @@ SIM_PARALLEL <- function( i, copy_input  =  TRUE ){
 
     fldr  =  file.path( getwd(), 'Parallel_simulations', i )
     if ( !dir.exists(fldr) ) dir.create( fldr )
-    res  =  simulation( verbose = FALSE , to_plot = FALSE, seed = NA,
+    res  =  simulation_parallel( verbose = FALSE , to_plot = FALSE, seed = NA,
                         work_dir = fldr,
                         copy_input  =  copy_input )
 

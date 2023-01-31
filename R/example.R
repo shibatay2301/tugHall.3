@@ -10,7 +10,6 @@
 #' @param copy_input Logical parameter to copy or do not copy default Input folder to the simulation folder
 #'
 #' @return List of results of simulation with default values for all the parameters
-#' @export
 #'
 #' @examples
 #'

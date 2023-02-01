@@ -586,7 +586,7 @@ add_deletion  <-  function( gm, Ref_start, Ref_end, Chr ){
     if ( length(w) > 0 ){
         gm[w, 'Start']    =  gm[w, 'Start']  -  dlt
         gm[w, 'End']      =  gm[w, 'End']    -  dlt
-        gm[w, 'pnts']     =  sapply( w, FUN = function(x)  pnts_add_dlt( gm[ x, ], dlt  =  -dlt)  )
+        gm[w, 'pnts']     =  unlist( sapply( w, FUN = function(x)  pnts_add_dlt( gm[ x, ], dlt  =  -dlt)  ) )
     }
 
     return( gm )
@@ -636,7 +636,7 @@ add_duplication  <-  function( gm, Ref_start, Ref_end, Chr ){
     # Add delta to all positions after duplication
     gm[w3:w5, 'Start']  =  gm[w3:w5, 'Start'] + dlt
     gm[w3:w5, 'End']    =  gm[w3:w5, 'End']   + dlt
-    gm[w3:w5, 'pnts']   =  sapply(w3:w5, FUN = function(x) pnts_add_dlt( gm[ x, ], dlt )  )
+    gm[w3:w5, 'pnts']   =  unlist( sapply( w3:w5, FUN = function(x) pnts_add_dlt( gm[ x, ], dlt )  ) )
 
     # Correct Start of w3 row if it's necessary
     if ( gm[w3, 'End']  >= (Ref_start + dlt) ){
@@ -702,7 +702,7 @@ check_pnts  <-  function( gm_w1 ){
     pnts  =  as.numeric( unlist( strsplit( pnts, split = ',') ) )
     if ( !is.numeric( pnts ) ) stop( 'Incorrect format of points mutation: should be numeric')
 
-    check_log  =  sapply( pnts, FUN = function( x ) ( x <= gm_w1$End & x >= gm_w1$Start ) )
+    check_log  =  unlist( sapply( pnts, FUN = function( x ) ( x <= gm_w1$End & x >= gm_w1$Start ) ) )
     pnts  =  paste( as.character( pnts[ check_log ] ) , collapse = ',')
     pnts  =  ifelse( length(pnts) == 0, '', pnts )
 

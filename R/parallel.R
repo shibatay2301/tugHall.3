@@ -39,7 +39,7 @@ make_input_format  <-  function( par_exclude = c(  'censor_cells_number', 'censo
     if ( !all( par_exclude  %in% par_all ) ) stop( 'Not all the parameters in the list. Check the list.' )
 
     if ( length( par_exclude ) > 0 ){
-        wch  =  sapply( par_exclude, FUN = function( x ) which( x == par_all ) )
+        wch  =  unlist( sapply( par_exclude, FUN = function( x ) which( x == par_all ) ) )
         prmtrs  =  par_all[ - wch ]
     } else {
         prmtrs  =  par_all
@@ -79,43 +79,43 @@ make_input_format  <-  function( par_exclude = c(  'censor_cells_number', 'censo
 
     # Block for break points between weights of gene-hallmarks
 
-    BreakPoint_Ha           =  sapply( X = 1 : ( length( pck.env$hall$Ha_w ) - 1),
-                                       FUN = function( x ) {
-                                           sum( pck.env$hall$Ha_w[ 1: x ] ) / pck.env$CF$Ha
-                                       }
-    )
+    BreakPoint_Ha           =  unlist( sapply( X = 1 : ( length( pck.env$hall$Ha_w ) - 1),
+                                              FUN = function( x ) {
+                                                    sum( pck.env$hall$Ha_w[ 1: x ] ) / pck.env$CF$Ha
+                                                    }
+    ) )
     names( BreakPoint_Ha )  =  str_c(  'BreakPoint_Ha_',  1 : length( BreakPoint_Ha ) )
 
 
-    BreakPoint_Hi           =  sapply( X = 1 : ( length( pck.env$hall$Hi_w ) - 1),
-                                       FUN = function( x ) {
-                                           sum( pck.env$hall$Hi_w[ 1: x ] ) / pck.env$CF$Hi
-                                       }
-    )
+    BreakPoint_Hi           =  unlist( sapply( X = 1 : ( length( pck.env$hall$Hi_w ) - 1),
+                                                FUN = function( x ) {
+                                                        sum( pck.env$hall$Hi_w[ 1: x ] ) / pck.env$CF$Hi
+                                                        }
+    ) )
     names( BreakPoint_Hi )  =  str_c(  'BreakPoint_Hi_',  1 : length( BreakPoint_Hi ) )
 
 
-    BreakPoint_Him           =  sapply( X = 1 : ( length( pck.env$hall$Him_w ) - 1),
-                                       FUN = function( x ) {
-                                           sum( pck.env$hall$Him_w[ 1: x ] ) / pck.env$CF$Him
-                                       }
-    )
+    BreakPoint_Him           =  unlist( sapply( X = 1 : ( length( pck.env$hall$Him_w ) - 1),
+                                                FUN = function( x ) {
+                                                        sum( pck.env$hall$Him_w[ 1: x ] ) / pck.env$CF$Him
+                                                        }
+    ) )
     names( BreakPoint_Him )  =  str_c(  'BreakPoint_Him_',  1 : length( BreakPoint_Him ) )
 
 
-    BreakPoint_Hb           =  sapply( X = 1 : ( length( pck.env$hall$Hb_w ) - 1),
-                                       FUN = function( x ) {
-                                           sum( pck.env$hall$Hb_w[ 1: x ] ) / pck.env$CF$Hb
-                                       }
-    )
+    BreakPoint_Hb           =  unlist( sapply( X = 1 : ( length( pck.env$hall$Hb_w ) - 1),
+                                                FUN = function( x ) {
+                                                        sum( pck.env$hall$Hb_w[ 1: x ] ) / pck.env$CF$Hb
+                                                        }
+    ) )
     names( BreakPoint_Hb )  =  str_c(  'BreakPoint_Hb_',  1 : length( BreakPoint_Hb ) )
 
 
-    BreakPoint_Hd           =  sapply( X = 1 : ( length( pck.env$hall$Hd_w ) - 1),
-                                       FUN = function( x ) {
-                                           sum( pck.env$hall$Hd_w[ 1: x ] ) / pck.env$CF$Hd
-                                       }
-    )
+    BreakPoint_Hd           =  unlist( sapply( X = 1 : ( length( pck.env$hall$Hd_w ) - 1),
+                                                        FUN = function( x ) {
+                                                            sum( pck.env$hall$Hd_w[ 1: x ] ) / pck.env$CF$Hd
+                                                        }
+    ) )
     names( BreakPoint_Hd )  =  str_c(  'BreakPoint_Hd_',  1 : length( BreakPoint_Hd ) )
 
     DF_BreakPoints  =  t( data.frame( c ( BreakPoint_Ha, BreakPoint_Hb, BreakPoint_Hd,
@@ -152,7 +152,7 @@ make_input_range  <-  function( frmt ){
 
     rng  =  frmt$format
     rng[ 2, ] = rng[ 1, ]
-    tps  =  sapply( frmt$format, class)
+    tps  = unlist(  sapply( frmt$format, class )  )
 
     for( i in 1:ncol( rng ) ){
         if ( tps[ i ] == 'numeric' ){

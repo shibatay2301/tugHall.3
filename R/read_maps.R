@@ -119,7 +119,7 @@ get_len_cds_rna  <-  function( gene_map){
         rna0  =  c( rna0, max( gene_map$End[w] ) - min( gene_map$Start[w]) + 1  )
     }
 
-    w = sapply( name0, FUN = function(x) which( pck.env$onco$name  ==  x ) )
+    w = unlist( sapply( name0, FUN = function(x) which( pck.env$onco$name  ==  x ) ) )
 
     name0  =  name0[w]
     rna0   =  rna0[w]

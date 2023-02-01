@@ -337,9 +337,9 @@ trial_mutagenesis <- function( clone1, num_mut, onco1 ) {
             clone1$CNA_ID  =  id
 
             if ( cna0$MalfunctionedByCNA ){
-                clone1$gene[ sapply(genes, FUN = function(x) which(pck.env$onco$name == x) ) ] = 1
+                clone1$gene[ unlist( sapply(genes, FUN = function(x) which(pck.env$onco$name == x) ) ) ] = 1
             } else {
-                clone1$pasgene[ sapply(genes, FUN = function(x) which(pck.env$onco$name == x) ) ] = 1
+                clone1$pasgene[ unlist( sapply(genes, FUN = function(x) which(pck.env$onco$name == x) ) ) ] = 1
             }
 
             ### Change the gene_map related chromosome
@@ -351,16 +351,16 @@ trial_mutagenesis <- function( clone1, num_mut, onco1 ) {
             sp   = FALSE
             sp_A = FALSE
             if ( clone1$PointMut_ID[ 1 ] != 0 ){
-                sp = sapply( clone1$PointMut_ID , FUN = function( x )  {
-                    chk_pnt_mut( pnt1  =  pck.env$pnt_clones[[ x ]], Ref_start = start_end[1],
-                                 Ref_end = start_end[2], Chr = Chr, prntl  =  prntl )
-                })
+                sp = unlist( sapply( clone1$PointMut_ID , FUN = function( x )  {
+                            chk_pnt_mut( pnt1  =  pck.env$pnt_clones[[ x ]], Ref_start = start_end[1],
+                                         Ref_end = start_end[2], Chr = Chr, prntl  =  prntl )
+                }) )
                 ### to check original allele A do/don't match into CNA:
                 prntl_inv  =  ifelse( prntl  ==  1, 2, 1 )
-                sp_A = sapply( clone1$PointMut_ID , FUN = function( x )  {
-                    chk_pnt_mut( pnt1  =  pck.env$pnt_clones[[ x ]], Ref_start = start_end[1],
-                                 Ref_end = start_end[2], Chr = Chr, prntl  =  prntl_inv )
-                })
+                sp_A = unlist( sapply( clone1$PointMut_ID , FUN = function( x )  {
+                            chk_pnt_mut( pnt1  =  pck.env$pnt_clones[[ x ]], Ref_start = start_end[1],
+                                         Ref_end = start_end[2], Chr = Chr, prntl  =  prntl_inv )
+                } ) )
 
 
             }
@@ -533,10 +533,10 @@ change_allele_A_by_cna  <-  function( pnt1, start_end, t ) {
 onco_update  <-  function( onco1, gm ){
 
     lst1  =  get_cds_rna( gm[[1]] )
-    rd1   =  as.integer( sapply( onco1$name, FUN = function(x) which( x  ==  lst1[[1]]) ) )
+    rd1   =  as.integer( unlist( sapply( onco1$name, FUN = function(x) which( x  ==  lst1[[1]]) ) ) )
 
     lst2  =  get_cds_rna( gm[[2]] )
-    rd2   =  as.integer( sapply( onco1$name, FUN = function(x) which( x  ==  lst2[[1]]) ) )
+    rd2   =  as.integer( unlist( sapply( onco1$name, FUN = function(x) which( x  ==  lst2[[1]]) ) ) )
 
     # change the onco1 related to new gene_map:
     onco1$cds_1  =  lst1$CDS[ rd1 ]
@@ -823,7 +823,7 @@ get_type  <-  function( clone1 ){
 #' write_cloneout( outfile = './Output/exmpl.txt', env, clones, isFirst = TRUE, onco_clones )
 write_cloneout <- function( outfile, env, clones, isFirst, onco_clones ) {
 
-    intact_normal  =  sum( sapply( clones, FUN = function( cl ) ifelse( cl$CNA_ID[ 1 ] == 0 & cl$PointMut_ID[ 1 ] == 0, cl$N_cells, 0 ) ) )
+    intact_normal  =  sum( unlist( sapply( clones, FUN = function( cl ) ifelse( cl$CNA_ID[ 1 ] == 0 & cl$PointMut_ID[ 1 ] == 0, cl$N_cells, 0 ) ) ) )
     data  =  c(env$T, 'avg', '-',  '-', '-', '-', env$c, env$d, env$i, env$im, env$a, env$k, env$E,
                intact_normal, env$N - intact_normal,  # env$N,
                env$Nmax, env$P, env$M, env$Ha, env$Him, env$Hi, env$Hd, env$Hb, '-', env$mutden,
@@ -892,12 +892,12 @@ write_monitor  <- function( outfile, start = FALSE, env, clones ){
             l_del   =  length( which( dupdel  ==  'del' ) )
 
             # Get intact and speckled normal cells:
-            i_n  =  which( sapply( 1:length(clones), FUN = function(x) get_type( clones[[ x ]] ) ) == 'normal')
+            i_n  =  which( unlist( sapply( 1:length(clones), FUN = function(x) get_type( clones[[ x ]] ) ) ) == 'normal')
             if ( length( i_n ) > 0 ){
 
-                int = sapply( i_n, FUN = function( x ) sum( clones[[ x ]]$pasgene ) )
+                int = unlist( sapply( i_n, FUN = function( x ) sum( clones[[ x ]]$pasgene ) ) )
                 if ( length( which( int == 0 ) ) > 0 ){
-                    N_intact  =  sum( sapply( which( int == 0 ), FUN = function( x ) clones[[ x ]]$N_cells ) )
+                    N_intact  =  unlist( sum( sapply( which( int == 0 ), FUN = function( x ) clones[[ x ]]$N_cells ) ) )
                 } else N_intact    =  0
 
                 N_speckled  =  env$N - N_intact
@@ -930,9 +930,9 @@ write_monitor  <- function( outfile, start = FALSE, env, clones ){
                     if ( length( wc_primary ) > 0 ){
                         sites  =  VAF$site[ wc_primary ]
                         wc_vf  =  which( vf$Ref_pos %in% sites )
-                        n_mut  =  sum( sapply( wc_vf, FUN = function( x ) {
-                            vf$Copy_number[ x ] * ( vf$N_speckled_normal[ x ] + vf$N_primary[ x ] )
-                            } ) )
+                        n_mut  =  sum( unlist( sapply( wc_vf, FUN = function( x ) {
+                                        vf$Copy_number[ x ] * ( vf$N_speckled_normal[ x ] + vf$N_primary[ x ] )
+                                        } ) ) )
                     } else {
                         n_mut  =  0
                     }
@@ -942,9 +942,9 @@ write_monitor  <- function( outfile, start = FALSE, env, clones ){
                     if ( length( wc_metastatic ) > 0 ){
                         sites  =  VAF$site[ wc_metastatic ]
                         wc_vf  =  which( vf$Ref_pos %in% sites )
-                        n_mut  =  sum( sapply( wc_vf, FUN = function( x ) {
-                            vf$Copy_number[ x ] * ( vf$N_metastatic[ x ] )
-                        } ) )
+                        n_mut  =  sum( unlist( sapply( wc_vf, FUN = function( x ) {
+                                        vf$Copy_number[ x ] * ( vf$N_metastatic[ x ] )
+                                        } ) ) )
                     } else {
                         n_mut  =  0
                     }
@@ -1006,13 +1006,13 @@ get_VAF_clones  <- function( env, clones, pnt_clones ){
     if ( length( nqu ) == 0 ) return( NULL )
 
     # get types for all the clones:
-    clone_types  =  sapply( 1:length( cl ), FUN = function( x ) get_type( cl[[ x ]]) )
+    clone_types  =  unlist( sapply( 1:length( cl ), FUN = function( x ) get_type( cl[[ x ]]) ) )
     # get number of cells for ll the clones:
-    clone_numbers  =  sapply( 1:length( cl ), FUN = function( x ) cl[[ x ]]$N_cells )
+    clone_numbers  =  unlist( sapply( 1:length( cl ), FUN = function( x ) cl[[ x ]]$N_cells ) )
     # iteration across all the unique point mutations:
     for( j in 1:length( nqu ) ){
         # wc - which clones have an ID of point mutation
-        wc  =  which( sapply( X = 1:length( ids ), FUN = function( x ) is.element( nqu[j] , ids[[ x ]] ) ) )
+        wc  =  which( unlist( sapply( X = 1:length( ids ), FUN = function( x ) is.element( nqu[j] , ids[[ x ]] ) ) ) )
 
         VAF_1  =  pnt_mut_B[[ (nqu[ j ] + 1) / 2 ]]$safe( )
 
@@ -1037,11 +1037,11 @@ get_VAF_clones  <- function( env, clones, pnt_clones ){
         VAF  =  rbind( VAF, VAF_1)
     }
 
-    i_n  =  which( sapply( 1:length(clones), FUN = function(x) get_type( clones[[ x ]] ) ) == 'normal')
+    i_n  =  which( unlist( sapply( 1:length(clones), FUN = function(x) get_type( clones[[ x ]] ) ) ) == 'normal')
     if ( length( i_n ) > 0 ){
-        int = sapply( i_n, FUN = function( x ) sum( clones[[ x ]]$pasgene ) )
+        int = unlist( sapply( i_n, FUN = function( x ) sum( clones[[ x ]]$pasgene ) ) )
         if ( length( which( int == 0 ) ) > 0 ){
-            N_intact  =  sum( sapply( which( int == 0 ), FUN = function( x ) clones[[ x ]]$N_cells ) )
+            N_intact  =  sum( unlist( sapply( which( int == 0 ), FUN = function( x ) clones[[ x ]]$N_cells ) ) )
         } else N_intact    =  0
 
         N_speckled  =  env$N - N_intact

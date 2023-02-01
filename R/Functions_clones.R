@@ -152,7 +152,7 @@ get_order_of_genes_dysfunction  <-  function( pnt_mut, data_last, cna_mut, file_
 
     # sum( as.numeric( unlist( str_split( data_last[ 1, 'driver_genes' ], pattern = ' ' ) ) ) ) != 0
 
-    ch = sapply(X = 1:nrow( data_last ), FUN = function( x )  sum( as.numeric( unlist( str_split( data_last[ x , 'driver_genes' ], pattern = ' ' ) ) ) ) != 0 )
+    ch = unlist( sapply(X = 1:nrow( data_last ), FUN = function( x )  sum( as.numeric( unlist( str_split( data_last[ x , 'driver_genes' ], pattern = ' ' ) ) ) ) != 0 ) )
     genes_dysfunction  =  data_last[ ch, c('N_cells', 'ID', 'ParentID', 'Birth_time',
                                            'type', 'mut_den', 'driver_genes', 'passenger_genes',
                                            'PointMut_ID', 'CNA_ID' )  ]
@@ -238,7 +238,7 @@ get_VAF  <-  function( pnt_mut, data_last, file_name = 'Output/VAF_data.txt'){
 
     for( j in 1:length( nqu ) ){
         # wc - which clones have an ID of point mutation
-        wc  =  sapply( X = 1:length( ids ), FUN = function( x ) is.element( nqu[j] , ids[[ x ]] ) )
+        wc  =  unlist( sapply( X = 1:length( ids ), FUN = function( x ) is.element( nqu[j] , ids[[ x ]] ) ) )
 
         VAF_1  =  pnt_mut_B[ which( pnt_mut_B$PointMut_ID == nqu[ j ] ) , ]
 

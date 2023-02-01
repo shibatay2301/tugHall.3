@@ -23,8 +23,8 @@ drug_intervention  <-  function( kill_prob = 0, block_prob = 1, gene,
     id_gene  =  which( pck.env$onco$name == gene )
     if ( length( id_gene ) == 0 ) stop( 'There is no defined gene in the pool of clones with genes of interest')
 
-    slct  =  which ( sapply( X = 1:length( pck.env$clones ),
-                        FUN = function( x ) pck.env$clones[[ x ]]$gene[ id_gene ] ==  1 ) )
+    slct  =  which ( unlist( sapply( X = 1:length( pck.env$clones ),
+                        FUN = function( x ) pck.env$clones[[ x ]]$gene[ id_gene ] ==  1 ) ) )
     if (length( slct ) > 0 ){
         rest  =   ( 1 : length( pck.env$clones ))[ - slct ]
 
@@ -33,12 +33,12 @@ drug_intervention  <-  function( kill_prob = 0, block_prob = 1, gene,
                     calc_binom( 1, pck.env$clones[[ x ]]$N_cells, (1 - kill_prob) ) )
 
         # Save copies of clones (splitting the blocked clones):
-        clones_to_change  =   sapply( X = slct, FUN = function( x ) clone_copy( pck.env$clones[[ x ]] ) )
-        onco_clones_to_change  =   sapply( X = slct, FUN = function( x ) onco_copy( pck.env$onco_clones[[ x ]] ) )
+        clones_to_change  =   lapply( X = slct, FUN = function( x ) clone_copy( pck.env$clones[[ x ]] ) )
+        onco_clones_to_change  =   lapply( X = slct, FUN = function( x ) onco_copy( pck.env$onco_clones[[ x ]] ) )
         sapply( X = 1:length( slct ), FUN = function( x ) onco_clones_to_change[[ x ]]$id  =  clones_to_change[[ x ]]$id )
 
         # Number of blocking cells for each clone:
-        N_block  =  sapply( X = slct, FUN = function( x) calc_binom( 1, pck.env$clones[[ x ]]$N_cells , block_prob ) )
+        N_block  =  unlist( sapply( X = slct, FUN = function( x) calc_binom( 1, pck.env$clones[[ x ]]$N_cells , block_prob ) ) )
 
         # Change numbers of cells for splitted clones
         sapply( X = 1:length( slct ), FUN = function( x ) {

@@ -46,6 +46,9 @@ frmt  =  make_input_format( par_exclude = par_exclude )
 
 # Make the ranges for all the input parameters:
 rng  =  make_input_range( frmt = frmt )
+rng$m0  =  c( 1E-12, 1E-8 )
+rng$m_del  =  c( 1E-12, 1E-8 )
+rng$m_dup  =  c( 1E-12, 1E-8 )
 
 # Make the dataset of input parameters:
 DF   =  make_input_dataset( frmt = frmt, rng = rng, n_simulations = 1000,
@@ -309,7 +312,7 @@ print( 'Please, prepare in the working directory the folder Input/ with all the 
 print( 'All the files from Input folder will be copied to the input folders for parallel calculations,' )
 print( 'and some of them will be modified in accordance with dataset of the input parameters.' )
 
-N_simulations  =  16
+N_simulations  =  8
 
 for( j in 1:N_simulations ){
     save_to_input( DF_constant = DF_constant, DF = DF, i = j,
@@ -359,9 +362,12 @@ RES = MergeListOfDf( VAF )
 RES_2  =  Reduce( function(x, y) merge(x, y, all=TRUE), VAF )
 
 ### Save data frame to a file:
-write.table( x = RES_2, file = './VAF_parallel.txt', append = FALSE,
+write.table( x = RES, file = './VAF_parallel.txt', append = FALSE,
              sep = '\t', row.names = FALSE, col.names = TRUE )
 
 
 # to see all the data of VAF:
-plot_VAF( VAF = RES_2, violin = FALSE, y_lim = c(0,0.55) )
+plot_VAF( VAF = RES, violin = FALSE, y_lim = c(0,0.55) )
+
+# to see one simulation:
+plot_VAF( VAF = VAF[[ 8 ]], violin = FALSE, y_lim = c(0,0.55) )

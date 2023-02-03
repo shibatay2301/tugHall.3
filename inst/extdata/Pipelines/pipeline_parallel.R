@@ -290,7 +290,7 @@ simulation_parallel  <-  function( verbose = TRUE , to_plot = TRUE,
 ### copy_input  =  FALSE  makes simulation from generated data frame,
 ###                       but it should be REALISTIC values of parameters
 ###
-SIM_PARALLEL <- function( i, copy_input  =  TRUE ){
+SIM_PARALLEL <- function( i, copy_input  =  FALSE ){
 
     fldr  =  file.path( getwd(), 'Parallel_simulations', i )
     if ( !dir.exists(fldr) ) dir.create( fldr )

@@ -101,6 +101,7 @@ define_gene_location  <-  function( file_input  =  'Input/CCDS.current.txt',
 #' @param tumbler_for_immortalization_trial Logical parameter to turn on/off the immortalization trial
 #' @param tumbler_for_angiogenesis_trial Logical parameter to turn on/off angiogenesis trial
 #' @param tumbler_for_drug_intervention_trial Logical parameter to turn on/off drug intervention trial
+#' @param ls_genes List of IDs of genes corresponding CCDS database https://ftp.ncbi.nlm.nih.gov/pub/CCDS/current_human/
 #'
 #' @return Values of all the parameters
 #' @export
@@ -116,6 +117,7 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
                                  lambda_dup  = 5000, lambda_del  = 7000,
                                  uo_dup  = 0.8, us_dup  = 0.5, uo_del  = 0, us_del  = 0.8,
                                  Compaction_factor  =  TRUE,
+                                 ls_genes  =  c( 'CCDS4107.1', 'CCDS8702.1', 'CCDS43171.1', 'CCDS11118.1' ),
                                  model  =  c( 'proportional_metastatic', 'threshold_metastatic', 'simplified' )[ 1 ],
                                  real_time_stop = 120,
                                  read_fl = FALSE, file_name ='./Input/parameters.txt',
@@ -165,6 +167,8 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
         pck.env$uo_del  =  as.numeric( data_log[ which( data_log$var == 'uo_del' ), 2 ] )   # Gene malfunction probability by CNA deletion    for oncogene
         pck.env$us_del  =  as.numeric( data_log[ which( data_log$var == 'us_del' ), 2 ] ) # Gene malfunction probability by CNA deletion    for suppressor
         pck.env$monitor  =  as.logical( data_log[ which( data_log$var == 'monitor' ), 2 ] )
+        pck.env$ls_genes  =  as.character(  data_log[ which( data_log$var == 'ls_genes' ), 2 ] )  # The list of genes
+        pck.env$ls_genes  =  unlist( strsplit( x = str_replace_all(pck.env$ls_genes, " ", ""), split = ',') )
         # Tumblers for all the trials:
         pck.env$tumbler_for_metastasis_trial   =  as.logical( data_log[ which( data_log$var == 'tumbler_for_metastasis_trial' ), 2 ] )
         pck.env$tumbler_for_apoptosis_trial    =  as.logical( data_log[ which( data_log$var == 'tumbler_for_apoptosis_trial' ), 2 ] )
@@ -201,6 +205,7 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
         pck.env$uo_del   =  uo_del   # Gene malfunction probability by CNA deletion    for oncogene
         pck.env$us_del   =  us_del # Gene malfunction probability by CNA deletion    for suppressor
         pck.env$monitor  =  monitor  # The indicator to make monitor file during a simulation or do not make
+        pck.env$ls_genes  =  ls_genes  # The list of genes
         # Tumblers for all the trials:
         pck.env$tumbler_for_metastasis_trial   =  tumbler_for_metastasis_trial
         pck.env$tumbler_for_apoptosis_trial    =  tumbler_for_apoptosis_trial
@@ -216,7 +221,7 @@ define_parameters  <-  function( E0 =  1E-4, F0 =  10, m0 =  1E-7, uo =  0.9, us
             'lambda_del', 'lambda_dup', 'logoutfile', 'm0',
             'm_del', 'm_dup', 'model_name', 'monitor',
             'n_repeat', 's0', 'real_time_stop',
-            'uo', 'uo_del', 'uo_dup', 'us', 'us_del', 'us_dup',
+            'uo', 'uo_del', 'uo_dup', 'us', 'us_del', 'us_dup', 'ls_genes',
             'tumbler_for_metastasis_trial', 'tumbler_for_apoptosis_trial',
             'tumbler_for_immortalization_trial', 'tumbler_for_angiogenesis_trial',
             'tumbler_for_drug_intervention_trial' )
@@ -269,6 +274,7 @@ print_parameters  <-  function(){
         'Gene malfunction probability by CNA duplication for suppressor  us_dup  =  ', pck.env$us_dup ,  '\n',
         'Gene malfunction probability by CNA deletion for oncogene  uo_del  = ', pck.env$uo_del ,  '\n',
         'Gene malfunction probability by CNA deletion for suppressor  us_del  = ', pck.env$us_del,  '\n',
+        'The list of genes = ', pck.env$ls_genes, ' \n',
         'Compaction factor is applied if variable Compaction_factor ==  TRUE \n',
         'Compaction factor for apoptosis hallmark CF$Ha = ', pck.env$CF$Ha, ' \n',
         'Compaction factor for angiogenesis hallmark CF$Hb = ', pck.env$CF$Hb, ' \n',

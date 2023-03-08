@@ -13,8 +13,8 @@ copy_files_to_Input( files = c( 'CCDS.current.txt', 'CF.txt',
                      dir = 'Input' )
 
 define_files_names()
-define_gene_location()
 define_parameters( read_fl = TRUE , file_name = './Input/parameters.txt' )
+define_gene_location( genes_list = pck.env$ls_genes )
 define_compaction_factor( read_fl = TRUE , file_name = './Input/CF.txt' )
 check_previous_data( )
 if ( verbose ) print_parameters()

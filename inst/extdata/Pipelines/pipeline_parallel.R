@@ -162,8 +162,8 @@ save_to_input  <-  function( DF_constant, DF, i = 1, main_dir, par_var,
 #' and results save in pck.env as well in './Results_of_simulation.RDS' file in \code{work_dir} folder.
 #' Please, PAY ATTENTION user has to change input for all functions like: \cr
 #' - define_files_names( );
-#' - define_gene_location( );
 #' - define_parameters( read_fl = TRUE , file_name = './Input/parameters.txt' );
+#' - define_gene_location( genes_list = pck.env$ls_genes );
 #' - define_compaction_factor( read_fl = TRUE , file_name = './Input/CF.txt' ).
 #'
 #' @param verbose Logical type to show or do not show messages during execution
@@ -205,8 +205,8 @@ simulation_parallel  <-  function( verbose = TRUE , to_plot = TRUE,
     ### BLOCK TO CHANGE BY USER ###############################################
 
     define_files_names( )
-    define_gene_location( )
     define_parameters( read_fl = TRUE , file_name = './Input/parameters.txt' )
+    define_gene_location( genes_list = pck.env$ls_genes )
     define_compaction_factor( read_fl = TRUE , file_name = './Input/CF.txt' )
 
     ### FINISH OF BLOCK TO CHANGE BY USER #####################################

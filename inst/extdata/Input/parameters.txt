@@ -23,7 +23,7 @@ censor_time_step	40
 d0	0.5
 ctmax	50
 Compaction_factor	TRUE
-ls_genes    "CCDS4107.1, CCDS8702.1, CCDS43171.1, CCDS11118.1"
+ls_genes	"CCDS4107.1, CCDS8702.1, CCDS43171.1, CCDS11118.1"
 model_name	proportional_metastatic
 real_time_stop	120
 n_repeat	1

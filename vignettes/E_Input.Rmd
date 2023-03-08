@@ -128,6 +128,7 @@ The input of the probabilities used in the model is possible in the code for par
 | **model_name	= 'proportional_metastatic'**  | Model definition, it can be 'proportional_metastatic' or 'threshold_metastatic' or 'simplified' |  string/character variable |
 | **real_time_stop	= 120**  | Max time of running after that the program forcibly stops| in seconds |
 | **n_repeat	= 1**  | Max number of repetition of the program until the NON-ZERO output will be getting | must be integer |
+| **ls_genes    **  | The list of genes used in the simulation | must be string |
 | **monitor	= TRUE**| The indicator to safe or not to the monitoring file *Sim_monitoring.txt* during a simulation | logical |
 | **tumbler_for_metastasis_trial = TRUE** | The indicator to turn on/off invasion/metastasis transformation trial | logical |
 | **tumbler_for_apoptosis_trial = TRUE** | The indicator to turn on/off apoptosis trial | logical |
@@ -208,7 +209,10 @@ The initial states of cells are defined in **"./Input/cloneinit.txt"** file:
 
 This new version of **tugHall.3** allows to calculate CNAs in the genome. The breakpoints of CNAs may fall on genic regions consisting of exons and introns. That's why it's needed to enter information about gene's map.
 In the **/Input/** directory you can find **CCDS.current.txt**, which was getting from 
-[CCDS database](https://ftp.ncbi.nlm.nih.gov/pub/CCDS/current_human/) at the National Center for Biotechnology Information and has information about genes. 
+[CCDS database](https://ftp.ncbi.nlm.nih.gov/pub/CCDS/current_human/) at the National Center for Biotechnology Information and has information about genes.
+The list of genes is defined in the parameter file as **ls_genes** parameter
+(list of genes should be string with genes divided by comma like
+"CCDS4107.1, CCDS8702.1, CCDS43171.1, CCDS11118.1" ). 
 At the beginning of simulation, the program reads this file and extracts genes’ location using function **define_gene_location()**.
 For example, the 'gene_map' data.frame is shown as follow:
 

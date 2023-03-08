@@ -25,6 +25,7 @@ define_parameters(
   uo_del = 0,
   us_del = 0.8,
   Compaction_factor = TRUE,
+  ls_genes = c("CCDS4107.1", "CCDS8702.1", "CCDS43171.1", "CCDS11118.1"),
   model = c("proportional_metastatic", "threshold_metastatic", "simplified")[1],
   real_time_stop = 120,
   read_fl = FALSE,
@@ -81,6 +82,8 @@ If \code{k0 = NA} then environment death is defined by condition of equilibrium:
 \item{us_del}{Gene malfunction probability by CNA deletion    for suppressor, numeric type only}
 
 \item{Compaction_factor}{Logical indicator for Compaction factor CF. True means 'to use', False means 'do not use' Compaction factor for hallmarks variables}
+
+\item{ls_genes}{List of IDs of genes corresponding CCDS database https://ftp.ncbi.nlm.nih.gov/pub/CCDS/current_human/}
 
 \item{model}{Name of the model to use. Can be  'proportional_metastatic' or 'threshold_metastatic' or 'simplified'}
 

@@ -22,7 +22,7 @@
 #' NULL
 make_input_format  <-  function( par_exclude = c(  'censor_cells_number', 'censor_time_step', 'clonefile', 'cloneoutfile', 'ctmax',
                                                    'genefile', 'geneoutfile', 'lambda_del', 'lambda_dup', 'logoutfile', 'model_name', 'monitor',
-                                                   'n_repeat', 'real_time_stop', 'tumbler_for_metastasis_trial', 'tumbler_for_apoptosis_trial',
+                                                   'n_repeat', 'real_time_stop', 'tumbler_for_metastasis_trial', 'tumbler_for_apoptosis_trial', 'ls_genes',
                                                    'tumbler_for_immortalization_trial', 'tumbler_for_angiogenesis_trial', 'tumbler_for_drug_intervention_trial' )  ){
 
     par_all  =  c( 'Compaction_factor', 'E0', 'F0', 'censor_cells_number',
@@ -248,13 +248,5 @@ make_input_dataset  <-  function( frmt, rng, n_simulations = 10,
 
     return( DF )
 }
-
-
-
-
-
-
-
-# Run parallel simulations ------------------------------------------------
 
 
